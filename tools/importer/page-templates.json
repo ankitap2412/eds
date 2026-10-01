@@ -1,0 +1,36 @@
+{
+  "templates": [
+    {
+      "name": "products",
+      "description": "Products page with a clickable wideimage banner (desktop and mobile images)",
+      "urls": [],
+      "blocks": [
+        {
+          "name": "wideimage",
+          "instances": [
+            ".store-banner"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "asian-paints-safe-painting-service",
+      "description": "Safe painting service page with the circlefilters product circles",
+      "urls": [],
+      "blocks": [
+        {
+          "name": "title",
+          "instances": [
+            ".title > h2"
+          ]
+        },
+        {
+          "name": "circlefilters",
+          "instances": [
+            ".circlefilters"
+          ]
+        }
+      ]
+    }
+  ]
+}
