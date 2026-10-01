@@ -53,6 +53,15 @@
   src: local('Arial');
 }
 
+@font-face {
+  font-family: manrope-fallback;
+  size-adjust: 99.53%;
+  ascent-override: 107.5%;
+  descent-override: 30.14%;
+  line-gap-override: 0%;
+  src: local('Arial');
+}
+
 @media (width >= 900px) {
   :root {
     /* body sizes */
