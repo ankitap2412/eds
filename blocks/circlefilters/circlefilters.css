@@ -9,6 +9,7 @@
   --circlefilters-item: 115px;
   --circlefilters-gap: 10px;
   --circlefilters-ring-inset: 6px;
+  --circlefilters-hover-room: 16px;
 
   background-color: var(--light-color);
   padding-top: 30px;
@@ -21,9 +22,13 @@
   position: relative;
 }
 
+/* headroom so the lifted circle and its shadow aren't clipped by the scroll area;
+   the negative margin keeps the circles where they were */
 .circlefilters .circlefilters-scroller {
   position: relative;
   overflow-x: auto;
+  margin-top: calc(-1 * var(--circlefilters-hover-room));
+  padding-top: var(--circlefilters-hover-room);
   padding-bottom: 30px;
   scrollbar-width: none;
 }
@@ -253,6 +258,7 @@
 }
 
 .circlefilters.carousel .circlefilters-scroller {
+  margin-top: 0;
   padding-bottom: 20px;
   scroll-snap-type: x mandatory;
   scroll-padding-left: 20px;
@@ -366,7 +372,7 @@
   .circlefilters.carousel .is-scrollable .circlefilters-next {
     display: block;
     position: absolute;
-    top: 100px;
+    top: calc(100px + var(--circlefilters-hover-room));
     width: 40px;
     height: 40px;
     transform: translateY(-50%);
@@ -410,6 +416,7 @@
 }
 
 .circlefilters.service .circlefilters-scroller {
+  margin-top: 0;
   padding-bottom: 0;
 }
 
