@@ -1,0 +1,86 @@
+/* Sizes match the AEM title component; desktop sizes from 992px */
+
+.title {
+  text-align: left;
+}
+
+.title.center {
+  text-align: center;
+}
+
+.title.right {
+  text-align: right;
+}
+
+.title .title-heading {
+  margin: 0 0 7px;
+  color: #000;
+  font-weight: 700;
+  letter-spacing: normal;
+  scroll-margin-top: calc(var(--nav-height) + 16px);
+}
+
+.title h1.title-heading {
+  font-size: 40px;
+  line-height: 40px;
+}
+
+.title h2.title-heading {
+  font-size: 22px;
+  line-height: 24px;
+}
+
+.title h3.title-heading {
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.title h4.title-heading,
+.title h5.title-heading,
+.title h6.title-heading {
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.title h4.title-heading {
+  font-size: 21px;
+}
+
+.title h5.title-heading {
+  font-size: 17.5px;
+}
+
+.title h6.title-heading {
+  font-size: 14px;
+}
+
+.title .title-heading a:any-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.title .title-heading a:hover {
+  text-decoration: underline;
+}
+
+.title .title-heading a:focus-visible {
+  outline: 2px solid currentcolor;
+  outline-offset: 2px;
+}
+
+@media (width >= 992px) {
+  .title h1.title-heading {
+    font-size: 60px;
+    line-height: 60px;
+  }
+
+  .title h2.title-heading {
+    font-size: 30px;
+    line-height: 34px;
+  }
+
+  .title h3.title-heading {
+    font-size: 20px;
+    line-height: 22px;
+  }
+}

@@ -1,0 +1,20 @@
+.wideimage-container .wideimage-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+.wideimage a,
+.wideimage picture {
+  display: block;
+}
+
+.wideimage img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.wideimage a:focus-visible {
+  outline: 2px solid var(--link-color);
+  outline-offset: -2px;
+}
