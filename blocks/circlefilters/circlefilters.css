@@ -141,8 +141,9 @@
   letter-spacing: 0.5px;
 }
 
+/* bottom spacing is padding (not margin) so it stays inside the grey box */
 .circlefilters .circlefilters-footer {
-  padding: 0 20px;
+  padding: 0 20px 30px;
 }
 
 .circlefilters .circlefilters-footer p {
@@ -154,7 +155,7 @@
 }
 
 .circlefilters .circlefilters-footer p:last-child {
-  margin-bottom: 30px;
+  margin-bottom: 0;
 }
 
 .circlefilters a.circlefilters-cta {
@@ -220,8 +221,8 @@
     margin-bottom: 50px;
   }
 
-  .circlefilters .circlefilters-footer p:last-child {
-    margin-bottom: 70px;
+  .circlefilters .circlefilters-footer {
+    padding-bottom: 70px;
   }
 
   .circlefilters a.circlefilters-cta {

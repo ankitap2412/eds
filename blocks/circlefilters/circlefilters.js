@@ -2,6 +2,38 @@ import { createOptimizedPicture } from '../../scripts/aem.js';
 
 const URL_PATTERN = /^(https?:\/\/|\/)\S*$/;
 
+// Publishing rewrites links to the production domain into site-relative paths
+// (and drops `.html`). Pages behind them still live on the AEM site.
+const PRODUCTION_ORIGIN = 'https://www.asianpaints.com';
+
+/**
+ * Points site-relative links back at the production site when not running on it,
+ * so preview links open the real page instead of a missing one.
+ * @param {string} href The authored href
+ * @returns {string} The resolved href
+ */
+function resolveHref(href) {
+  if (!href.startsWith('/') || href.startsWith('//')) return href;
+  if (window.location.origin === PRODUCTION_ORIGIN) return href;
+  const url = new URL(href, PRODUCTION_ORIGIN);
+  if (url.pathname !== '/' && !/\.[a-z0-9]+$/i.test(url.pathname)) url.pathname += '.html';
+  return url.href;
+}
+
+/**
+ * Sets the link target. Cross-site links open in a new tab when the page is shown
+ * inside a frame (e.g. an editor preview), because the target site refuses framing.
+ * @param {HTMLAnchorElement} link The link
+ * @param {boolean} newTab Whether the author asked for a new tab
+ */
+function setTarget(link, newTab) {
+  const crossSite = link.origin !== window.location.origin;
+  if (newTab || (crossSite && window.self !== window.top)) {
+    link.target = '_blank';
+    link.rel = 'noopener';
+  }
+}
+
 /**
  * Reads the optional item options cell (e.g. "selected, new tab").
  * @param {Element} [cell] The options cell
@@ -70,11 +102,8 @@ function buildItem(row) {
   const wrapper = document.createElement(href ? 'a' : 'div');
   wrapper.className = 'circlefilters-link';
   if (href) {
-    wrapper.href = href;
-    if (newTab) {
-      wrapper.target = '_blank';
-      wrapper.rel = 'noopener';
-    }
+    wrapper.href = resolveHref(href);
+    setTarget(wrapper, newTab);
   }
 
   // the title names the link, so the image is decorative when a title exists
@@ -112,7 +141,9 @@ function buildTextArea(row, className) {
   area.className = className;
   [...row.children].forEach((cell) => area.append(...cell.childNodes));
 
-  area.querySelectorAll('a').forEach((a) => {
+  area.querySelectorAll('a[href]').forEach((a) => {
+    a.href = resolveHref(a.getAttribute('href'));
+    setTarget(a, false);
     a.classList.remove('button', 'primary', 'secondary');
     a.classList.add('circlefilters-cta');
     a.closest('.button-wrapper')?.classList.replace('button-wrapper', 'circlefilters-cta-wrapper');
