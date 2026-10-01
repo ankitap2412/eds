@@ -22,6 +22,7 @@
   /* fonts */
   --body-font-family: roboto, roboto-fallback, sans-serif;
   --heading-font-family: roboto-condensed, roboto-condensed-fallback, sans-serif;
+  --manrope-font-family: manrope, manrope-fallback, sans-serif;
 
   /* body sizes */
   --body-font-size-m: 22px;
