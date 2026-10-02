@@ -19,14 +19,9 @@
       "urls": [],
       "blocks": [
         {
-          "name": "title",
-          "instances": [
-            ".title > h2"
-          ]
-        },
-        {
           "name": "circlefilters",
           "instances": [
+            ".title > h2",
             ".circlefilters"
           ]
         }

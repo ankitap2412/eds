@@ -1,6 +1,5 @@
 /* global WebImporter */
 import circlefiltersParser from './parsers/circlefilters.js';
-import titleParser from './parsers/title.js';
 
 /**
  * Returns the last AEM title component heading that appears before the given element.
@@ -16,8 +15,8 @@ function findPrecedingHeading(document, element) {
 }
 
 /**
- * Builds the /asian-paints-safe-painting-service page: the "range of products" title block
- * followed by the circlefilters block.
+ * Builds the /asian-paints-safe-painting-service page: a circlefilters block whose first row
+ * is the "range of products" heading.
  */
 export default {
   transform: ({ document, url }) => {
@@ -25,18 +24,12 @@ export default {
     const source = document.querySelector('.circlefilters');
 
     if (source) {
-      const heading = findPrecedingHeading(document, source);
-      if (heading) {
-        const title = heading.cloneNode(true);
-        main.append(title);
-        titleParser(title, { document, url });
-      }
-
       const block = source.cloneNode(true);
       main.append(block);
       circlefiltersParser(block, {
         document,
         url,
+        heading: findPrecedingHeading(document, source),
         container: source.closest('.responsivegrid.padding45'),
       });
     }
@@ -50,7 +43,6 @@ export default {
       element: main,
       path: '/asian-paints-safe-painting-service',
       report: {
-        title: main.querySelector('table') ? 'found' : 'missing',
         circlefilters: source ? 'found' : 'missing',
       },
     }];

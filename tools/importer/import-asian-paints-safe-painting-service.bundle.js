@@ -35,9 +35,27 @@ var CustomImportScript = (() => {
     paragraphs.forEach((p) => cell.append(p));
     return [cell];
   }
-  function parse(element, { document, container = element.closest(".responsivegrid.padding45") }) {
+  function parse(element, {
+    document,
+    heading,
+    container = element.closest(".responsivegrid.padding45")
+  }) {
     var _a;
     const cells = [[variantName(element)]];
+    if (heading) {
+      const h = document.createElement(heading.tagName.toLowerCase());
+      const text = heading.textContent.replace(/\s+/g, " ").trim();
+      const srcLink = heading.querySelector("a[href]");
+      if (srcLink) {
+        const a = document.createElement("a");
+        a.href = srcLink.href;
+        a.textContent = text;
+        h.append(a);
+      } else {
+        h.textContent = text;
+      }
+      cells.push([h]);
+    }
     const intro = (_a = element.querySelector(".description-area .desc")) == null ? void 0 : _a.textContent.trim();
     if (intro) {
       const p = document.createElement("p");
@@ -89,29 +107,6 @@ var CustomImportScript = (() => {
     element.replaceWith(WebImporter.DOMUtils.createTable(cells, document));
   }
 
-  // tools/importer/parsers/title.js
-  var ALIGNMENTS = { centerAlign: "center", rightAlign: "right" };
-  var DEFAULT_COLORS = ["#000", "#000000", "rgb(0, 0, 0)"];
-  function parse2(element, { document }) {
-    const alignment = Object.keys(ALIGNMENTS).find((cls) => element.classList.contains(cls));
-    const name = alignment ? `Title (${ALIGNMENTS[alignment]})` : "Title";
-    const heading = document.createElement(element.tagName.toLowerCase());
-    const text = element.textContent.replace(/\s+/g, " ").trim();
-    const srcLink = element.querySelector("a[href]");
-    if (srcLink) {
-      const a = document.createElement("a");
-      a.href = srcLink.href;
-      a.textContent = text;
-      heading.append(a);
-    } else {
-      heading.textContent = text;
-    }
-    const cells = [[name], [heading]];
-    const color = element.style.color.trim();
-    if (color && !DEFAULT_COLORS.includes(color.toLowerCase())) cells.push([color]);
-    element.replaceWith(WebImporter.DOMUtils.createTable(cells, document));
-  }
-
   // tools/importer/import-asian-paints-safe-painting-service.js
   function findPrecedingHeading(document, element) {
     return [...document.querySelectorAll(".title > :is(h1, h2, h3, h4, h5, h6)")].filter((h) => h.compareDocumentPosition(element) & Node.DOCUMENT_POSITION_FOLLOWING).pop();
@@ -121,17 +116,12 @@ var CustomImportScript = (() => {
       const main = document.createElement("main");
       const source = document.querySelector(".circlefilters");
       if (source) {
-        const heading = findPrecedingHeading(document, source);
-        if (heading) {
-          const title = heading.cloneNode(true);
-          main.append(title);
-          parse2(title, { document, url });
-        }
         const block = source.cloneNode(true);
         main.append(block);
         parse(block, {
           document,
           url,
+          heading: findPrecedingHeading(document, source),
           container: source.closest(".responsivegrid.padding45")
         });
       }
@@ -143,7 +133,6 @@ var CustomImportScript = (() => {
         element: main,
         path: "/asian-paints-safe-painting-service",
         report: {
-          title: main.querySelector("table") ? "found" : "missing",
           circlefilters: source ? "found" : "missing"
         }
       }];
