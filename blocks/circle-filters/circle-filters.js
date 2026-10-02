@@ -168,11 +168,11 @@ function buildItem({
   const href = readHref(linkCell, nameCell);
 
   const li = document.createElement('li');
-  li.className = 'circlefilters-item';
+  li.className = 'circle-filters-item';
   if (selected) li.classList.add('selected');
 
   const wrapper = document.createElement(href ? 'a' : 'div');
-  wrapper.className = 'circlefilters-link';
+  wrapper.className = 'circle-filters-link';
   if (href) {
     wrapper.href = resolveHref(href);
     setTarget(wrapper, newTab);
@@ -181,7 +181,7 @@ function buildItem({
   // the title names the link, so the image is decorative when a title exists
   const alt = title && title !== image.alt ? '' : image.alt;
   const circle = document.createElement('span');
-  circle.className = 'circlefilters-image';
+  circle.className = 'circle-filters-image';
   if (image.optimize) {
     circle.append(createOptimizedPicture(image.src, alt, false, [{ width: '400' }]));
   } else {
@@ -196,14 +196,14 @@ function buildItem({
   }
 
   const text = document.createElement('span');
-  text.className = 'circlefilters-text';
+  text.className = 'circle-filters-text';
   const titleEl = document.createElement('span');
-  titleEl.className = 'circlefilters-title';
+  titleEl.className = 'circle-filters-title';
   titleEl.textContent = title;
   text.append(titleEl);
   descriptions.forEach((description) => {
     const descEl = document.createElement('span');
-    descEl.className = 'circlefilters-description';
+    descEl.className = 'circle-filters-description';
     descEl.textContent = description;
     text.append(descEl);
   });
@@ -229,8 +229,8 @@ function buildTextArea(nodes, className, newTab = false) {
     a.href = resolveHref(a.getAttribute('href'));
     setTarget(a, newTab);
     a.classList.remove('button', 'primary', 'secondary');
-    a.classList.add('circlefilters-cta');
-    a.closest('.button-wrapper')?.classList.replace('button-wrapper', 'circlefilters-cta-wrapper');
+    a.classList.add('circle-filters-cta');
+    a.closest('.button-wrapper')?.classList.replace('button-wrapper', 'circle-filters-cta-wrapper');
   });
   return area;
 }
@@ -266,8 +266,8 @@ function initCarousel(carousel, scroller, list) {
     scroller.scrollTo({ left: items[index].offsetLeft - items[0].offsetLeft, behavior: 'smooth' });
   };
 
-  const prev = createButton('circlefilters-prev', 'Previous');
-  const next = createButton('circlefilters-next', 'Next');
+  const prev = createButton('circle-filters-prev', 'Previous');
+  const next = createButton('circle-filters-next', 'Next');
   prev.addEventListener('click', () => {
     if (scroller.scrollLeft <= 1) scroller.scrollTo({ left: maxScroll(), behavior: 'smooth' });
     else scroller.scrollBy({ left: -step(), behavior: 'smooth' });
@@ -278,10 +278,10 @@ function initCarousel(carousel, scroller, list) {
   });
 
   const dots = document.createElement('ol');
-  dots.className = 'circlefilters-dots';
+  dots.className = 'circle-filters-dots';
   const dotButtons = items.map((item, index) => {
     const li = document.createElement('li');
-    const dot = createButton('circlefilters-dot', `Show item ${index + 1} of ${items.length}`);
+    const dot = createButton('circle-filters-dot', `Show item ${index + 1} of ${items.length}`);
     dot.addEventListener('click', () => scrollToIndex(index));
     li.append(dot);
     dots.append(li);
@@ -318,7 +318,7 @@ function initCarousel(carousel, scroller, list) {
 function buildHeading(source) {
   const authored = source.matches(HEADINGS) ? source : source.querySelector(HEADINGS);
   const heading = document.createElement(authored ? authored.tagName.toLowerCase() : 'h2');
-  heading.className = 'circlefilters-heading';
+  heading.className = 'circle-filters-heading';
   if (authored?.id) heading.id = authored.id;
   const text = (authored || source).textContent.trim();
   const anchor = source.querySelector('a[href]');
@@ -366,7 +366,7 @@ function buildCta(cell) {
 }
 
 /**
- * Decorates the circlefilters block.
+ * Decorates the circle-filters block.
  *
  * Labelled layout (recommended):
  *   Title | heading     Sub title | intro     Description | text
@@ -380,7 +380,7 @@ function buildCta(cell) {
  */
 export default function decorate(block) {
   const list = document.createElement('ul');
-  list.className = 'circlefilters-list';
+  list.className = 'circle-filters-list';
   let heading;
   let columns;
   const settings = {};
@@ -432,41 +432,41 @@ export default function decorate(block) {
     }
     if (row.textContent.trim()) {
       const nodes = cells.flatMap((c) => [...c.childNodes]);
-      const area = buildTextArea(nodes, hasItems ? 'circlefilters-footer' : 'circlefilters-intro');
+      const area = buildTextArea(nodes, hasItems ? 'circle-filters-footer' : 'circle-filters-intro');
       (hasItems ? after : before).push(area);
     }
   });
 
   if (settings.title?.textContent.trim()) heading = buildHeading(settings.title);
   if (settings.subtitle?.textContent.trim()) {
-    before.push(buildTextArea(toParagraphs(settings.subtitle), 'circlefilters-intro'));
+    before.push(buildTextArea(toParagraphs(settings.subtitle), 'circle-filters-intro'));
   }
   const footer = [];
   if (settings.description?.textContent.trim()) footer.push(...toParagraphs(settings.description));
   const cta = settings.cta && buildCta(settings.cta);
   if (cta) footer.push(cta);
   if (footer.length) {
-    after.push(buildTextArea(footer, 'circlefilters-footer', isTrue(settings.ctaNewTab)));
+    after.push(buildTextArea(footer, 'circle-filters-footer', isTrue(settings.ctaNewTab)));
   }
 
   const scroller = document.createElement('div');
-  scroller.className = 'circlefilters-scroller';
+  scroller.className = 'circle-filters-scroller';
   scroller.append(list);
 
   const carousel = document.createElement('div');
-  carousel.className = 'circlefilters-carousel';
+  carousel.className = 'circle-filters-carousel';
   carousel.append(scroller);
 
   const panel = document.createElement('div');
-  panel.className = 'circlefilters-panel';
+  panel.className = 'circle-filters-panel';
   panel.append(...before, carousel, ...after);
   block.replaceChildren(...(heading ? [heading] : []), panel);
 
   if (block.classList.contains('carousel')) {
     initCarousel(carousel, scroller, list);
-    list.querySelectorAll('a.circlefilters-link').forEach((link) => {
+    list.querySelectorAll('a.circle-filters-link').forEach((link) => {
       link.addEventListener('click', () => {
-        const title = link.querySelector('.circlefilters-title')?.textContent.trim();
+        const title = link.querySelector('.circle-filters-title')?.textContent.trim();
         trackClick(title || link.querySelector('img')?.alt || '');
       });
     });

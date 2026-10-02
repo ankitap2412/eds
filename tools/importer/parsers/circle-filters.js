@@ -1,21 +1,21 @@
 /* global WebImporter */
 
 /**
- * Parser for the circlefilters block.
+ * Parser for the circle-filters block.
  * Source: AEM `.circlefilters` component (default, service and AP Homes carousel variants),
  * the title component above it, and the description (`.rte`) and CTA (`.cta`) components
  * that share its grey container.
  * Output: a labelled table authors can read in DA:
- *   [Circlefilters (variant)]
+ *   [Circle Filters (variant)]
  *   [Title | heading]  [Sub title | text]  [Description | text]
  *   [CTA | link]  [Open in new tab | true/false]
  *   [Image | Name | Page link | Selected | Open in new tab]   (header row)
  *   [image | name | url | true/false | true/false]            (one row per item)
  */
 function variantName(element) {
-  if (element.querySelector('.apHomes-circleFilter-Variant')) return 'Circlefilters (carousel)';
-  if (element.querySelector('.service-circular-container-wp')) return 'Circlefilters (service)';
-  return 'Circlefilters';
+  if (element.querySelector('.apHomes-circleFilter-Variant')) return 'Circle Filters (carousel)';
+  if (element.querySelector('.service-circular-container-wp')) return 'Circle Filters (service)';
+  return 'Circle Filters';
 }
 
 function link(document, href, text) {

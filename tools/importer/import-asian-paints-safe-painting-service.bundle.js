@@ -24,11 +24,11 @@ var CustomImportScript = (() => {
     default: () => import_asian_paints_safe_painting_service_default
   });
 
-  // tools/importer/parsers/circlefilters.js
+  // tools/importer/parsers/circle-filters.js
   function variantName(element) {
-    if (element.querySelector(".apHomes-circleFilter-Variant")) return "Circlefilters (carousel)";
-    if (element.querySelector(".service-circular-container-wp")) return "Circlefilters (service)";
-    return "Circlefilters";
+    if (element.querySelector(".apHomes-circleFilter-Variant")) return "Circle Filters (carousel)";
+    if (element.querySelector(".service-circular-container-wp")) return "Circle Filters (service)";
+    return "Circle Filters";
   }
   function link(document, href, text) {
     const a = document.createElement("a");
@@ -113,7 +113,7 @@ var CustomImportScript = (() => {
         element: main,
         path: "/asian-paints-safe-painting-service",
         report: {
-          circlefilters: source ? "found" : "missing"
+          "circle-filters": source ? "found" : "missing"
         }
       }];
     }
