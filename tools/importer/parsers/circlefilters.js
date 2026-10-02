@@ -6,6 +6,7 @@
  * plus the description (`.rte`) and CTA (`.cta`) components that share its grey container.
  * Output rows:
  *   [Circlefilters (variant)]
+ *   [heading]                             (AEM title component above the grey box, optional)
  *   [intro text]                          (carousel variant description, optional)
  *   [image | title + description | link | options] per item
  *   [description + CTA]                   (optional)
@@ -22,8 +23,25 @@ function textRow(document, paragraphs) {
   return [cell];
 }
 
-export default function parse(element, { document, container = element.closest('.responsivegrid.padding45') }) {
+export default function parse(element, {
+  document, heading, container = element.closest('.responsivegrid.padding45'),
+}) {
   const cells = [[variantName(element)]];
+
+  if (heading) {
+    const h = document.createElement(heading.tagName.toLowerCase());
+    const text = heading.textContent.replace(/\s+/g, ' ').trim();
+    const srcLink = heading.querySelector('a[href]');
+    if (srcLink) {
+      const a = document.createElement('a');
+      a.href = srcLink.href;
+      a.textContent = text;
+      h.append(a);
+    } else {
+      h.textContent = text;
+    }
+    cells.push([h]);
+  }
 
   const intro = element.querySelector('.description-area .desc')?.textContent.trim();
   if (intro) {

@@ -226,22 +226,55 @@ function initCarousel(carousel, scroller, list) {
 }
 
 /**
+ * Builds the block heading from an authored heading, keeping its level, id and link.
+ * @param {HTMLHeadingElement} source The authored heading
+ * @returns {HTMLHeadingElement} The block heading
+ */
+function buildHeading(source) {
+  const heading = document.createElement(source.tagName.toLowerCase());
+  heading.className = 'circlefilters-heading';
+  if (source.id) heading.id = source.id;
+  const text = source.textContent.trim();
+  const anchor = source.querySelector('a[href]');
+  if (anchor) {
+    const link = document.createElement('a');
+    link.href = resolveHref(anchor.getAttribute('href'));
+    setTarget(link, false);
+    link.textContent = text;
+    heading.append(link);
+  } else {
+    heading.textContent = text;
+  }
+  return heading;
+}
+
+/**
  * Decorates the circlefilters block.
+ * Optional first row: a heading (shown above the grey panel), optionally followed by intro text.
  * Item rows: image | title | link | options.
- * Rows without an image become text areas above or below the circles.
+ * Other rows without an image become text areas above or below the circles.
  * @param {Element} block The block element
  */
 export default function decorate(block) {
   const list = document.createElement('ul');
   list.className = 'circlefilters-list';
+  let heading;
   const before = [];
   const after = [];
 
   [...block.children].forEach((row) => {
     const item = buildItem(row);
-    if (item) list.append(item);
-    else if (row.textContent.trim()) {
-      const hasItems = list.children.length > 0;
+    if (item) {
+      list.append(item);
+      return;
+    }
+    const hasItems = list.children.length > 0;
+    const authoredHeading = !hasItems && !heading && row.querySelector('h1, h2, h3, h4, h5, h6');
+    if (authoredHeading) {
+      heading = buildHeading(authoredHeading);
+      authoredHeading.remove();
+    }
+    if (row.textContent.trim()) {
       const area = buildTextArea(row, hasItems ? 'circlefilters-footer' : 'circlefilters-intro');
       (hasItems ? after : before).push(area);
     }
@@ -254,7 +287,11 @@ export default function decorate(block) {
   const carousel = document.createElement('div');
   carousel.className = 'circlefilters-carousel';
   carousel.append(scroller);
-  block.replaceChildren(...before, carousel, ...after);
+
+  const panel = document.createElement('div');
+  panel.className = 'circlefilters-panel';
+  panel.append(...before, carousel, ...after);
+  block.replaceChildren(...(heading ? [heading] : []), panel);
 
   if (block.classList.contains('carousel')) {
     initCarousel(carousel, scroller, list);
