@@ -30,80 +30,60 @@ var CustomImportScript = (() => {
     if (element.querySelector(".service-circular-container-wp")) return "Circlefilters (service)";
     return "Circlefilters";
   }
-  function textRow(document, paragraphs) {
-    const cell = document.createElement("div");
-    paragraphs.forEach((p) => cell.append(p));
-    return [cell];
+  function link(document, href, text) {
+    const a = document.createElement("a");
+    a.href = href;
+    a.textContent = text;
+    return a;
   }
   function parse(element, {
     document,
     heading,
     container = element.closest(".responsivegrid.padding45")
   }) {
-    var _a;
+    var _a, _b;
     const cells = [[variantName(element)]];
     if (heading) {
       const h = document.createElement(heading.tagName.toLowerCase());
       const text = heading.textContent.replace(/\s+/g, " ").trim();
       const srcLink = heading.querySelector("a[href]");
-      if (srcLink) {
-        const a = document.createElement("a");
-        a.href = srcLink.href;
-        a.textContent = text;
-        h.append(a);
-      } else {
-        h.textContent = text;
-      }
-      cells.push([h]);
+      if (srcLink) h.append(link(document, srcLink.href, text));
+      else h.textContent = text;
+      cells.push(["Title", h]);
     }
-    const intro = (_a = element.querySelector(".description-area .desc")) == null ? void 0 : _a.textContent.trim();
-    if (intro) {
-      const p = document.createElement("p");
-      p.textContent = intro;
-      cells.push(textRow(document, [p]));
+    const subtitle = (_a = element.querySelector(".description-area .desc")) == null ? void 0 : _a.textContent.trim();
+    if (subtitle) cells.push(["Sub title", subtitle]);
+    const description = (_b = container == null ? void 0 : container.querySelector(".rte p:not(.d-none)")) == null ? void 0 : _b.textContent.replace(/\s+/g, " ").trim();
+    if (description) cells.push(["Description", description]);
+    const cta = container == null ? void 0 : container.querySelector(".cta a[href]");
+    if (cta) {
+      cells.push(["CTA", link(document, cta.href, cta.textContent.trim())]);
+      cells.push(["Open in new tab", cta.getAttribute("target") === "_blank" ? "true" : "false"]);
     }
+    cells.push(["Image", "Name", "Page link", "Selected", "Open in new tab"]);
     element.querySelectorAll(".carousel").forEach((item) => {
       const srcImg = item.querySelector("img");
       if (!srcImg) return;
       const img = document.createElement("img");
       img.src = srcImg.src;
       img.alt = srcImg.getAttribute("alt") || srcImg.getAttribute("title") || "";
-      const titleCell = document.createElement("div");
+      const nameCell = document.createElement("div");
       item.querySelectorAll(".desc-wp p").forEach((srcP) => {
         const text = srcP.textContent.trim();
         if (!text) return;
         const p = document.createElement("p");
         p.textContent = text;
-        titleCell.append(p);
+        nameCell.append(p);
       });
       const srcLink = item.querySelector('a[href]:not([href^="javascript"])');
-      const link = document.createElement("a");
-      if (srcLink) {
-        link.href = srcLink.href;
-        link.textContent = srcLink.href;
-      }
-      const options = [];
-      if (item.classList.contains("selected")) options.push("selected");
-      if ((srcLink == null ? void 0 : srcLink.getAttribute("target")) === "_blank") options.push("new tab");
-      cells.push([img, titleCell, srcLink ? link : "", options.join(", ")]);
+      cells.push([
+        img,
+        nameCell,
+        srcLink ? link(document, srcLink.href, srcLink.href) : "",
+        item.classList.contains("selected") ? "true" : "false",
+        (srcLink == null ? void 0 : srcLink.getAttribute("target")) === "_blank" ? "true" : "false"
+      ]);
     });
-    const footer = [];
-    const description = container == null ? void 0 : container.querySelector(".rte p:not(.d-none)");
-    if (description == null ? void 0 : description.textContent.trim()) {
-      const p = document.createElement("p");
-      p.textContent = description.textContent.replace(/\s+/g, " ").trim();
-      footer.push(p);
-    }
-    const cta = container == null ? void 0 : container.querySelector(".cta a[href]");
-    if (cta) {
-      const p = document.createElement("p");
-      const a = document.createElement("a");
-      a.href = cta.href;
-      a.textContent = cta.textContent.trim();
-      p.append(a);
-      footer.push(p);
-    }
-    if (footer.length) cells.push(textRow(document, footer));
     element.replaceWith(WebImporter.DOMUtils.createTable(cells, document));
   }
 

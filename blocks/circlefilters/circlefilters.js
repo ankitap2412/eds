@@ -1,6 +1,27 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 
 const URL_PATTERN = /^(https?:\/\/|\/)\S*$/;
+const IMAGE_URL_PATTERN = /^https?:\/\/\S+\.(avif|gif|jpe?g|png|svg|webp)(\?\S*)?$/i;
+const HEADINGS = 'h1, h2, h3, h4, h5, h6';
+
+// Labels authors write in the first column of a settings row (label | value)...
+const SETTING_LABELS = {
+  title: ['title', 'heading'],
+  subtitle: ['sub title', 'subtitle', 'sub-title'],
+  description: ['description', 'note'],
+  cta: ['cta', 'cta link'],
+  ctaNewTab: ['open in new tab', 'cta open in new tab', 'cta new tab'],
+};
+
+// ...and in the header row that names the columns of the item rows below it.
+const COLUMN_LABELS = {
+  image: ['image', 'image link', 'circle image'],
+  name: ['name', 'title', 'label'],
+  description: ['description', 'sub text'],
+  link: ['page link', 'link', 'url'],
+  selected: ['selected'],
+  newTab: ['open in new tab', 'new tab'],
+};
 
 // Publishing rewrites links to the production domain into site-relative paths
 // (and drops `.html`). Pages behind them still live on the AEM site.
@@ -32,6 +53,51 @@ function setTarget(link, newTab) {
     link.target = '_blank';
     link.rel = 'noopener';
   }
+}
+
+/**
+ * Matches a cell's text against a set of labels.
+ * @param {Element} [cell] The cell
+ * @param {Object<string, string[]>} labels Label key to accepted spellings
+ * @returns {string|undefined} The matching label key
+ */
+function labelOf(cell, labels) {
+  const text = (cell?.textContent || '').trim().toLowerCase().replace(/[:*]/g, '').replace(/\s+/g, ' ');
+  return Object.keys(labels).find((key) => labels[key].includes(text));
+}
+
+/**
+ * Reads a true/false value cell.
+ * @param {Element} [cell] The cell
+ * @returns {boolean} Whether the cell says true/yes
+ */
+function isTrue(cell) {
+  return /^(true|yes|y|1)$/i.test(cell?.textContent.trim() || '');
+}
+
+/**
+ * Whether a row is the header row naming the item columns (e.g. Image | Name | Page link).
+ * @param {Element} row The authored row
+ * @returns {boolean}
+ */
+function isHeaderRow(row) {
+  if (row.querySelector('picture')) return false;
+  const cells = [...row.children].filter((cell) => cell.textContent.trim());
+  return cells.length >= 2
+    && cells.every((cell) => labelOf(cell, COLUMN_LABELS))
+    && cells.some((cell) => labelOf(cell, COLUMN_LABELS) === 'image');
+}
+
+/**
+ * Reads the item image: an uploaded image, or a link/URL to an image file.
+ * @param {Element} [cell] The cell (or row) holding the image
+ * @returns {{ src: string, alt: string, optimize: boolean }|null}
+ */
+function readImage(cell) {
+  const img = cell?.querySelector('picture img');
+  if (img) return { src: img.src, alt: img.alt, optimize: true };
+  const url = cell?.querySelector('a[href]')?.getAttribute('href') || cell?.textContent.trim() || '';
+  return IMAGE_URL_PATTERN.test(url) ? { src: url, alt: '', optimize: false } : null;
 }
 
 /**
@@ -80,20 +146,26 @@ function trackClick(title) {
 }
 
 /**
- * Builds one circle item from an authored row: image | title | link | options.
- * @param {Element} row The authored row
- * @returns {HTMLLIElement|null} The item, or null when the row has no image
+ * Builds one circle item.
+ * @param {Object} fields The item fields
+ * @param {{ src: string, alt: string, optimize: boolean }} fields.image The image
+ * @param {Element} [fields.nameCell] Name; extra lines become the description
+ * @param {Element} [fields.descriptionCell] Description
+ * @param {Element} [fields.linkCell] Page link
+ * @param {boolean} fields.selected Whether the item has the purple ring
+ * @param {boolean} fields.newTab Whether the link opens in a new tab
+ * @returns {HTMLLIElement} The item
  */
-function buildItem(row) {
-  const img = row.querySelector('picture img');
-  if (!img) return null;
-
-  const [, titleCell, linkCell, optionsCell] = row.children;
-  const paragraphs = titleCell ? [...titleCell.querySelectorAll('p')] : [];
-  const title = (paragraphs[0] || titleCell)?.textContent.trim() || img.alt;
-  const descriptions = paragraphs.slice(1).map((p) => p.textContent.trim()).filter(Boolean);
-  const href = readHref(linkCell, titleCell);
-  const { selected, newTab } = readOptions(optionsCell);
+function buildItem({
+  image, nameCell, descriptionCell, linkCell, selected, newTab,
+}) {
+  const paragraphs = nameCell ? [...nameCell.querySelectorAll('p')] : [];
+  const title = (paragraphs[0] || nameCell)?.textContent.trim() || image.alt;
+  const descriptions = [
+    ...paragraphs.slice(1).map((p) => p.textContent.trim()),
+    descriptionCell?.textContent.trim(),
+  ].filter(Boolean);
+  const href = readHref(linkCell, nameCell);
 
   const li = document.createElement('li');
   li.className = 'circlefilters-item';
@@ -107,10 +179,21 @@ function buildItem(row) {
   }
 
   // the title names the link, so the image is decorative when a title exists
-  const alt = title && title !== img.alt ? '' : img.alt;
+  const alt = title && title !== image.alt ? '' : image.alt;
   const circle = document.createElement('span');
   circle.className = 'circlefilters-image';
-  circle.append(createOptimizedPicture(img.src, alt, false, [{ width: '400' }]));
+  if (image.optimize) {
+    circle.append(createOptimizedPicture(image.src, alt, false, [{ width: '400' }]));
+  } else {
+    // external image URLs (e.g. DAM) don't support the media bus resize parameters
+    const picture = document.createElement('picture');
+    const img = document.createElement('img');
+    img.src = image.src;
+    img.alt = alt;
+    img.loading = 'lazy';
+    picture.append(img);
+    circle.append(picture);
+  }
 
   const text = document.createElement('span');
   text.className = 'circlefilters-text';
@@ -131,19 +214,20 @@ function buildItem(row) {
 }
 
 /**
- * Builds a text area (intro above or footer below the circles) from a row without an image.
- * @param {Element} row The authored row
+ * Builds a text area (intro above or footer below the circles).
+ * @param {Node[]} nodes The content
  * @param {string} className The area class name
+ * @param {boolean} [newTab] Whether links open in a new tab
  * @returns {HTMLDivElement} The text area
  */
-function buildTextArea(row, className) {
+function buildTextArea(nodes, className, newTab = false) {
   const area = document.createElement('div');
   area.className = className;
-  [...row.children].forEach((cell) => area.append(...cell.childNodes));
+  area.append(...nodes);
 
   area.querySelectorAll('a[href]').forEach((a) => {
     a.href = resolveHref(a.getAttribute('href'));
-    setTarget(a, false);
+    setTarget(a, newTab);
     a.classList.remove('button', 'primary', 'secondary');
     a.classList.add('circlefilters-cta');
     a.closest('.button-wrapper')?.classList.replace('button-wrapper', 'circlefilters-cta-wrapper');
@@ -226,15 +310,17 @@ function initCarousel(carousel, scroller, list) {
 }
 
 /**
- * Builds the block heading from an authored heading, keeping its level, id and link.
- * @param {HTMLHeadingElement} source The authored heading
+ * Builds the block heading from an authored heading (or a cell holding the title),
+ * keeping its level, id and link. Plain text becomes an H2.
+ * @param {Element} source The authored heading or title cell
  * @returns {HTMLHeadingElement} The block heading
  */
 function buildHeading(source) {
-  const heading = document.createElement(source.tagName.toLowerCase());
+  const authored = source.matches(HEADINGS) ? source : source.querySelector(HEADINGS);
+  const heading = document.createElement(authored ? authored.tagName.toLowerCase() : 'h2');
   heading.className = 'circlefilters-heading';
-  if (source.id) heading.id = source.id;
-  const text = source.textContent.trim();
+  if (authored?.id) heading.id = authored.id;
+  const text = (authored || source).textContent.trim();
   const anchor = source.querySelector('a[href]');
   if (anchor) {
     const link = document.createElement('a');
@@ -249,36 +335,119 @@ function buildHeading(source) {
 }
 
 /**
+ * Wraps a cell's content in paragraphs (single-line cells have bare text).
+ * @param {Element} cell The cell
+ * @returns {Node[]} The paragraphs
+ */
+function toParagraphs(cell) {
+  if (cell.querySelector('p')) return [...cell.childNodes];
+  const p = document.createElement('p');
+  p.append(...cell.childNodes);
+  return [p];
+}
+
+/**
+ * Builds the CTA paragraph from the CTA cell (a link, or a bare URL).
+ * @param {Element} cell The CTA cell
+ * @returns {HTMLParagraphElement|null} The CTA paragraph
+ */
+function buildCta(cell) {
+  let link = cell.querySelector('a[href]');
+  if (!link) {
+    const url = cell.textContent.trim();
+    if (!URL_PATTERN.test(url)) return null;
+    link = document.createElement('a');
+    link.href = url;
+    link.textContent = url;
+  }
+  const p = document.createElement('p');
+  p.append(link);
+  return p;
+}
+
+/**
  * Decorates the circlefilters block.
- * Optional first row: a heading (shown above the grey panel), optionally followed by intro text.
- * Item rows: image | title | link | options.
- * Other rows without an image become text areas above or below the circles.
+ *
+ * Labelled layout (recommended):
+ *   Title | heading     Sub title | intro     Description | text
+ *   CTA | link          Open in new tab | true/false
+ *   Image | Name | Page link | Selected | Open in new tab   (header row)
+ *   <image> | ROYALE GLITZ | https://... | true | false   (one row per item)
+ *
+ * Unlabelled layout (still supported): optional heading row, then
+ * image | title | link | options rows, then a description/CTA row.
  * @param {Element} block The block element
  */
 export default function decorate(block) {
   const list = document.createElement('ul');
   list.className = 'circlefilters-list';
   let heading;
+  let columns;
+  const settings = {};
   const before = [];
   const after = [];
 
   [...block.children].forEach((row) => {
-    const item = buildItem(row);
-    if (item) {
-      list.append(item);
+    const cells = [...row.children];
+
+    if (isHeaderRow(row)) {
+      columns = cells.map((cell) => labelOf(cell, COLUMN_LABELS));
       return;
     }
+
+    const setting = !row.querySelector('picture') && cells.length >= 2
+      && labelOf(cells[0], SETTING_LABELS);
+    if (setting) {
+      [, settings[setting]] = cells;
+      return;
+    }
+
+    if (columns) {
+      const cell = (key) => cells[columns.indexOf(key)];
+      const image = readImage(cell('image'));
+      if (image) {
+        list.append(buildItem({
+          image,
+          nameCell: cell('name'),
+          descriptionCell: cell('description'),
+          linkCell: cell('link'),
+          selected: isTrue(cell('selected')),
+          newTab: isTrue(cell('newTab')),
+        }));
+        return;
+      }
+    } else if (row.querySelector('picture img')) {
+      const [, nameCell, linkCell, optionsCell] = cells;
+      list.append(buildItem({
+        image: readImage(row), nameCell, linkCell, ...readOptions(optionsCell),
+      }));
+      return;
+    }
+
     const hasItems = list.children.length > 0;
-    const authoredHeading = !hasItems && !heading && row.querySelector('h1, h2, h3, h4, h5, h6');
+    const authoredHeading = !hasItems && !heading && row.querySelector(HEADINGS);
     if (authoredHeading) {
       heading = buildHeading(authoredHeading);
       authoredHeading.remove();
     }
     if (row.textContent.trim()) {
-      const area = buildTextArea(row, hasItems ? 'circlefilters-footer' : 'circlefilters-intro');
+      const nodes = cells.flatMap((c) => [...c.childNodes]);
+      const area = buildTextArea(nodes, hasItems ? 'circlefilters-footer' : 'circlefilters-intro');
       (hasItems ? after : before).push(area);
     }
   });
+
+  if (settings.title?.textContent.trim()) heading = buildHeading(settings.title);
+  if (settings.subtitle?.textContent.trim()) {
+    before.push(buildTextArea(toParagraphs(settings.subtitle), 'circlefilters-intro'));
+  }
+  const footer = [];
+  if (settings.description?.textContent.trim()) footer.push(...toParagraphs(settings.description));
+  const cta = settings.cta && buildCta(settings.cta);
+  if (cta) footer.push(cta);
+  if (footer.length) {
+    after.push(buildTextArea(footer, 'circlefilters-footer', isTrue(settings.ctaNewTab)));
+  }
 
   const scroller = document.createElement('div');
   scroller.className = 'circlefilters-scroller';
