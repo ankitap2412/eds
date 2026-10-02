@@ -73,6 +73,22 @@ function buildWidgetAutoBlocks(main) {
   });
 }
 
+// Old block names still used in published content, mapped to their current block.
+// Remove an entry once no page uses the old name.
+const RENAMED_BLOCKS = { circlefilters: 'circle-filters' };
+
+/**
+ * Points blocks authored under an old name at the renamed block.
+ * @param {Element} main The container element
+ */
+function renameLegacyBlocks(main) {
+  Object.entries(RENAMED_BLOCKS).forEach(([oldName, newName]) => {
+    main.querySelectorAll(`div.${oldName}`).forEach((block) => {
+      block.classList.replace(oldName, newName);
+    });
+  });
+}
+
 /**
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
@@ -97,6 +113,7 @@ function buildAutoBlocks(main) {
       });
     }
     buildWidgetAutoBlocks(main);
+    renameLegacyBlocks(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
