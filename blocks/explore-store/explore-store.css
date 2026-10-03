@@ -143,16 +143,27 @@
 }
 
 /*
+ * At these widths the sub title needs ~360px to sit on two lines, so the text column
+ * never gets narrower than that; the cards take the rest.
+ */
+@media (width >= 992px) and (width < 1440px) {
+  .explore-store .explore-store-text {
+    flex-shrink: 0;
+    width: max(25%, 365px);
+  }
+}
+
+/*
  * Between 992px and 1439px the AEM site lays the page out wider and shrinks it
  * (body zoom 0.7 to 0.9), so text wraps the same as on large screens.
  * The block does the same so it lines up with the original at these widths.
+ * 992-1099px uses 0.68 (AEM 0.7) so the wider text column and three cards both fit.
  */
 @media (width >= 992px) and (width < 1100px) {
   .explore-store {
-    zoom: 0.7;
+    zoom: 0.68;
   }
 
-  /* slightly tighter than AEM here so "Asian Paints Beautiful Homes" stays on one line */
   .explore-store .explore-store-cards {
     --explore-store-gap: 36px;
   }
