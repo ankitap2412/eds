@@ -26,6 +26,19 @@
           ]
         }
       ]
+    },
+    {
+      "name": "store-locator",
+      "description": "Store locator page with the explore-store store-format cards",
+      "urls": [],
+      "blocks": [
+        {
+          "name": "explore-store",
+          "instances": [
+            ".explore-store"
+          ]
+        }
+      ]
     }
   ]
 }
