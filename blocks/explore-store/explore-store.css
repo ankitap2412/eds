@@ -129,26 +129,56 @@
   .explore-store .explore-store-card {
     flex: 0 0 calc((100% - 2 * var(--explore-store-gap)) / 3);
     margin: 0;
-    container-type: inline-size;
   }
 
   .explore-store .explore-store-icon {
     margin-bottom: 10px;
   }
 
-  /* 20px, scaled down on narrower cards so "Asian Paints Beautiful Homes" stays on one line */
   .explore-store .explore-store-card-title {
     margin-bottom: 8px;
-    font-size: min(20px, 6.65cqi);
-    line-height: 1.4;
-    letter-spacing: 0.025em;
+    font-size: 20px;
+    line-height: 28px;
   }
 }
 
-/* below 1440px a 40px gap is too wide for three cards; the AEM page scales instead */
-@media (width >= 992px) and (width < 1440px) {
+/*
+ * Between 992px and 1439px the AEM site lays the page out wider and shrinks it
+ * (body zoom 0.7 to 0.9), so text wraps the same as on large screens.
+ * The block does the same so it lines up with the original at these widths.
+ */
+@media (width >= 992px) and (width < 1100px) {
+  .explore-store {
+    zoom: 0.7;
+  }
+
+  /* slightly tighter than AEM here so "Asian Paints Beautiful Homes" stays on one line */
   .explore-store .explore-store-cards {
-    --explore-store-gap: 4%;
+    --explore-store-gap: 36px;
+  }
+}
+
+@media (width >= 1100px) and (width < 1200px) {
+  .explore-store {
+    zoom: 0.75;
+  }
+}
+
+@media (width >= 1200px) and (width < 1280px) {
+  .explore-store {
+    zoom: 0.8;
+  }
+}
+
+@media (width >= 1280px) and (width < 1366px) {
+  .explore-store {
+    zoom: 0.85;
+  }
+}
+
+@media (width >= 1366px) and (width < 1440px) {
+  .explore-store {
+    zoom: 0.9;
   }
 }
 
