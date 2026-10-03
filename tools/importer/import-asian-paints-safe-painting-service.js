@@ -1,5 +1,6 @@
 /* global WebImporter */
 import circleFiltersParser from './parsers/circle-filters.js';
+import choosePlanParser from './parsers/choose-plan.js';
 
 /**
  * Returns the last AEM title component heading that appears before the given element.
@@ -16,7 +17,7 @@ function findPrecedingHeading(document, element) {
 
 /**
  * Builds the /asian-paints-safe-painting-service page: a circle-filters block whose first row
- * is the "range of products" heading.
+ * is the "range of products" heading, then (in its own section) the choose-plan-v2 plans.
  */
 export default {
   transform: ({ document, url }) => {
@@ -34,6 +35,14 @@ export default {
       });
     }
 
+    const plans = document.querySelector('.choosePlanBlock');
+    if (plans) {
+      main.append(document.createElement('hr'));
+      const block = plans.cloneNode(true);
+      main.append(block);
+      choosePlanParser(block, { document, url });
+    }
+
     main.append(WebImporter.Blocks.getMetadataBlock(document, {
       Title: 'Safe Painting Service',
       Description: 'Explore our range of interior paints with the Asian Paints Safe Painting Service.',
@@ -44,6 +53,7 @@ export default {
       path: '/asian-paints-safe-painting-service',
       report: {
         'circle-filters': source ? 'found' : 'missing',
+        'choose-plan': plans ? 'found' : 'missing',
       },
     }];
   },

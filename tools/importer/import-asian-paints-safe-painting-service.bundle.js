@@ -30,10 +30,10 @@ var CustomImportScript = (() => {
     if (element.querySelector(".service-circular-container-wp")) return "Circle Filters (service)";
     return "Circle Filters";
   }
-  function link(document, href, text) {
+  function link(document, href, text2) {
     const a = document.createElement("a");
     a.href = href;
-    a.textContent = text;
+    a.textContent = text2;
     return a;
   }
   function parse(element, {
@@ -45,10 +45,10 @@ var CustomImportScript = (() => {
     const cells = [[variantName(element)]];
     if (heading) {
       const h = document.createElement(heading.tagName.toLowerCase());
-      const text = heading.textContent.replace(/\s+/g, " ").trim();
+      const text2 = heading.textContent.replace(/\s+/g, " ").trim();
       const srcLink = heading.querySelector("a[href]");
-      if (srcLink) h.append(link(document, srcLink.href, text));
-      else h.textContent = text;
+      if (srcLink) h.append(link(document, srcLink.href, text2));
+      else h.textContent = text2;
       cells.push(["Title", h]);
     }
     const subtitle = (_a = element.querySelector(".description-area .desc")) == null ? void 0 : _a.textContent.trim();
@@ -69,10 +69,10 @@ var CustomImportScript = (() => {
       img.alt = srcImg.getAttribute("alt") || srcImg.getAttribute("title") || "";
       const nameCell = document.createElement("div");
       item.querySelectorAll(".desc-wp p").forEach((srcP) => {
-        const text = srcP.textContent.trim();
-        if (!text) return;
+        const text2 = srcP.textContent.trim();
+        if (!text2) return;
         const p = document.createElement("p");
-        p.textContent = text;
+        p.textContent = text2;
         nameCell.append(p);
       });
       const srcLink = item.querySelector('a[href]:not([href^="javascript"])');
@@ -83,6 +83,57 @@ var CustomImportScript = (() => {
         item.classList.contains("selected") ? "true" : "false",
         (srcLink == null ? void 0 : srcLink.getAttribute("target")) === "_blank" ? "true" : "false"
       ]);
+    });
+    element.replaceWith(WebImporter.DOMUtils.createTable(cells, document));
+  }
+
+  // tools/importer/parsers/choose-plan.js
+  var text = (el) => (el == null ? void 0 : el.textContent.replace(/\s+/g, " ").trim()) || "";
+  function parse2(element, { document, url }) {
+    const cells = [["Choose Plan (choose-plan-v2)"]];
+    const title = text(element.querySelector(".choosePlanBlock__wrapper--title"));
+    if (title) {
+      const h2 = document.createElement("h2");
+      h2.textContent = title;
+      cells.push([h2]);
+    }
+    element.querySelectorAll(".choosePlanBlock__wrapper--banners--cards").forEach((card) => {
+      const nameCell = document.createElement("div");
+      const srcImg = card.querySelector(".choosePlanBlock__wrapper--banners--cards__iconAndText img");
+      if (srcImg == null ? void 0 : srcImg.getAttribute("src")) {
+        const img = document.createElement("img");
+        img.src = new URL(srcImg.getAttribute("src"), url).href;
+        img.alt = "";
+        nameCell.append(img);
+      }
+      const name = document.createElement("p");
+      name.textContent = text(card.querySelector(".main-sub-title"));
+      nameCell.append(name);
+      const features = document.createElement("div");
+      card.querySelectorAll(".choosePlanBlock__wrapper--banners--cards--lists").forEach((group) => {
+        const label = text(group.querySelector(".sub-title"));
+        if (label) {
+          const p = document.createElement("p");
+          p.textContent = label;
+          features.append(p);
+        }
+        const ul = document.createElement("ul");
+        group.querySelectorAll("li").forEach((srcLi) => {
+          const li = document.createElement("li");
+          li.textContent = text(srcLi);
+          ul.append(li);
+        });
+        if (ul.children.length) features.append(ul);
+      });
+      const ctaCell = document.createElement("div");
+      const srcLink = card.querySelector(".bookThisPlan a[href]");
+      if (srcLink) {
+        const a = document.createElement("a");
+        a.href = srcLink.getAttribute("href");
+        a.textContent = text(srcLink);
+        ctaCell.append(a);
+      }
+      cells.push([nameCell, features, ctaCell]);
     });
     element.replaceWith(WebImporter.DOMUtils.createTable(cells, document));
   }
@@ -105,6 +156,13 @@ var CustomImportScript = (() => {
           container: source.closest(".responsivegrid.padding45")
         });
       }
+      const plans = document.querySelector(".choosePlanBlock");
+      if (plans) {
+        main.append(document.createElement("hr"));
+        const block = plans.cloneNode(true);
+        main.append(block);
+        parse2(block, { document, url });
+      }
       main.append(WebImporter.Blocks.getMetadataBlock(document, {
         Title: "Safe Painting Service",
         Description: "Explore our range of interior paints with the Asian Paints Safe Painting Service."
@@ -113,7 +171,8 @@ var CustomImportScript = (() => {
         element: main,
         path: "/asian-paints-safe-painting-service",
         report: {
-          "circle-filters": source ? "found" : "missing"
+          "circle-filters": source ? "found" : "missing",
+          "choose-plan": plans ? "found" : "missing"
         }
       }];
     }

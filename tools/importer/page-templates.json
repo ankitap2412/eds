@@ -24,6 +24,12 @@
             ".title > h2",
             ".circlefilters"
           ]
+        },
+        {
+          "name": "choose-plan",
+          "instances": [
+            ".choosePlanBlock"
+          ]
         }
       ]
     },

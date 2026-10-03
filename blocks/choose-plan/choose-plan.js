@@ -86,16 +86,21 @@ function addSliderDots(plans) {
 
   const update = () => {
     const step = cards[1].offsetLeft - cards[0].offsetLeft || 1;
-    const atEnd = plans.scrollLeft >= plans.scrollWidth - plans.clientWidth - 1;
+    const maxScroll = plans.scrollWidth - plans.clientWidth;
+    // not scrollable yet (e.g. before the block CSS applies) counts as the first plan
+    const atEnd = maxScroll > 1 && plans.scrollLeft >= maxScroll - 1;
     const current = atEnd ? cards.length - 1 : Math.round(plans.scrollLeft / step);
     buttons.forEach((dot, index) => dot.setAttribute('aria-current', String(index === current)));
   };
 
   let frame;
-  plans.addEventListener('scroll', () => {
+  const scheduleUpdate = () => {
     cancelAnimationFrame(frame);
     frame = requestAnimationFrame(update);
-  }, { passive: true });
+  };
+  plans.addEventListener('scroll', scheduleUpdate, { passive: true });
+  // re-check when the layout changes (CSS arriving, rotation, resizing)
+  new ResizeObserver(scheduleUpdate).observe(plans);
   plans.after(dots);
   update();
 }
