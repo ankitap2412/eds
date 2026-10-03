@@ -116,33 +116,39 @@
   }
 
   .explore-store .explore-store-cards {
+    --explore-store-gap: 40px;
+
     display: flex;
     flex-wrap: wrap;
-    gap: 30px 40px;
+    gap: 30px var(--explore-store-gap);
     width: 75%;
     margin: 0;
   }
 
+  /* three cards share the row exactly, so long store names get the full card width */
   .explore-store .explore-store-card {
-    flex: 0 0 30%;
+    flex: 0 0 calc((100% - 2 * var(--explore-store-gap)) / 3);
     margin: 0;
+    container-type: inline-size;
   }
 
   .explore-store .explore-store-icon {
     margin-bottom: 10px;
   }
 
+  /* 20px, scaled down on narrower cards so "Asian Paints Beautiful Homes" stays on one line */
   .explore-store .explore-store-card-title {
     margin-bottom: 8px;
-    font-size: 20px;
-    line-height: 28px;
+    font-size: min(20px, 6.65cqi);
+    line-height: 1.4;
+    letter-spacing: 0.025em;
   }
 }
 
-/* below 1440px three 30% cards don't fit with a 40px gap; the AEM page scales instead */
+/* below 1440px a 40px gap is too wide for three cards; the AEM page scales instead */
 @media (width >= 992px) and (width < 1440px) {
   .explore-store .explore-store-cards {
-    column-gap: 4%;
+    --explore-store-gap: 4%;
   }
 }
 
