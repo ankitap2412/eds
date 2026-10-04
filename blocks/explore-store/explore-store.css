@@ -156,12 +156,13 @@
 /*
  * Between 992px and 1439px the AEM site lays the page out wider and shrinks it
  * (body zoom 0.7 to 0.9), so text wraps the same as on large screens.
- * The block does the same so it lines up with the original at these widths.
+ * The block does the same so it lines up with the original at these widths;
+ * sites that already zoom the body set --body-zoom, so only the difference is added.
  * 992-1099px uses 0.68 (AEM 0.7) so the wider text column and three cards both fit.
  */
 @media (width >= 992px) and (width < 1100px) {
   .explore-store {
-    zoom: 0.68;
+    zoom: calc(0.68 / var(--body-zoom, 1));
   }
 
   .explore-store .explore-store-cards {
@@ -171,25 +172,25 @@
 
 @media (width >= 1100px) and (width < 1200px) {
   .explore-store {
-    zoom: 0.75;
+    zoom: calc(0.75 / var(--body-zoom, 1));
   }
 }
 
 @media (width >= 1200px) and (width < 1280px) {
   .explore-store {
-    zoom: 0.8;
+    zoom: calc(0.8 / var(--body-zoom, 1));
   }
 }
 
 @media (width >= 1280px) and (width < 1366px) {
   .explore-store {
-    zoom: 0.85;
+    zoom: calc(0.85 / var(--body-zoom, 1));
   }
 }
 
 @media (width >= 1366px) and (width < 1440px) {
   .explore-store {
-    zoom: 0.9;
+    zoom: calc(0.9 / var(--body-zoom, 1));
   }
 }
 
