@@ -24,10 +24,10 @@ var CustomImportScript = (() => {
     default: () => import_store_locator_default
   });
 
-  // tools/importer/parsers/explore-store.js
+  // tools/importer/parsers/explore-store-cards.js
   var text = (el) => (el == null ? void 0 : el.textContent.replace(/\s+/g, " ").trim()) || "";
   function parse(element, { document, url }) {
-    const name = element.classList.contains("bhps-whychoos") ? "Explore Store (bhps)" : "Explore Store";
+    const name = element.classList.contains("bhps-whychoos") ? "Explore Store Cards (bhps)" : "Explore Store Cards";
     const cells = [[name]];
     const title = text(element.querySelector(".our-services-title"));
     if (title) cells.push(["Title", title]);
@@ -79,7 +79,7 @@ var CustomImportScript = (() => {
       return [{
         element: main,
         path: "/store-locator",
-        report: { "explore-store": source ? "found" : "missing" }
+        report: { "explore-store-cards": source ? "found" : "missing" }
       }];
     }
   };

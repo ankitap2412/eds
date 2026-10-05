@@ -1,11 +1,11 @@
 /* global WebImporter */
 
 /**
- * Parser for the explore-store block.
+ * Parser for the explore-store-cards block.
  * Source: AEM whychooseus component, variantThree (`.explore-store`) or
  * variantFive (`.explore-store.bhps-whychoos`).
  * Output: a labelled table authors can read in DA:
- *   [Explore Store (variant)]
+ *   [Explore Store Cards (variant)]
  *   [Title | text]  [Sub title | text]
  *   [Icon | Title | Description | Link | Border colour]   (header row)
  *   [icon | title | description | link | #hex]            (one row per card)
@@ -13,7 +13,7 @@
 const text = (el) => el?.textContent.replace(/\s+/g, ' ').trim() || '';
 
 export default function parse(element, { document, url }) {
-  const name = element.classList.contains('bhps-whychoos') ? 'Explore Store (bhps)' : 'Explore Store';
+  const name = element.classList.contains('bhps-whychoos') ? 'Explore Store Cards (bhps)' : 'Explore Store Cards';
   const cells = [[name]];
 
   const title = text(element.querySelector('.our-services-title'));

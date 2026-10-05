@@ -1,8 +1,8 @@
 /* global WebImporter */
-import exploreStoreParser from './parsers/explore-store.js';
+import exploreStoreCardsParser from './parsers/explore-store-cards.js';
 
 /**
- * Builds the /store-locator page: the "Explore Our Stores" explore-store block.
+ * Builds the /store-locator page: the "Explore Our Stores" explore-store-cards block.
  */
 export default {
   transform: ({ document, url }) => {
@@ -12,7 +12,7 @@ export default {
     if (source) {
       const block = source.cloneNode(true);
       main.append(block);
-      exploreStoreParser(block, { document, url });
+      exploreStoreCardsParser(block, { document, url });
     }
 
     main.append(WebImporter.Blocks.getMetadataBlock(document, {
@@ -23,7 +23,7 @@ export default {
     return [{
       element: main,
       path: '/store-locator',
-      report: { 'explore-store': source ? 'found' : 'missing' },
+      report: { 'explore-store-cards': source ? 'found' : 'missing' },
     }];
   },
 };
