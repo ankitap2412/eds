@@ -55,7 +55,7 @@ function trackClick(text, link, parentTitle) {
 function buildTitle(cell) {
   const authored = cell.querySelector(HEADINGS);
   const heading = document.createElement(authored ? authored.tagName.toLowerCase() : 'h2');
-  heading.className = 'explore-store-title';
+  heading.className = 'explore-store-cards-title';
   if (authored?.id) heading.id = authored.id;
   heading.textContent = (authored || cell).textContent.trim();
   return heading;
@@ -89,13 +89,13 @@ function buildCard({
   icon, titleCell, descriptionCell, linkCell, borderCell, newTab,
 }) {
   const li = document.createElement('li');
-  li.className = 'explore-store-card';
+  li.className = 'explore-store-cards-card';
   const border = borderCell?.textContent.trim();
   if (border && CSS.supports('color', border)) li.style.borderBottomColor = border;
 
   const href = readHref(linkCell, titleCell);
   const wrapper = document.createElement(href ? 'a' : 'div');
-  wrapper.className = 'explore-store-link';
+  wrapper.className = 'explore-store-cards-link';
   if (href) {
     wrapper.href = resolveHref(href);
     setTarget(wrapper, newTab);
@@ -103,7 +103,7 @@ function buildCard({
 
   if (icon) {
     const iconWrap = document.createElement('span');
-    iconWrap.className = 'explore-store-icon';
+    iconWrap.className = 'explore-store-cards-icon';
     iconWrap.append(buildIcon(icon));
     wrapper.append(iconWrap);
   }
@@ -111,7 +111,7 @@ function buildCard({
   const title = titleCell?.textContent.trim();
   if (title) {
     const heading = document.createElement('h3');
-    heading.className = 'explore-store-card-title';
+    heading.className = 'explore-store-cards-card-title';
     heading.textContent = title;
     wrapper.append(heading);
   }
@@ -119,7 +119,7 @@ function buildCard({
   const description = descriptionCell?.textContent.trim();
   if (description) {
     const p = document.createElement('p');
-    p.className = 'explore-store-card-desc';
+    p.className = 'explore-store-cards-card-desc';
     p.textContent = description;
     wrapper.append(p);
   }
@@ -129,7 +129,7 @@ function buildCard({
 }
 
 /**
- * Decorates the explore-store block.
+ * Decorates the explore-store-cards block.
  *
  *   Title | Explore Our Stores
  *   Sub title | Step into an Asian Paints store...
@@ -140,7 +140,7 @@ function buildCard({
 export default function decorate(block) {
   const settings = {};
   const list = document.createElement('ul');
-  list.className = 'explore-store-cards';
+  list.className = 'explore-store-cards-cards';
   let columns;
 
   [...block.children].forEach((row) => {
@@ -173,22 +173,22 @@ export default function decorate(block) {
   });
 
   const text = document.createElement('div');
-  text.className = 'explore-store-text';
+  text.className = 'explore-store-cards-text';
   if (settings.title?.textContent.trim()) text.append(buildTitle(settings.title));
   if (settings.subtitle?.textContent.trim()) {
     const sub = document.createElement('p');
-    sub.className = 'explore-store-subtitle';
+    sub.className = 'explore-store-cards-subtitle';
     sub.textContent = settings.subtitle.textContent.trim();
     text.append(sub);
   }
 
   block.replaceChildren(text, list);
 
-  const sectionTitle = text.querySelector('.explore-store-title')?.textContent.trim() || '';
+  const sectionTitle = text.querySelector('.explore-store-cards-title')?.textContent.trim() || '';
   // like the AEM component, every card click is tracked, linked or not
-  list.querySelectorAll('.explore-store-card').forEach((card) => {
+  list.querySelectorAll('.explore-store-cards-card').forEach((card) => {
     card.addEventListener('click', () => {
-      const cardTitle = card.querySelector('.explore-store-card-title')?.textContent.trim() || '';
+      const cardTitle = card.querySelector('.explore-store-cards-card-title')?.textContent.trim() || '';
       trackClick(cardTitle, card.querySelector('a')?.href || '', sectionTitle);
     });
   });

@@ -35,11 +35,11 @@
     },
     {
       "name": "store-locator",
-      "description": "Store locator page with the explore-store store-format cards",
+      "description": "Store locator page with the explore-store-cards store-format cards",
       "urls": [],
       "blocks": [
         {
-          "name": "explore-store",
+          "name": "explore-store-cards",
           "instances": [
             ".explore-store"
           ]

@@ -1,12 +1,12 @@
 /* Breakpoints match the AEM component: 992px (tab-to-large), 1440px (larger screen) */
 
 /* full width like the AEM page; the block sets its own side padding */
-.explore-store-container .explore-store-wrapper {
+.explore-store-cards-container .explore-store-cards-wrapper {
   max-width: unset;
   padding: 0;
 }
 
-.explore-store {
+.explore-store-cards {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -16,11 +16,11 @@
 }
 
 /* text column: title and sub title */
-.explore-store .explore-store-text {
+.explore-store-cards .explore-store-cards-text {
   width: 100%;
 }
 
-.explore-store .explore-store-title {
+.explore-store-cards .explore-store-cards-title {
   margin: 0 0 12px;
   color: #232426;
   font-family: var(--manrope-font-family);
@@ -30,7 +30,7 @@
   letter-spacing: -2px;
 }
 
-.explore-store .explore-store-subtitle {
+.explore-store-cards .explore-store-cards-subtitle {
   margin: 0;
   color: #232426;
   font-size: 16px;
@@ -39,43 +39,43 @@
 }
 
 /* cards */
-.explore-store .explore-store-cards {
+.explore-store-cards .explore-store-cards-cards {
   width: 100%;
   margin: 30px 0 0;
   padding: 0;
   list-style: none;
 }
 
-.explore-store .explore-store-card {
+.explore-store-cards .explore-store-cards-card {
   margin-bottom: 20px;
   padding-bottom: 16px;
   border-bottom: 2px solid;
 }
 
-.explore-store .explore-store-link {
+.explore-store-cards .explore-store-cards-link {
   display: block;
   color: inherit;
   text-decoration: none;
 }
 
-.explore-store a.explore-store-link:focus-visible {
+.explore-store-cards a.explore-store-cards-link:focus-visible {
   outline: 2px solid currentcolor;
   outline-offset: 4px;
 }
 
-.explore-store .explore-store-icon {
+.explore-store-cards .explore-store-cards-icon {
   display: block;
   margin-bottom: 5px;
 }
 
-.explore-store .explore-store-icon img {
+.explore-store-cards .explore-store-cards-icon img {
   display: block;
   width: 36px;
   height: 36px;
   object-fit: contain;
 }
 
-.explore-store .explore-store-card-title {
+.explore-store-cards .explore-store-cards-card-title {
   margin: 0 0 3px;
   color: #2e2f32;
   font-family: var(--manrope-font-family);
@@ -85,7 +85,7 @@
   letter-spacing: 0.5px;
 }
 
-.explore-store .explore-store-card-desc {
+.explore-store-cards .explore-store-cards-card-desc {
   margin: 0;
   color: #53565a;
   font-size: 12px;
@@ -95,47 +95,47 @@
 }
 
 @media (width >= 992px) {
-  .explore-store {
+  .explore-store-cards {
     flex-direction: row;
     align-items: center;
     column-gap: 45px;
     padding: 50px 40px 40px;
   }
 
-  .explore-store .explore-store-text {
+  .explore-store-cards .explore-store-cards-text {
     width: 25%;
   }
 
-  .explore-store .explore-store-title {
+  .explore-store-cards .explore-store-cards-title {
     margin-bottom: 30px;
   }
 
-  .explore-store .explore-store-subtitle {
+  .explore-store-cards .explore-store-cards-subtitle {
     font-size: 18px;
     line-height: 28px;
   }
 
-  .explore-store .explore-store-cards {
-    --explore-store-gap: 40px;
+  .explore-store-cards .explore-store-cards-cards {
+    --explore-store-cards-gap: 40px;
 
     display: flex;
     flex-wrap: wrap;
-    gap: 30px var(--explore-store-gap);
+    gap: 30px var(--explore-store-cards-gap);
     width: 75%;
     margin: 0;
   }
 
   /* three cards share the row exactly, so long store names get the full card width */
-  .explore-store .explore-store-card {
-    flex: 0 0 calc((100% - 2 * var(--explore-store-gap)) / 3);
+  .explore-store-cards .explore-store-cards-card {
+    flex: 0 0 calc((100% - 2 * var(--explore-store-cards-gap)) / 3);
     margin: 0;
   }
 
-  .explore-store .explore-store-icon {
+  .explore-store-cards .explore-store-cards-icon {
     margin-bottom: 10px;
   }
 
-  .explore-store .explore-store-card-title {
+  .explore-store-cards .explore-store-cards-card-title {
     margin-bottom: 8px;
     font-size: 20px;
     line-height: 28px;
@@ -147,7 +147,7 @@
  * never gets narrower than that; the cards take the rest.
  */
 @media (width >= 992px) and (width < 1440px) {
-  .explore-store .explore-store-text {
+  .explore-store-cards .explore-store-cards-text {
     flex-shrink: 0;
     width: max(25%, 365px);
   }
@@ -161,47 +161,47 @@
  * 992-1099px uses 0.68 (AEM 0.7) so the wider text column and three cards both fit.
  */
 @media (width >= 992px) and (width < 1100px) {
-  .explore-store {
+  .explore-store-cards {
     zoom: calc(0.68 / var(--body-zoom, 1));
   }
 
-  .explore-store .explore-store-cards {
-    --explore-store-gap: 36px;
+  .explore-store-cards .explore-store-cards-cards {
+    --explore-store-cards-gap: 36px;
   }
 }
 
 @media (width >= 1100px) and (width < 1200px) {
-  .explore-store {
+  .explore-store-cards {
     zoom: calc(0.75 / var(--body-zoom, 1));
   }
 }
 
 @media (width >= 1200px) and (width < 1280px) {
-  .explore-store {
+  .explore-store-cards {
     zoom: calc(0.8 / var(--body-zoom, 1));
   }
 }
 
 @media (width >= 1280px) and (width < 1366px) {
-  .explore-store {
+  .explore-store-cards {
     zoom: calc(0.85 / var(--body-zoom, 1));
   }
 }
 
 @media (width >= 1366px) and (width < 1440px) {
-  .explore-store {
+  .explore-store-cards {
     zoom: calc(0.9 / var(--body-zoom, 1));
   }
 }
 
 @media (width >= 1440px) {
-  .explore-store .explore-store-title {
+  .explore-store-cards .explore-store-cards-title {
     max-width: 330px;
     font-size: 54px;
     line-height: 60px;
   }
 
-  .explore-store .explore-store-subtitle {
+  .explore-store-cards .explore-store-cards-subtitle {
     max-width: 330px;
     font-size: 24px;
     line-height: 33.6px;
@@ -209,54 +209,54 @@
 }
 
 /* BHPS variant (AEM variantFive): large brown store names, four columns, no borders */
-.explore-store.bhps {
+.explore-store-cards.bhps {
   align-items: flex-start;
   column-gap: 15px;
   padding: 15px;
 }
 
-.explore-store.bhps .explore-store-title {
+.explore-store-cards.bhps .explore-store-cards-title {
   margin-bottom: 5px;
   font-size: 24px;
   line-height: 27px;
   letter-spacing: -0.02em;
 }
 
-.explore-store.bhps .explore-store-subtitle {
+.explore-store-cards.bhps .explore-store-cards-subtitle {
   color: #8c8e90;
   font-size: 12px;
   line-height: 16px;
 }
 
-.explore-store.bhps .explore-store-cards {
+.explore-store-cards.bhps .explore-store-cards-cards {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
 }
 
-.explore-store.bhps .explore-store-card {
+.explore-store-cards.bhps .explore-store-cards-card {
   width: 100%;
   margin: 0;
   padding: 0;
   border: 0;
 }
 
-.explore-store.bhps .explore-store-link {
+.explore-store-cards.bhps .explore-store-cards-link {
   display: flex;
   align-items: center;
   gap: 14px;
 }
 
-.explore-store.bhps .explore-store-icon {
+.explore-store-cards.bhps .explore-store-cards-icon {
   margin: 0;
 }
 
-.explore-store.bhps .explore-store-icon img {
+.explore-store-cards.bhps .explore-store-cards-icon img {
   width: 40px;
   height: 40px;
 }
 
-.explore-store.bhps .explore-store-card-title {
+.explore-store-cards.bhps .explore-store-cards-card-title {
   width: 37%;
   margin: 0;
   color: #5d4f43;
@@ -266,7 +266,7 @@
   letter-spacing: -0.04em;
 }
 
-.explore-store.bhps .explore-store-card-desc {
+.explore-store-cards.bhps .explore-store-cards-card-desc {
   width: 85%;
   color: #5d4f43;
   font-size: 18px;
@@ -274,52 +274,52 @@
 }
 
 @media (width <= 400px) {
-  .explore-store.bhps .explore-store-card-title {
+  .explore-store-cards.bhps .explore-store-cards-card-title {
     width: 50%;
   }
 }
 
 @media (width >= 992px) {
-  .explore-store.bhps {
+  .explore-store-cards.bhps {
     column-gap: 50px;
     padding: 40px;
   }
 
-  .explore-store.bhps .explore-store-text {
+  .explore-store-cards.bhps .explore-store-cards-text {
     width: 35%;
   }
 
-  .explore-store.bhps .explore-store-title {
+  .explore-store-cards.bhps .explore-store-cards-title {
     max-width: 80%;
     margin-bottom: 15px;
     font-size: 70px;
     line-height: 70px;
   }
 
-  .explore-store.bhps .explore-store-subtitle {
+  .explore-store-cards.bhps .explore-store-cards-subtitle {
     max-width: 100%;
     color: #75787b;
     font-size: 20px;
     line-height: 28px;
   }
 
-  .explore-store.bhps .explore-store-cards {
+  .explore-store-cards.bhps .explore-store-cards-cards {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 50px;
     width: 65%;
   }
 
-  .explore-store.bhps .explore-store-link {
+  .explore-store-cards.bhps .explore-store-cards-link {
     display: block;
   }
 
-  .explore-store.bhps .explore-store-icon img {
+  .explore-store-cards.bhps .explore-store-cards-icon img {
     width: auto;
     height: auto;
   }
 
-  .explore-store.bhps .explore-store-card-title {
+  .explore-store-cards.bhps .explore-store-cards-card-title {
     width: auto;
     font-weight: 700;
   }

@@ -75,7 +75,10 @@ function buildWidgetAutoBlocks(main) {
 
 // Old block names still used in published content, mapped to their current block.
 // Remove an entry once no page uses the old name.
-const RENAMED_BLOCKS = { circlefilters: 'circle-filters' };
+const RENAMED_BLOCKS = {
+  circlefilters: 'circle-filters',
+  'explore-store': 'explore-store-cards',
+};
 
 /**
  * Points blocks authored under an old name at the renamed block.
