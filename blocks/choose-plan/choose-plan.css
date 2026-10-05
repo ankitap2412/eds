@@ -627,6 +627,7 @@ main > .section.choose-plan-container > div:has(> .choose-plan.choose-plan-v2) {
 
 /* footnotes (lines starting with *): small, no tick */
 .choose-plan.choose-plan-v2 .choose-plan-features .choose-plan-footnote {
+  width: 95%;
   color: #4c4e52;
   font-size: 11px;
   font-weight: 300;
@@ -654,6 +655,9 @@ main > .section.choose-plan-container > div:has(> .choose-plan.choose-plan-v2) {
   font-weight: 700;
   line-height: 22px;
   text-transform: uppercase;
+
+  /* the live button changes colour instantly */
+  transition: none;
 }
 
 .choose-plan.choose-plan-v2 a.button.choose-plan-button::after {
@@ -663,19 +667,14 @@ main > .section.choose-plan-container > div:has(> .choose-plan.choose-plan-v2) {
   height: 20px;
   background-color: currentcolor;
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill-rule='evenodd' d='M10.2563 4.13128C10.598 3.78957 11.152 3.78957 11.4937 4.13128L16.7437 9.38128C17.0854 9.72299 17.0854 10.277 16.7437 10.6187L11.4937 15.8687C11.152 16.2104 10.598 16.2104 10.2563 15.8687C9.91457 15.527 9.91457 14.973 10.2563 14.6313L14.0126 10.875L3.875 10.875C3.39175 10.875 3 10.4832 3 10C3 9.51675 3.39175 9.125 3.875 9.125H14.0126L10.2563 5.36872C9.91457 5.02701 9.91457 4.47299 10.2563 4.13128Z'/%3E%3C/svg%3E") left center / 20px 20px no-repeat;
-  transition: transform 0.2s ease-in;
 }
 
-/* like the live site, hover moves the arrow instead of filling the button */
+/* like the live site, hover (and keyboard focus) fills the button with cream */
 .choose-plan.choose-plan-v2 a.button.choose-plan-button:hover,
 .choose-plan.choose-plan-v2 a.button.choose-plan-button:focus-visible {
-  background: transparent;
+  border-color: #232426;
+  background: #fff7e8;
   color: #222;
-}
-
-.choose-plan.choose-plan-v2 a.button.choose-plan-button:hover::after,
-.choose-plan.choose-plan-v2 a.button.choose-plan-button:focus-visible::after {
-  transform: translateX(6px);
 }
 
 /* slider dots (mobile): the current plan is a wider dark bar */
@@ -706,7 +705,6 @@ main > .section.choose-plan-container > div:has(> .choose-plan.choose-plan-v2) {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .choose-plan.choose-plan-v2 a.button.choose-plan-button::after,
   .choose-plan.choose-plan-v2 .choose-plan-dot {
     transition: none;
   }
@@ -760,6 +758,13 @@ main > .section.choose-plan-container > div:has(> .choose-plan.choose-plan-v2) {
 
   .choose-plan.choose-plan-v2 .choose-plan-dots {
     display: none;
+  }
+}
+
+/* the AEM component brings the lists in to 30px at these widths */
+@media (width >= 991px) and (width <= 1200px) {
+  .choose-plan.choose-plan-v2 .choose-plan-features {
+    padding-left: 30px;
   }
 }
 
