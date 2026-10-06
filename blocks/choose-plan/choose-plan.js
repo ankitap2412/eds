@@ -59,6 +59,39 @@ function buildHeader(cell) {
   return header;
 }
 
+// where a #form jump link goes when the page has no element with that id: the form banner
+const FORM_TARGETS = '.form-banner, .form';
+
+/**
+ * Height of a fixed or sticky site header, so a jump target isn't hidden under it.
+ * @returns {number} The header height in pixels
+ */
+function headerOffset() {
+  const header = document.querySelector('header .nav-wrapper') || document.querySelector('header');
+  if (!header) return 0;
+  const { position } = getComputedStyle(header);
+  return position === 'fixed' || position === 'sticky' ? header.getBoundingClientRect().height : 0;
+}
+
+/**
+ * choose-plan-v2: buttons linking to a #hash on the page (e.g. "#form") smooth-scroll up to it,
+ * like the live site's BOOK THIS PLAN jump to the booking banner. Without a matching id, the
+ * page's form banner is used, or the top of the page.
+ * @param {Element} block The choose-plan block
+ */
+function bindJumpLinks(block) {
+  block.querySelectorAll('.choose-plan-cta a[href^="#"]').forEach((link) => {
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      const id = decodeURIComponent(link.getAttribute('href').slice(1));
+      const target = (id && document.getElementById(id)) || document.querySelector(FORM_TARGETS);
+      const top = target ? target.getBoundingClientRect().top + window.scrollY - headerOffset() : 0;
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: Math.max(top, 0), behavior: reduceMotion ? 'auto' : 'smooth' });
+    });
+  });
+}
+
 /**
  * choose-plan-v2 on mobile: dots under the swipeable row of cards
  * (hidden on desktop by CSS, where the cards sit side by side)
@@ -191,5 +224,8 @@ export default function decorate(block) {
 
   block.replaceChildren(...(intro.childNodes.length ? [intro] : []), plans);
 
-  if (block.classList.contains('choose-plan-v2')) addSliderDots(plans);
+  if (block.classList.contains('choose-plan-v2')) {
+    addSliderDots(plans);
+    bindJumpLinks(block);
+  }
 }
