@@ -59,7 +59,7 @@ function buildHeader(cell) {
   return header;
 }
 
-// where a #form jump link goes when the page has no element with that id: the form banner
+// the booking form a plan button scrolls to when no #hash element is named
 const FORM_TARGETS = '.form-banner, .form';
 
 /**
@@ -74,22 +74,25 @@ function headerOffset() {
 }
 
 /**
- * choose-plan-v2: buttons linking to a #hash on the page (e.g. "#form") smooth-scroll up to it,
- * like the live site's BOOK THIS PLAN jump to the booking banner. Without a matching id, the
- * page's form banner is used, or the top of the page.
- * @param {Element} block The choose-plan block
+ * Click handler for a choose-plan-v2 button (BOOK THIS PLAN). It runs only when the button is
+ * clicked: it smooth-scrolls up to the page's booking form, like the live site. The target is
+ * the element named by a #hash link (e.g. "#form"), otherwise the form banner on the page.
+ * Only when the page has no form does the click follow the button's link as normal.
+ * @param {MouseEvent} event The click on the button
  */
-function bindJumpLinks(block) {
-  block.querySelectorAll('.choose-plan-cta a[href^="#"]').forEach((link) => {
-    link.addEventListener('click', (event) => {
-      event.preventDefault();
-      const id = decodeURIComponent(link.getAttribute('href').slice(1));
-      const target = (id && document.getElementById(id)) || document.querySelector(FORM_TARGETS);
-      const top = target ? target.getBoundingClientRect().top + window.scrollY - headerOffset() : 0;
-      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      window.scrollTo({ top: Math.max(top, 0), behavior: reduceMotion ? 'auto' : 'smooth' });
-    });
-  });
+function scrollToBookingForm(event) {
+  const link = event.currentTarget;
+  const href = link.getAttribute('href');
+  const isHash = href.startsWith('#');
+  const id = isHash ? decodeURIComponent(href.slice(1)) : '';
+  const target = (id && document.getElementById(id)) || document.querySelector(FORM_TARGETS);
+  // no booking form on this page: behave like a normal link
+  if (!target && !isHash) return;
+
+  event.preventDefault();
+  const top = target ? target.getBoundingClientRect().top + window.scrollY - headerOffset() : 0;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  window.scrollTo({ top: Math.max(top, 0), behavior: reduceMotion ? 'auto' : 'smooth' });
 }
 
 /**
@@ -226,6 +229,9 @@ export default function decorate(block) {
 
   if (block.classList.contains('choose-plan-v2')) {
     addSliderDots(plans);
-    bindJumpLinks(block);
+    // scroll only on click of BOOK THIS PLAN
+    block.querySelectorAll('.choose-plan-cta a[href]').forEach((link) => {
+      link.addEventListener('click', scrollToBookingForm);
+    });
   }
 }
