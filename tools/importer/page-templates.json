@@ -15,7 +15,7 @@
     },
     {
       "name": "asian-paints-safe-painting-service",
-      "description": "Safe painting service page with the circle-filters product circles",
+      "description": "Safe painting service page with the circle-filters product circles, choose-plan plans and category-showcase ideas rows",
       "urls": [],
       "blocks": [
         {
@@ -29,6 +29,12 @@
           "name": "choose-plan",
           "instances": [
             ".choosePlanBlock"
+          ]
+        },
+        {
+          "name": "category-showcase",
+          "instances": [
+            ".exploreOurStores"
           ]
         }
       ]
