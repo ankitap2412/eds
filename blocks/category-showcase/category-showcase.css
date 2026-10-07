@@ -1,0 +1,513 @@
+/* =============================================
+   CATEGORY SHOWCASE
+   Heading + intro above a row of category cards.
+   Mobile: horizontal scroll, 300px cards; desktop: four cards per row.
+   ============================================= */
+
+.category-showcase {
+  --cs-text: #23242b;
+  --cs-muted: #585b61;
+
+  /* mobile: left padding only, so the card row scrolls off the right edge */
+  padding-left: 4%;
+}
+
+/* ---------- HEADER ---------- */
+.category-showcase .category-showcase-header {
+  margin-bottom: 20px;
+}
+
+.category-showcase .category-showcase-heading {
+  margin: 0 0 8px;
+  font-weight: 800;
+  font-size: 24px;
+  line-height: 33.6px;
+  letter-spacing: 0;
+  color: var(--cs-text);
+}
+
+.category-showcase .category-showcase-intro {
+  margin: 0;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  letter-spacing: 0;
+  color: var(--cs-text);
+}
+
+/* ---------- CARDS (mobile: horizontal scroll) ---------- */
+.category-showcase .category-showcase-cards {
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.category-showcase .category-showcase-cards::-webkit-scrollbar {
+  display: none;
+}
+
+.category-showcase .category-showcase-card {
+  flex: 0 0 300px;
+  scroll-snap-align: start;
+}
+
+.category-showcase .category-showcase-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.category-showcase .category-showcase-image img {
+  display: block;
+  width: 100%;
+  height: 192px;
+  object-fit: cover;
+}
+
+.category-showcase .category-showcase-title {
+  margin: 16px 0 8px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0;
+  color: var(--cs-text);
+}
+
+.category-showcase .category-showcase-desc {
+  max-width: 86%;
+  margin: 0;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16.8px;
+  letter-spacing: 0;
+  color: var(--cs-muted);
+}
+
+/* ---------- PAGINATION DOTS (mobile only) ---------- */
+.category-showcase .category-showcase-dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.category-showcase .category-showcase-dot {
+  width: 10px;
+  height: 10px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: #d0d0d2;
+  cursor: pointer;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.category-showcase .category-showcase-dot.active {
+  width: 36px;
+  background: var(--cs-text);
+}
+
+/* =============================================
+   VARIANT: side-cta-variant
+   Left-aligned heading with a text CTA; mobile cards loop with dots.
+   ============================================= */
+.category-showcase.side-cta-variant {
+  --cs-cta-underline: #5e25b2;
+
+  /* mobile: cards run edge to edge; the header and dots carry their own padding */
+  padding-left: 0;
+}
+
+.category-showcase.side-cta-variant .category-showcase-header {
+  padding: 0 4%;
+}
+
+.category-showcase.side-cta-variant .category-showcase-heading {
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 28px;
+}
+
+.category-showcase.side-cta-variant .category-showcase-cta-wrapper {
+  margin: 0;
+  line-height: 1;
+}
+
+.category-showcase.side-cta-variant .category-showcase-cta {
+  display: inline-block;
+  padding-bottom: 3px;
+  border-bottom: 2px solid var(--cs-cta-underline);
+  border-radius: 2px;
+  color: var(--cs-text);
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.category-showcase.side-cta-variant .category-showcase-cards {
+  gap: 10px;
+  padding: 0 12px;
+  scroll-padding-inline: 12px;
+}
+
+.category-showcase.side-cta-variant .category-showcase-card {
+  flex-basis: calc(100% - 40px);
+}
+
+/* mob-fix: wider mobile cards (desktop is a grid, so flex-basis has no effect there) */
+@media (width < 900px) {
+  .category-showcase.side-cta-variant.mob-fix .category-showcase-card {
+    flex-basis: calc(100% - 10px);
+  }
+}
+
+.category-showcase.side-cta-variant .category-showcase-image img {
+  height: auto;
+  aspect-ratio: 300 / 255;
+}
+
+.category-showcase.side-cta-variant .category-showcase-title {
+  margin: 12px 0 0;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.08;
+  letter-spacing: 0.6px;
+}
+
+.category-showcase.side-cta-variant .category-showcase-dots {
+  gap: 6px;
+  padding: 0 4%;
+}
+
+.category-showcase.side-cta-variant .category-showcase-dot {
+  width: 6px;
+  height: 6px;
+}
+
+.category-showcase.side-cta-variant .category-showcase-dot.active {
+  width: 16px;
+}
+
+/* =============================================
+   DESKTOP
+   ============================================= */
+@media (width >= 900px) {
+  .category-showcase .category-showcase-header {
+    margin-bottom: 32px;
+    text-align: center;
+  }
+
+  .category-showcase .category-showcase-heading {
+    margin-bottom: 16px;
+    font-size: 40px;
+    line-height: 42px;
+    letter-spacing: -0.02em;
+  }
+
+  .category-showcase .category-showcase-intro {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  .category-showcase .category-showcase-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    overflow: visible;
+  }
+
+  .category-showcase .category-showcase-image img {
+    height: 285px;
+  }
+
+  .category-showcase .category-showcase-dots {
+    display: none;
+  }
+
+  .category-showcase .category-showcase-title {
+    margin: 20px 0 12px;
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  .category-showcase .category-showcase-desc {
+    font-size: 14px;
+    line-height: 18px;
+  }
+}
+
+@media (width >= 900px) {
+  .category-showcase.side-cta-variant {
+    padding-left: 4%;
+  }
+
+  .category-showcase.side-cta-variant .category-showcase-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 30px;
+    padding: 0;
+    text-align: left;
+  }
+
+  .category-showcase.side-cta-variant .category-showcase-heading {
+    margin: 0;
+    font-size: 30px;
+    line-height: 40px;
+    letter-spacing: 0;
+  }
+
+  .category-showcase.side-cta-variant .category-showcase-cta-wrapper {
+    flex-shrink: 0;
+    margin: 0;
+  }
+
+  .category-showcase.side-cta-variant .category-showcase-cta {
+    font-size: 13px;
+  }
+
+  .category-showcase.side-cta-variant .category-showcase-cards {
+    gap: 4%;
+    padding: 0;
+  }
+
+  .category-showcase.side-cta-variant .category-showcase-clone {
+    display: none;
+  }
+
+  .category-showcase.side-cta-variant .category-showcase-image img {
+    height: auto;
+    aspect-ratio: 387 / 330;
+  }
+
+  .category-showcase.side-cta-variant .category-showcase-title {
+    margin: 18px 0 0;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 0.88px;
+  }
+}
+
+/* =============================================
+   OPTION: Arrow | true
+   A thin arrow beside each card title, 15px below the title's top.
+   The title's top margin moves to the row, so the arrow lines up in every variant.
+   ============================================= */
+.category-showcase .category-showcase-info {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.category-showcase .category-showcase-info .category-showcase-title {
+  flex: 1 1 auto;
+  margin-top: 0;
+}
+
+.category-showcase .category-showcase-arrow {
+  flex: 0 0 23px;
+  width: 23px;
+  height: 13px;
+  margin-top: 15px;
+  color: var(--cs-text);
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 1;
+}
+
+.category-showcase.side-cta-variant .category-showcase-info {
+  margin-top: 12px;
+}
+
+@media (width >= 900px) {
+  .category-showcase .category-showcase-info {
+    margin-top: 20px;
+  }
+
+  .category-showcase.side-cta-variant .category-showcase-info {
+    gap: 0;
+    margin-top: 18px;
+  }
+}
+/* =============================================
+   VARIANT: large-size-variant 
+   Matches the legacy Square Image Cross Link mobile layout:
+   - Cards stack vertically (no horizontal scroll, looping clones or dots)
+   - Header: heading on the left, CTA on the right, vertically centered
+   - Container padding 25px 4.5% 0, Manrope 14px/22px, #222
+   - Card title 16px/700, description 14px/22px
+   ============================================= */
+
+.category-showcase.large-size-variant .category-showcase-cards{
+  grid-template-columns: repeat(3, 1fr);
+}
+.category-showcase.side-cta-variant.large-size-variant .category-showcase-title{
+  margin:30px 0 0;
+  font-size: 20px;
+}
+.category-showcase.large-size-variant .category-showcase-desc{
+  line-height: 30px;
+}
+.category-showcase.side-cta-variant.large-size-variant.large-padding .category-showcase-title{
+  margin:10px 0 0;
+  font-size: 20px;
+}
+.category-showcase.large-size-variant.large-padding .category-showcase-desc{
+  line-height: 22px;
+}
+.category-showcase.side-cta-variant.large-size-variant .category-showcase-image img{
+
+    height: auto;
+  aspect-ratio: 387 / 300;;
+}
+.category-showcase.side-cta-variant.large-size-variant.large-padding .category-showcase-image img{
+
+    height: auto;
+  aspect-ratio: 387 / 330;;
+}
+@media (max-width: 768px) {
+
+  /* Container: same box as the legacy .squareimagecrosslink */
+  .category-showcase.large-size-variant,
+  .category-showcase.side-cta-variant.large-size-variant {
+    --cs-text: #222;
+    box-sizing: border-box ;
+    width: 100% ;
+    padding: 25px 4% 0 4%; /* overrides padding-left:0 and padding-right:7% */
+    text-align: left;
+    font-family: Manrope, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: #222;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+    .category-showcase.large-size-variant,
+  .category-showcase.side-cta-variant.large-size-variant.large-padding {
+    --cs-text: #222;
+    box-sizing: border-box ;
+    width: 100% ;
+    padding: 0; /* overrides padding-left:0 and padding-right:7% */
+    text-align: left;
+    font-family: Manrope, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: #222;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+  /* Header: heading left, CTA right, vertically centered */
+  .category-showcase.large-size-variant .category-showcase-header,
+  .category-showcase.side-cta-variant.large-size-variant .category-showcase-header {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    box-sizing: border-box;
+    padding: 0;
+    margin-top: 50px;
+    margin-bottom: 10px;
+    text-align: left;
+    font-family: Manrope, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: #222;
+  }
+
+  .category-showcase.large-size-variant .category-showcase-heading {
+    flex: 1 1 0;      /* takes the leftover space and wraps if long */
+    min-width: 0;
+    margin: 0;
+  }
+
+  .category-showcase.large-size-variant .category-showcase-cta-wrapper {
+    flex: 0 0 auto;   /* CTA keeps its own width */
+    align-self: center;
+    margin: 0 0 0 auto;
+    line-height: 1;
+  }
+
+  .category-showcase.large-size-variant .category-showcase-cta {
+    display: inline-block;
+    white-space: nowrap;
+    margin: 0;
+  }
+
+  /* subtitle (if authored) gets its own full-width row */
+  .category-showcase.large-size-variant .category-showcase-intro {
+    flex: 0 0 100%;
+    margin: 0;
+  }
+
+  /* CARDS: carousel -> vertical stack */
+  .category-showcase.large-size-variant .category-showcase-cards,
+  .category-showcase.side-cta-variant.large-size-variant .category-showcase-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 0 ;
+    scroll-snap-type: none ;
+    scroll-padding-inline: 0;
+  }
+
+  .category-showcase.large-size-variant .category-showcase-card,
+  .category-showcase.side-cta-variant.large-size-variant .category-showcase-card {
+    flex: none;   /* the carousel flex-basis would become a height in a column */
+    width: 100%;
+    scroll-snap-align: none;
+  }
+
+  /* Hide the looping clones and the pagination dots */
+  .category-showcase.large-size-variant .category-showcase-clone,
+  .category-showcase.large-size-variant .category-showcase-dots {
+    display: none !important;
+  }
+
+  /* Image: full width, natural ratio */
+  .category-showcase.large-size-variant .category-showcase-image img,
+  .category-showcase.side-cta-variant.large-size-variant .category-showcase-image img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: auto;
+  }
+
+  /* Card text */
+  .category-showcase.side-cta-variant.large-size-variant .category-showcase-title,
+  .category-showcase.side-cta-variant.large-size-variant.large-padding .category-showcase-title {
+    margin: 12px 0 0 ;
+    font-size: 16px ;
+    line-height: 22px;
+    font-weight: 700;
+    letter-spacing: 0;
+    color: #222;
+  }
+
+  .category-showcase.large-size-variant .category-showcase-desc,
+  .category-showcase.large-size-variant.large-padding .category-showcase-desc {
+    max-width: 100%;
+    margin-top: 4px;
+    font-size: 14p;
+    line-height: 22px;
+    color: #222;
+  }
+}
