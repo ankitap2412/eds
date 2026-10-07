@@ -154,7 +154,10 @@ export default function decorate(block) {
     const imgs = [...row.querySelectorAll('img')];
     const desktopImg = imgs[0];
     const mobileImg = imgs[1] || imgs[0];
-    const textCells = [...row.children].filter((c) => !c.querySelector('picture, img'));
+    // with all 5 columns, cols 1-2 are images: an empty mobile image cell isn't the title
+    const cells = [...row.children];
+    const textCells = (cells.length >= 5 ? cells.slice(2) : cells)
+      .filter((c) => !c.querySelector('picture, img'));
     const title = textCells[0]?.textContent.trim() || '';
     // description is the first text cell after the title that isn't just the link
     const descCell = textCells.slice(1).find((c) => !readHref(c));

@@ -163,9 +163,9 @@
   flex-basis: calc(100% - 40px);
 }
 
-/* mob-fix: wider mobile cards (desktop is a grid, so flex-basis has no effect there) */
+/* mob-space: wider mobile cards (desktop is a grid, so flex-basis has no effect there) */
 @media (width < 900px) {
-  .category-showcase.side-cta-variant.mob-fix .category-showcase-card {
+  .category-showcase.side-cta-variant.mob-space .category-showcase-card {
     flex-basis: calc(100% - 10px);
   }
 }

@@ -1,6 +1,7 @@
 /* global WebImporter */
 import circleFiltersParser from './parsers/circle-filters.js';
 import choosePlanParser from './parsers/choose-plan.js';
+import categoryShowcaseParser from './parsers/category-showcase.js';
 
 /**
  * Returns the last AEM title component heading that appears before the given element.
@@ -17,7 +18,8 @@ function findPrecedingHeading(document, element) {
 
 /**
  * Builds the /asian-paints-safe-painting-service page: a circle-filters block whose first row
- * is the "range of products" heading, then (in its own section) the choose-plan-v2 plans.
+ * is the "range of products" heading, then (in its own section) the choose-plan-v2 plans,
+ * then one category-showcase section per "Ideas for your home" row.
  */
 export default {
   transform: ({ document, url }) => {
@@ -43,6 +45,15 @@ export default {
       choosePlanParser(block, { document, url });
     }
 
+    // "Ideas for your home paints" and "... textures", each in its own section
+    const showcases = [...document.querySelectorAll('.exploreOurStores')];
+    showcases.forEach((showcase) => {
+      main.append(document.createElement('hr'));
+      const block = showcase.cloneNode(true);
+      main.append(block);
+      categoryShowcaseParser(block, { document, url });
+    });
+
     main.append(WebImporter.Blocks.getMetadataBlock(document, {
       Title: 'Safe Painting Service',
       Description: 'Explore our range of interior paints with the Asian Paints Safe Painting Service.',
@@ -54,6 +65,7 @@ export default {
       report: {
         'circle-filters': source ? 'found' : 'missing',
         'choose-plan': plans ? 'found' : 'missing',
+        'category-showcase': showcases.length,
       },
     }];
   },

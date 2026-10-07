@@ -30,10 +30,10 @@ var CustomImportScript = (() => {
     if (element.querySelector(".service-circular-container-wp")) return "Circle Filters (service)";
     return "Circle Filters";
   }
-  function link(document, href, text2) {
+  function link(document, href, text3) {
     const a = document.createElement("a");
     a.href = href;
-    a.textContent = text2;
+    a.textContent = text3;
     return a;
   }
   function parse(element, {
@@ -45,10 +45,10 @@ var CustomImportScript = (() => {
     const cells = [[variantName(element)]];
     if (heading) {
       const h = document.createElement(heading.tagName.toLowerCase());
-      const text2 = heading.textContent.replace(/\s+/g, " ").trim();
+      const text3 = heading.textContent.replace(/\s+/g, " ").trim();
       const srcLink = heading.querySelector("a[href]");
-      if (srcLink) h.append(link(document, srcLink.href, text2));
-      else h.textContent = text2;
+      if (srcLink) h.append(link(document, srcLink.href, text3));
+      else h.textContent = text3;
       cells.push(["Title", h]);
     }
     const subtitle = (_a = element.querySelector(".description-area .desc")) == null ? void 0 : _a.textContent.trim();
@@ -69,10 +69,10 @@ var CustomImportScript = (() => {
       img.alt = srcImg.getAttribute("alt") || srcImg.getAttribute("title") || "";
       const nameCell = document.createElement("div");
       item.querySelectorAll(".desc-wp p").forEach((srcP) => {
-        const text2 = srcP.textContent.trim();
-        if (!text2) return;
+        const text3 = srcP.textContent.trim();
+        if (!text3) return;
         const p = document.createElement("p");
-        p.textContent = text2;
+        p.textContent = text3;
         nameCell.append(p);
       });
       const srcLink = item.querySelector('a[href]:not([href^="javascript"])');
@@ -138,6 +138,44 @@ var CustomImportScript = (() => {
     element.replaceWith(WebImporter.DOMUtils.createTable(cells, document));
   }
 
+  // tools/importer/parsers/category-showcase.js
+  var text2 = (el) => (el == null ? void 0 : el.textContent.replace(/\s+/g, " ").trim()) || "";
+  function linkOf(source, url, document, label) {
+    const href = source == null ? void 0 : source.getAttribute("href");
+    if (!href) return "";
+    const link2 = document.createElement("a");
+    link2.href = new URL(href, url).href;
+    link2.textContent = label || link2.href;
+    return link2;
+  }
+  function parse3(element, { document, url }) {
+    const cells = [["Category Showcase (side-cta-variant, mob-space)"]];
+    const header = element.querySelector(".header-explore-stores");
+    cells.push(["Title", text2(header == null ? void 0 : header.querySelector("h1, h2, h3, h4, h5, h6"))]);
+    cells.push(["Subtitle", ""]);
+    const cta = header == null ? void 0 : header.querySelector(".cta a[href]");
+    cells.push(["CTA", linkOf(cta, url, document, text2(cta))]);
+    cells.push(["Open in new tab", (cta == null ? void 0 : cta.getAttribute("target")) === "_blank" ? "true" : "false"]);
+    cells.push(["Desktop image", "Mobile image", "Title", "Subtitle", "Link"]);
+    element.querySelectorAll(".block-explore-stores").forEach((card) => {
+      const srcImg = card.querySelector("img");
+      let image = "";
+      if (srcImg == null ? void 0 : srcImg.getAttribute("src")) {
+        image = document.createElement("img");
+        image.src = new URL(srcImg.getAttribute("src"), url).href;
+        image.alt = srcImg.getAttribute("alt") || "";
+      }
+      cells.push([
+        image,
+        "",
+        text2(card.querySelector(".subtext-icon-wrapper, .informationWrap")),
+        "",
+        linkOf(card.querySelector("a[href]"), url, document)
+      ]);
+    });
+    element.replaceWith(WebImporter.DOMUtils.createTable(cells, document));
+  }
+
   // tools/importer/import-asian-paints-safe-painting-service.js
   function findPrecedingHeading(document, element) {
     return [...document.querySelectorAll(".title > :is(h1, h2, h3, h4, h5, h6)")].filter((h) => h.compareDocumentPosition(element) & Node.DOCUMENT_POSITION_FOLLOWING).pop();
@@ -163,6 +201,13 @@ var CustomImportScript = (() => {
         main.append(block);
         parse2(block, { document, url });
       }
+      const showcases = [...document.querySelectorAll(".exploreOurStores")];
+      showcases.forEach((showcase) => {
+        main.append(document.createElement("hr"));
+        const block = showcase.cloneNode(true);
+        main.append(block);
+        parse3(block, { document, url });
+      });
       main.append(WebImporter.Blocks.getMetadataBlock(document, {
         Title: "Safe Painting Service",
         Description: "Explore our range of interior paints with the Asian Paints Safe Painting Service."
@@ -172,7 +217,8 @@ var CustomImportScript = (() => {
         path: "/asian-paints-safe-painting-service",
         report: {
           "circle-filters": source ? "found" : "missing",
-          "choose-plan": plans ? "found" : "missing"
+          "choose-plan": plans ? "found" : "missing",
+          "category-showcase": showcases.length
         }
       }];
     }
