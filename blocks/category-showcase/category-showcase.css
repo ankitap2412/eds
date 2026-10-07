@@ -343,6 +343,7 @@
     margin-top: 18px;
   }
 }
+
 /* =============================================
    VARIANT: large-size-variant 
    Matches the legacy Square Image Cross Link mobile layout:
@@ -355,51 +356,58 @@
 .category-showcase.large-size-variant .category-showcase-cards{
   grid-template-columns: repeat(3, 1fr);
 }
+
 .category-showcase.side-cta-variant.large-size-variant .category-showcase-title{
   margin:30px 0 0;
   font-size: 20px;
 }
+
 .category-showcase.large-size-variant .category-showcase-desc{
   line-height: 30px;
 }
+
 .category-showcase.side-cta-variant.large-size-variant.large-padding .category-showcase-title{
   margin:10px 0 0;
   font-size: 20px;
 }
+
 .category-showcase.large-size-variant.large-padding .category-showcase-desc{
   line-height: 22px;
 }
-.category-showcase.side-cta-variant.large-size-variant .category-showcase-image img{
 
+.category-showcase.side-cta-variant.large-size-variant .category-showcase-image img{
     height: auto;
   aspect-ratio: 387 / 300;;
 }
-.category-showcase.side-cta-variant.large-size-variant.large-padding .category-showcase-image img{
 
+.category-showcase.side-cta-variant.large-size-variant.large-padding .category-showcase-image img{
     height: auto;
   aspect-ratio: 387 / 330;;
 }
-@media (max-width: 768px) {
 
+@media (width <= 768px) {
   /* Container: same box as the legacy .squareimagecrosslink */
   .category-showcase.large-size-variant,
   .category-showcase.side-cta-variant.large-size-variant {
     --cs-text: #222;
+
     box-sizing: border-box ;
     width: 100% ;
-    padding: 25px 4% 0 4%; /* overrides padding-left:0 and padding-right:7% */
+    padding: 25px 4% 0; /* overrides padding-left:0 and padding-right:7% */
     text-align: left;
     font-family: Manrope, sans-serif;
     font-weight: 400;
     font-size: 14px;
     line-height: 22px;
     color: #222;
-    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
   }
+
     .category-showcase.large-size-variant,
   .category-showcase.side-cta-variant.large-size-variant.large-padding {
     --cs-text: #222;
+
     box-sizing: border-box ;
     width: 100% ;
     padding: 0; /* overrides padding-left:0 and padding-right:7% */
@@ -409,13 +417,14 @@
     font-size: 14px;
     line-height: 22px;
     color: #222;
-    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
   }
+
   /* Header: heading left, CTA right, vertically centered */
   .category-showcase.large-size-variant .category-showcase-header,
   .category-showcase.side-cta-variant.large-size-variant .category-showcase-header {
-    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
     display: flex;
     justify-content: space-between;
@@ -506,7 +515,7 @@
   .category-showcase.large-size-variant.large-padding .category-showcase-desc {
     max-width: 100%;
     margin-top: 4px;
-    font-size: 14p;
+    font-size: 14px;
     line-height: 22px;
     color: #222;
   }
