@@ -5,7 +5,7 @@
  * Source: AEM exploreOurStores component (`.exploreOurStores`): a heading with a
  * text CTA beside it, then a row of image cards linking to blog posts.
  * Output: a labelled table authors can read in DA:
- *   [Category Showcase (side-cta-variant, mob-fix)]
+ *   [Category Showcase (side-cta-variant, mob-space)]
  *   [Title | text]  [Subtitle | text]  [CTA | link]  [Open in new tab | true/false]
  *   [Desktop image | Mobile image | Title | Subtitle | Link]   (header row)
  *   [image | (empty: uses desktop) | title | description | link]   (one row per card)
@@ -29,7 +29,7 @@ function linkOf(source, url, document, label) {
 }
 
 export default function parse(element, { document, url }) {
-  const cells = [['Category Showcase (side-cta-variant, mob-fix)']];
+  const cells = [['Category Showcase (side-cta-variant, mob-space)']];
 
   const header = element.querySelector('.header-explore-stores');
   cells.push(['Title', text(header?.querySelector('h1, h2, h3, h4, h5, h6'))]);

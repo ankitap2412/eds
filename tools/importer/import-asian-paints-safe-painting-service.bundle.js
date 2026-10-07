@@ -149,7 +149,7 @@ var CustomImportScript = (() => {
     return link2;
   }
   function parse3(element, { document, url }) {
-    const cells = [["Category Showcase (side-cta-variant, mob-fix)"]];
+    const cells = [["Category Showcase (side-cta-variant, mob-space)"]];
     const header = element.querySelector(".header-explore-stores");
     cells.push(["Title", text2(header == null ? void 0 : header.querySelector("h1, h2, h3, h4, h5, h6"))]);
     cells.push(["Subtitle", ""]);
