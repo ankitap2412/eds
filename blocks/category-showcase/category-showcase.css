@@ -400,6 +400,7 @@
     font-size: 14px;
     line-height: 22px;
     color: #222;
+    -webkit-text-size-adjust: 100%; /* stylelint-disable-line property-no-vendor-prefix -- iOS Safari */
     text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
   }
@@ -417,6 +418,7 @@
     font-size: 14px;
     line-height: 22px;
     color: #222;
+    -webkit-text-size-adjust: 100%; /* stylelint-disable-line property-no-vendor-prefix -- iOS Safari */
     text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
   }
@@ -424,6 +426,7 @@
   /* Header: heading left, CTA right, vertically centered */
   .category-showcase.large-size-variant .category-showcase-header,
   .category-showcase.side-cta-variant.large-size-variant .category-showcase-header {
+    -webkit-text-size-adjust: 100%; /* stylelint-disable-line property-no-vendor-prefix -- iOS Safari */
     text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
     display: flex;
