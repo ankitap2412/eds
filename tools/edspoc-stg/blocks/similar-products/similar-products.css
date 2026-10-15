@@ -180,9 +180,8 @@
   background-color: #5e25b2;
 }
 
-/* favourite (heart): the source's icon sprite (.favouriteIcon), outline
-   heart at -660px -233px, filled at -720px -233px. Absolute URL so it also
-   loads on the aem.page/aem.live hosts, which have no /etc.clientlibs. */
+/* favourite (heart), as the source's .favouriteIcon: a 40px white circle
+   with a 19x15 heart, outline at rest and solid red once added */
 .similar-products .similar-products-fav {
   position: absolute;
   top: 10px;
@@ -194,12 +193,12 @@
   padding: 0;
   border: 0;
   border-radius: 0;
-  background: url("https://www.asianpaints.com/etc.clientlibs/apcolourcatalogue/clientlibs/clientlib-global/resources/images/Icons-Sprite.webp") -660px -233px no-repeat;
+  background: url('/eds/icons/wishlist.svg') center / 40px 40px no-repeat;
   cursor: pointer;
 }
 
 .similar-products .similar-products-fav[aria-pressed="true"] {
-  background-position: -720px -233px;
+  background-image: url('/eds/icons/wishlist-filled.svg');
 }
 
 /* prev / next arrows – desktop only, when there are more cards than fit */
