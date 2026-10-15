@@ -156,7 +156,20 @@ function buildQuestion(labelText, options, groupName) {
     if (href) {
       input.dataset.href = href;
       input.addEventListener('change', () => {
-        if (input.checked) window.open(href, '_blank', 'noopener');
+        if (!input.checked) return;
+        window.open(href, '_blank', 'noopener');
+        // Link options only redirect; keep the previous selection highlighted.
+        input.checked = false;
+        if (optionsWrap.prevChecked) optionsWrap.prevChecked.checked = true;
+      });
+    }
+
+    if (!href) {
+      input.addEventListener('change', () => {
+        optionsWrap.prevChecked = input;
+        optionsWrap.querySelectorAll('.wallpainttool-option').forEach((el) => {
+          el.classList.toggle('clicked-radio', el.contains(input) && input.checked);
+        });
       });
     }
 
@@ -1590,6 +1603,28 @@ async function downloadRecommendationsPdf(options) {
   }
 }
 
+/**
+ * Shows or hides the button's loader, as the source: a "↻" after the arrow
+ * that spins while the button works. The button is disabled meanwhile so it
+ * can't be pressed twice.
+ * @param {HTMLButtonElement} button
+ * @param {boolean} loading
+ */
+function setButtonLoading(button, loading) {
+  let loader = button.querySelector('.wallpainttool-loader');
+  if (!loader) {
+    loader = document.createElement('span');
+    loader.className = 'wallpainttool-loader';
+    loader.setAttribute('aria-hidden', 'true');
+    loader.textContent = '↻';
+    button.append(loader);
+  }
+  button.classList.toggle('is-loading', loading);
+  button.disabled = loading;
+  if (loading) button.setAttribute('aria-busy', 'true');
+  else button.removeAttribute('aria-busy');
+}
+
 export default function decorate(block) {
   const allRows = [...block.children];
   if (!allRows.length) return;
@@ -1677,7 +1712,8 @@ export default function decorate(block) {
       // Send the lead exactly as form.js does for a BHPS form; the radio
       // answers are picked up by name (BHPS_QUESTION_NAMES).
       step2.form.dataset.submitting = 'true';
-      step2.submit.disabled = true;
+      // the loader stays until the recommendations are on screen
+      setButtonLoading(step2.submit, true);
       step2.submitError.hidden = true;
       submitLeadFromForm(step2.form, {
         resourcePath: step2.node || window.location.pathname,
@@ -1691,7 +1727,7 @@ export default function decorate(block) {
         .then(() => {
           setFormFieldsToCookie(step2.form, LEAD_SELECTORS);
           formCompleted = true;
-          showResults();
+          return showResults();
         })
         .catch((err) => {
           // eslint-disable-next-line no-console
@@ -1700,7 +1736,7 @@ export default function decorate(block) {
         })
         .finally(() => {
           step2.form.dataset.submitting = 'false';
-          step2.submit.disabled = false;
+          setButtonLoading(step2.submit, false);
         });
     });
   }
@@ -1714,12 +1750,11 @@ export default function decorate(block) {
   }
 
   // Download PDF: the recommendations for the tab on screen, with the
-  // details from the lead form. The button is disabled while it builds.
+  // details from the lead form. The loader spins while it builds.
   step3.downloadCta.addEventListener('click', async () => {
     const selection = step3.getSelection();
     if (!selection || step3.downloadCta.disabled) return;
-    step3.downloadCta.disabled = true;
-    step3.downloadCta.setAttribute('aria-busy', 'true');
+    setButtonLoading(step3.downloadCta, true);
     try {
       await downloadRecommendationsPdf({
         group: selection.group,
@@ -1737,8 +1772,7 @@ export default function decorate(block) {
       // eslint-disable-next-line no-console
       console.error('wallpainttool PDF download failed', err);
     } finally {
-      step3.downloadCta.disabled = false;
-      step3.downloadCta.removeAttribute('aria-busy');
+      setButtonLoading(step3.downloadCta, false);
     }
   });
 
