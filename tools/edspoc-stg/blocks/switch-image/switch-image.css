@@ -1,0 +1,219 @@
+/* as the source: 4.5% gutters below 992px; from 992px a 1440px column with
+   57.6px gutters (4% of 1440px), so the image and tabs are 1325px wide */
+.switch-image {
+  --switch-image-accent: #512b8b;
+  --switch-image-shadow: 0 2px 5px 0 #dfdfdf;
+  --switch-image-tab-bg: #f8f8f8;
+  --switch-image-divider: #e5dede;
+
+  box-sizing: border-box;
+  padding-right: 4.5%;
+  padding-left: 4.5%;
+}
+
+/* header: container title + description */
+.switch-image .switch-image-header {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.switch-image .switch-image-header > :is(h1, h2, h3, h4, h5, h6) {
+    line-height: 22px;
+    margin-bottom: 10px;
+    color: #3b3b3b;
+    font-weight: 700;
+    font-family: manrope, sans-serif;
+    font-size: 22px;
+}
+
+.switch-image .switch-image-header > p {
+  line-height: 19px;
+  letter-spacing: 0.54px;
+  color: #3b3b3b;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+/* desktop image stage – hidden on mobile/tablet */
+.switch-image .switch-image-stage {
+  display: none;
+  overflow: hidden;
+}
+
+/* pictures are stacked in one grid cell so the stage keeps its height on switch */
+.switch-image .switch-image-stage > picture {
+  grid-area: 1 / 1;
+  visibility: hidden;
+}
+
+.switch-image .switch-image-stage > picture.active {
+  visibility: visible;
+}
+
+.switch-image .switch-image-stage img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* tabs / accordion items */
+.switch-image .switch-image-tabs {
+  display: block;
+}
+
+.switch-image .switch-image-item {
+  width: 100%;
+  margin-bottom: 2px;
+  box-shadow: var(--switch-image-shadow);
+}
+
+.switch-image .switch-image-tab {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 60px;
+  margin: 0;
+  padding: 10px 40px 10px 20px;
+  border: 0;
+  border-radius: 0;
+  background-color: transparent;
+  box-shadow: var(--switch-image-shadow);
+  color: #3b3b3b;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0.5px;
+  text-align: left;
+  white-space: normal;
+  cursor: pointer;
+}
+
+.switch-image .switch-image-tab:hover,
+.switch-image .switch-image-tab:focus {
+  background-color: transparent;
+  color: var(--text-color);
+}
+
+.switch-image .switch-image-tab:focus-visible {
+  outline: 2px solid var(--switch-image-accent);
+  outline-offset: -2px;
+}
+
+.switch-image .switch-image-label {
+  flex: 0 0 auto;
+  width: calc((100% + 20px) * 0.9);
+  margin-inline: auto;
+}
+
+.switch-image .switch-image-item.active .switch-image-tab {
+  font-weight: 600;
+}
+
+/* mobile/tablet, as the source: 15px lines, the open tab in 600 weight
+   (a min-width reset would also beat the desktop tab line-height) */
+@media (width < 992px) {
+  .switch-image .switch-image-tab {
+    height: 60px; /* fixed as the source, even when the text runs to 3 lines */
+    line-height: 15px;
+  }
+}
+
+/* inline image for mobile/tablet */
+.switch-image .switch-image-mobile {
+  display: none;
+  height: 400px;
+  overflow: hidden;
+}
+
+.switch-image .switch-image-item.active .switch-image-mobile {
+  display: block;
+}
+
+.switch-image .switch-image-mobile picture,
+.switch-image .switch-image-mobile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (width >= 600px) {
+  .switch-image .switch-image-header > :is(h1, h2, h3, h4, h5, h6) {
+    font-size: 30px;
+  }
+
+  .switch-image .switch-image-header > p {
+    max-width: none;
+  }
+
+  .switch-image .switch-image-tab {
+    padding: 0 40px 0 20px;
+    box-shadow: none;
+  }
+}
+
+/* desktop: image stage with tab row below */
+@media (width >= 992px) {
+  .switch-image {
+    max-width: 1440px;
+    margin-inline: auto;
+    padding-right: min(4%, 57.6px);
+    padding-left: min(4%, 57.6px);
+  }
+
+  .switch-image .switch-image-stage {
+    display: grid;
+  }
+
+  .switch-image .switch-image-tabs {
+    display: flex;
+    justify-content: center;
+    box-shadow: var(--switch-image-shadow);
+  }
+
+  .switch-image .switch-image-item {
+    flex: 1;
+    margin-bottom: 0;
+    padding: 15px;
+    border-right: 1px solid var(--switch-image-divider);
+    background-color: var(--switch-image-tab-bg);
+    box-shadow: none;
+  }
+
+  .switch-image .switch-image-item:last-child {
+    border-right: 0;
+  }
+
+  .switch-image .switch-image-item.active {
+    padding: 15px 15px 13px;
+    border-bottom: 2px solid var(--switch-image-accent);
+    background-color: #fff;
+  }
+
+  .switch-image .switch-image-tab {
+    justify-content: center;
+    height: 60px;
+    padding: 0 25px;
+    line-height: 20px;
+    text-align: center;
+  }
+
+  /* desktop: the label spans the tab, less its 25px padding */
+  .switch-image .switch-image-label {
+    flex: 1;
+    width: auto;
+    margin-inline: 0;
+  }
+
+  .switch-image .switch-image-item.active .switch-image-mobile {
+    display: none;
+  }
+}
+
+.common-wrapper.switch-image-container {
+    max-width: 1440px;
+    margin-left: auto;
+    position: relative;
+    margin-right: auto;
+}
