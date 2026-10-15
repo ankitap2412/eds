@@ -1,0 +1,486 @@
+.similar-products {
+  --similar-products-heading: #3b3b3b;
+  --similar-products-text: #222;
+  --similar-products-muted: #848080;
+  --similar-products-accent: #431a80;
+  --similar-products-underline: #5e25b2;
+  --similar-products-gap: 16px;
+
+  /* self-contained container (original: 1280px, centered) so the header
+     doesn't hug the viewport edges when the section isn't constrained */
+  box-sizing: border-box;
+  width: 100%;
+  margin-inline: auto;
+}
+
+/* header: title + view all */
+.similar-products .similar-products-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 35px;
+}
+
+.similar-products .similar-products-title {
+  margin: 0;
+  color: var(--similar-products-heading);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.similar-products .similar-products-viewall {
+  flex-shrink: 0;
+  padding-bottom: 2px;
+  border-bottom: 2px solid #5e25b2;
+  color: #222;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 12px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  text-transform: uppercase;
+  border-radius: 2px;
+}
+
+/* carousel track */
+.similar-products .similar-products-viewport {
+  position: relative;
+}
+
+.similar-products .similar-products-track {
+  display: flex;
+  gap: 8px;
+  margin: 0;
+  padding: 0 0 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  list-style: none;
+}
+
+.similar-products .similar-products-track::-webkit-scrollbar {
+  display: none;
+}
+
+/* card – mobile/tablet: details always visible */
+.similar-products .similar-products-card {
+  position: relative;
+  display: grid;
+  box-sizing: border-box;
+  flex: 0 0 calc(100% - 8px);
+  grid-template: "name name" "subtitle subtitle" "media features" "desc desc" "cta cta" / 124px 1fr;
+  column-gap: 20px;
+  align-content: start;
+  padding: 20px 20px 15px;
+  background-color: #fff;
+  color: var(--similar-products-heading);
+  scroll-snap-align: start;
+}
+
+.similar-products .similar-products-face,
+.similar-products .similar-products-details {
+  display: contents;
+}
+
+.similar-products .similar-products-face-name {
+  display: none;
+}
+
+.similar-products .similar-products-media {
+  grid-area: media;
+  margin-top: 5px;
+}
+
+.similar-products .similar-products-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.similar-products .similar-products-name {
+  grid-area: name;
+  margin: 0 30px 5px 0;
+  color: var(--similar-products-heading);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.similar-products .similar-products-subtitle {
+  grid-area: subtitle;
+  margin: 0 0 14px;
+  padding: 0 30px 10px 0;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 13px;
+  letter-spacing: 0.58px;
+}
+
+.similar-products .similar-products-desc {
+  grid-area: desc;
+  margin: 0 0 14px;
+  padding-bottom: 10px;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 22px;
+  letter-spacing: 0.58px;
+}
+
+.similar-products .similar-products-features {
+  grid-area: features;
+  margin-top: 5px;
+}
+
+.similar-products .similar-products-features-label {
+  margin: 0 0 10px;
+  color: var(--similar-products-muted);
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 22px;
+  letter-spacing: 0.5px;
+}
+
+.similar-products .similar-products-features ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.similar-products .similar-products-features li {
+  margin: 0 0 15px;
+  color: #222;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 15px;
+  letter-spacing: 0.55px;
+}
+
+.similar-products .similar-products-cta {
+  display: block;
+  box-sizing: border-box;
+  grid-area: cta;
+  padding: 9px 20px;
+  border: 1px solid var(--similar-products-accent);
+  color: var(--similar-products-accent);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0.86px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.similar-products .similar-products-cta:hover {
+  color: #fff;
+  text-decoration: none;
+  background-color: #5e25b2;
+}
+
+/* favourite (heart): the source's icon sprite (.favouriteIcon), outline
+   heart at -660px -233px, filled at -720px -233px. Absolute URL so it also
+   loads on the aem.page/aem.live hosts, which have no /etc.clientlibs. */
+.similar-products .similar-products-fav {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: url("https://www.asianpaints.com/etc.clientlibs/apcolourcatalogue/clientlibs/clientlib-global/resources/images/Icons-Sprite.webp") -660px -233px no-repeat;
+  cursor: pointer;
+}
+
+.similar-products .similar-products-fav[aria-pressed="true"] {
+  background-position: -720px -233px;
+}
+
+/* prev / next arrows – desktop only, when there are more cards than fit */
+.similar-products .similar-products-nav {
+  display: none;
+}
+
+.similar-products .similar-products-nav button {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  background-color: #fff;
+  color: var(--similar-products-heading);
+  box-shadow: 0 2px 5px rgb(0 0 0 / 10%);
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.similar-products .similar-products-nav button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 9px;
+  height: 9px;
+  border-top: 2px solid currentcolor;
+  border-right: 2px solid currentcolor;
+  transform: translate(-65%, -50%) rotate(45deg);
+}
+
+.similar-products .similar-products-nav .similar-products-prev {
+  left: -20px;
+}
+
+.similar-products .similar-products-nav .similar-products-prev::before {
+  transform: translate(-35%, -50%) rotate(-135deg);
+}
+
+.similar-products .similar-products-nav .similar-products-next {
+  right: -20px;
+}
+
+.similar-products .similar-products-nav button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.similar-products .similar-products-cta:focus-visible,
+.similar-products .similar-products-fav:focus-visible,
+.similar-products .similar-products-nav button:focus-visible {
+  outline: 2px solid var(--similar-products-accent);
+  outline-offset: 2px;
+}
+
+/* tablet: 2 cards per view */
+@media (width >=768px) {
+  .similar-products .similar-products-card {
+    flex-basis: calc((100% - 8px) / 2 - 12px);
+  }
+}
+
+/* desktop: hover reveal, up to 3 cards per view, centered when fewer */
+@media (width >=992px) {
+  .similar-products {
+    max-width: 1440px;
+    padding-inline: 4%;
+  }
+
+  .similar-products .similar-products-header {
+    align-items: flex-end;
+    margin-bottom: 34px;
+    padding-top: 50px;
+    padding-right: 100px;
+  }
+
+  .similar-products .similar-products-viewall {
+    margin-bottom: 5px;
+    font-weight: 600;
+  }
+
+  .similar-products .similar-products-title {
+    font-size: 30px;
+    line-height: 34px;
+  }
+
+  .similar-products .similar-products-track {
+    gap: var(--similar-products-gap);
+    padding: 0 0 50px;
+  }
+
+  .similar-products .similar-products-card {
+    display: block;
+    /* as the source's slides: a third of the row less 47px in all
+       (2 gaps + 15px), so 413px at 1920 and 426px at 1440 */
+    flex: 0 0 calc((100% - 2 * var(--similar-products-gap) - 15px) / 3);
+    height: 506px;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .similar-products .similar-products-card:first-child {
+    margin-left: auto;
+  }
+
+  .similar-products .similar-products-card:last-child {
+    margin-right: auto;
+  }
+
+  .similar-products .similar-products-face {
+    display: block;
+    height: 100%;
+    padding: 70px 0 55px;
+    text-align: center;
+  }
+
+  .similar-products .similar-products-media {
+    margin: 0;
+  }
+
+  .similar-products .similar-products-media img {
+    width: auto;
+    height: 275px;
+    margin: 0 auto;
+    object-fit: contain;
+  }
+
+  .similar-products .similar-products-face-name {
+    display: block;
+    margin: 42px 0 0;
+    padding: 0 20px;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0.5px;
+    text-transform: capitalize;
+  }
+
+  .similar-products .similar-products-details {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px 0;
+    background-color: #fff;
+    text-align: center;
+    transform: translateY(100%);
+    transition: transform 1s;
+  }
+
+  .similar-products .similar-products-card:hover .similar-products-details,
+  .similar-products .similar-products-card:focus-within .similar-products-details {
+    transform: translateY(0);
+  }
+
+  .similar-products .similar-products-name {
+    margin: 0;
+    font-size: 13px;
+    text-transform: capitalize;
+  }
+
+  .similar-products .similar-products-subtitle {
+    display: none;
+  }
+
+  .similar-products .similar-products-desc {
+    order: 1;
+    margin: 13px 0 20px;
+    padding: 0;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+  }
+
+  .similar-products .similar-products-features {
+    order: 2;
+    margin: 0;
+  }
+
+  .similar-products .similar-products-features-label {
+    margin: 0 0 -3px;
+    font-size: 14px;
+  }
+
+  .similar-products .similar-products-features li {
+    margin: 0 0 8px;
+    font-size: 13px;
+    line-height: 30px;
+  }
+
+  .similar-products .similar-products-cta {
+    order: 3;
+    width: 270px;
+    max-width: 100%;
+    margin: auto 0 80px;
+    padding: 16px 20px;
+    font-size: 13px;
+  }
+}
+
+@media (width >=1030px) {
+  .similar-products.is-scrollable .similar-products-nav {
+    display: block;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .similar-products .similar-products-details {
+    transition: none;
+  }
+}
+
+.similar-products-wrapper {
+  background-color: #f8f8f8;
+}
+
+/* =============================================
+   Mobile/tablet (< 992px), as the source's similarproduct: 4.5% side gutters, the
+   title with 7px below it, one card plus a peek of the next (4px in, 8px apart,
+   running into the right gutter), the image beside a half-width key-features
+   column, the button at the foot of a card at least 410px tall.
+   The gutter is in vw so the viewport's negative margin cancels the block's right
+   padding exactly: any more and the page widens and shifts the fixed header.
+   ============================================= */
+@media (width < 992px) {
+  .similar-products {
+    --similar-products-gutter: 4.5vw;
+
+    padding-inline: var(--similar-products-gutter);
+  }
+
+  .similar-products .similar-products-header {
+    margin-bottom: 20px;
+    padding-top: 20px;
+  }
+
+  .similar-products .similar-products-title {
+    margin-bottom: 7px;
+  }
+
+  .similar-products .similar-products-viewport {
+    margin-right: calc(-1 * var(--similar-products-gutter));
+  }
+
+  .similar-products .similar-products-track {
+    padding: 0 var(--similar-products-gutter) 20px 4px;
+  }
+
+  .similar-products .similar-products-card {
+    flex-basis: calc(100% - 14px);
+    grid-template-rows: auto auto auto 1fr auto;
+    align-content: stretch;
+    min-height: 410px;
+    padding-bottom: 35px;
+  }
+
+  .similar-products .similar-products-media img {
+    height: 147px;
+    object-fit: contain;
+  }
+
+  /* half the card's content width (the image column + gap are 144px), less the 20px gap */
+  .similar-products .similar-products-features {
+    max-width: calc((100% + 144px) / 2 - 20px);
+  }
+}
+
+/* from 576px the source centres a 600px column (its 4.5% gutters included) */
+@media (width >=576px) and (width < 768px) {
+  .similar-products {
+    max-width: 600px;
+  }
+}
+
+
+.light-grey {
+  background-color: #f8f8f8;
+}
