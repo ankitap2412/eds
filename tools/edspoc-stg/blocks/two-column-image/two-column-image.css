@@ -1,0 +1,330 @@
+.two-column-image {
+    display: flex;
+    gap: 20px;
+
+    @media (width <= 900px) {
+        flex-direction: column;
+    }
+}
+
+.two-column-image h3 {
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    margin-top: 0;
+
+    @media (width <= 900px) {
+        font-size: 20px;
+        font-weight: 800;
+        margin-bottom: 5px;
+    }
+}
+
+.two-column-image p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+
+    @media (width <= 900px) {
+        margin-bottom: 0;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16.39px;
+    }
+}
+
+.two-column-image > div {
+    position: relative;
+    width: 100%;
+}
+
+.two-column-image .image-wrapper picture,
+.two-column-image .image-wrapper img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/* all images share the ratio of the shortest one (set from JS); the taller
+   image is resized to fit, never cropped, so every card is the same size */
+.two-column-image .image-wrapper img {
+    aspect-ratio: var(--two-column-image-ratio, auto);
+    object-fit: fill;
+}
+
+.two-column-image .content-wrapper {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    color: #fff;
+    top: 10%;
+
+    @media (width <= 991px) {
+        top: 18%;
+    }
+}
+
+.two-column-image .content-wrapper a {
+    color: #fff;
+    border: 1px solid #fff;
+    padding: 8px 20px;
+    border-radius: 45px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 32px;
+    font-weight: 700;
+    font-size: 14px;
+
+    @media (width <= 900px) {
+        margin-top: 0;
+    }
+
+    @media (width >= 1200px) and (width <= 1360px) {
+        margin-top: 10px;
+    }
+}
+
+.two-column-image .content-wrapper a:hover {
+    background: #fff7e8;
+    color: #000;
+    border-color: #232426;
+}
+
+.two-column-image .content-wrapper a:hover .link-icon {
+    filter: invert(1);
+}
+
+.two-column-image .content-wrapper > div:nth-child(2) {
+    font-size: 20px;
+    margin-top: 20px;
+    font-weight: 700;
+
+    @media (width <= 900px) {
+    margin-top: 0;
+        font-size: 14px;
+    }
+}
+
+/* whole card is clickable: overlay text lets clicks through to the image link */
+.two-column-image .is-linked .image-wrapper a {
+    display: block;
+}
+
+.two-column-image .is-linked .content-wrapper {
+    pointer-events: none;
+}
+
+.two-column-image .is-linked .content-wrapper a {
+    pointer-events: auto;
+}
+
+.common-wrapper.two-column-image-container {
+    max-width: 1440px;
+    margin-left: auto;
+    position: relative;
+    margin-right: auto;
+}
+
+/* "Explore Other Interior Paints": the section heading above the image cards, aligned and set in
+   the type of asianpaints.com: left-aligned, Manrope 500 16px/22px (800 20px from 992px) with
+   0.5px letter-spacing. Only the heading changes. The doubled classes outrank the page-style
+   rules (main > .section.rte-text.gradient-title > .default-content-wrapper > …) */
+main > .section.two-column-image-container.two-column-image-container > .default-content-wrapper.default-content-wrapper > :is(h1, h2, h3, h4, h5, h6) {
+  margin-right: 0;
+  margin-left: 0;
+  font-family: manrope, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22px;
+  letter-spacing: 0.5px;
+  text-align: left;
+}
+
+@media (width >= 992px) {
+  main > .section.two-column-image-container.two-column-image-container > .default-content-wrapper.default-content-wrapper > :is(h1, h2, h3, h4, h5, h6) {
+    font-size: 20px;
+    font-weight: 800;
+  }
+}
+
+/* ==================== trending-articles-variant : start ==================== */
+
+/* the "You may also like" cards from the asianpaints.com product pages (trendingArticlesSec),
+   with the rich text above them: the cards stacked 40px apart below 992px, two of 48% side by
+   side from 992px, each image at its own height; the side padding is the source's 4.5% (4% on
+   desktop) of the page width. Sizes are the source's. */
+main > .section > .two-column-image-wrapper:has(> .two-column-image.trending-articles-variant) {
+  max-width: none;
+  padding: 0 4.5%;
+}
+
+.two-column-image.trending-articles-variant {
+  flex-flow: column;
+  gap: 0;
+  margin-bottom: 50px;
+}
+
+.two-column-image.trending-articles-variant > :not(.two-column-image-intro) ~ :not(.two-column-image-intro) {
+  margin-top: 40px;
+}
+
+/* the source's images aren't evened out: each keeps its own ratio */
+.two-column-image.trending-articles-variant .image-wrapper img {
+  aspect-ratio: auto;
+}
+
+/* the text above the cards, as the source's rte: an empty line, then "You may also like" in
+   Manrope ExtraBold, the bold words in the brand gradient */
+.two-column-image.trending-articles-variant .two-column-image-intro {
+  padding-top: 37px;
+  margin-bottom: 14px;
+}
+
+.two-column-image.trending-articles-variant .two-column-image-intro > * {
+  margin: 0;
+  font-family: manrope, sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 21.86px;
+  letter-spacing: 0.5px;
+  color: #222;
+}
+
+.two-column-image.trending-articles-variant .two-column-image-intro strong {
+  font-weight: inherit;
+  background: linear-gradient(91deg, #431a80 1.46%, #ee4137 51.38%, #feb940);
+  background-clip: text;
+  /* stylelint-disable-next-line property-no-vendor-prefix */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@media (width >= 992px) {
+  main > .section > .two-column-image-wrapper:has(> .two-column-image.trending-articles-variant) {
+    padding: 0 4%;
+  }
+
+  .two-column-image.trending-articles-variant {
+    flex-flow: row wrap;
+    justify-content: space-between;
+    margin-bottom: 100px;
+  }
+
+  .two-column-image.trending-articles-variant > .two-column-image-intro {
+    flex: 0 0 100%;
+    padding-top: 36px;
+    margin-bottom: 16px;
+  }
+
+  .two-column-image.trending-articles-variant > :not(.two-column-image-intro) {
+    flex: 0 0 48%;
+    width: 48%;
+  }
+
+  .two-column-image.trending-articles-variant > :not(.two-column-image-intro) ~ :not(.two-column-image-intro) {
+    margin-top: 0;
+  }
+
+  .two-column-image.trending-articles-variant .two-column-image-intro > * {
+    font-size: 20px;
+    line-height: 22px;
+  }
+}
+
+/* smaller desktops: the source page zooms out in these steps. Where the page itself is already
+   zoomed (styles.css sets --body-zoom), the block's own zoom cancels out to 1 */
+@media (width >= 992px) and (width < 1100px) {
+  .two-column-image.trending-articles-variant {
+    zoom: calc(0.7 / var(--body-zoom, 1));
+  }
+}
+
+@media (width >= 1100px) and (width < 1200px) {
+  .two-column-image.trending-articles-variant {
+    zoom: calc(0.75 / var(--body-zoom, 1));
+  }
+}
+
+@media (width >= 1200px) and (width < 1280px) {
+  .two-column-image.trending-articles-variant {
+    zoom: calc(0.8 / var(--body-zoom, 1));
+  }
+}
+
+@media (width >= 1280px) and (width < 1366px) {
+  .two-column-image.trending-articles-variant {
+    zoom: calc(0.85 / var(--body-zoom, 1));
+  }
+}
+
+@media (width >= 1366px) and (width < 1440px) {
+  .two-column-image.trending-articles-variant {
+    zoom: calc(0.9 / var(--body-zoom, 1));
+  }
+}
+
+/* ==================== trending-articles-variant : end ==================== */
+
+/* ===== FIX TRENDING VARIANT UNDER A SECTION HEADING : START ===== */
+
+/* "Explore Other … Paints" (product pages): the trending-articles-variant cards with the heading
+   as the section's default content (rte-text section). The section already has the source's side
+   padding (4.5%, 4% from 992px), so the variant's own padding is not added again */
+main > .section.rte-text > .two-column-image-wrapper:has(> .two-column-image.trending-articles-variant) {
+  padding: 0;
+}
+
+/* the source's 14px between the heading and the cards */
+main > .section.rte-text:has(> .two-column-image-wrapper > .two-column-image.trending-articles-variant) > .default-content-wrapper > :is(h1, h2, h3, h4, h5, h6) {
+  margin-bottom: 14px;
+}
+
+/* the space below: this margin joins the page's 40px gap between sections; with the next
+   section's own top space (the Columns block's 40px on Ultima) 60px gives the source's 100px
+   from 992px. Below 992px the variant's 50px is dropped (the 40px gap is already more) */
+main > .section.rte-text > .two-column-image-wrapper > .two-column-image.trending-articles-variant {
+  margin-bottom: 0;
+}
+
+@media (width >= 992px) {
+  main > .section.rte-text > .two-column-image-wrapper > .two-column-image.trending-articles-variant {
+    margin-bottom: 60px;
+  }
+}
+
+/* ===== FIX TRENDING VARIANT UNDER A SECTION HEADING : END ===== */
+
+/* ==================== tools-redirection variant : start ==================== */
+
+/* "Painting Quotation Calculator" / "Waterproofing Calculator" banners of the product pages, as
+   the source's tools-redirection-parent: each image fills its column's width and is as tall as
+   the shortest image file (the source's height: 100% in an equal-height row), so 241px on
+   desktop and 122px on mobile here; corners rounded 8px; 10px apart when stacked. The section
+   keeps the source's gutters: 4.5% on mobile, 4% from 992px, never more than 57.6px (4% of the
+   source's 1440px page), so the row is 1325px wide on wide screens.
+   Authoring: Two Column Image (tools-redirection) */
+main > .section.two-column-image-container:has(> .two-column-image-wrapper > .two-column-image.tools-redirection) {
+  padding-right: 4.5%;
+  padding-left: 4.5%;
+}
+
+.two-column-image.tools-redirection .image-wrapper img {
+  height: var(--two-column-image-height, auto);
+  aspect-ratio: auto;
+  border-radius: 8px;
+}
+
+@media (width <= 900px) {
+  .two-column-image.tools-redirection {
+    gap: 10px;
+  }
+}
+
+@media (width >= 992px) {
+  main > .section.two-column-image-container:has(> .two-column-image-wrapper > .two-column-image.tools-redirection) {
+    padding-right: min(4%, 57.6px);
+    padding-left: min(4%, 57.6px);
+  }
+}
+
+/* ==================== tools-redirection variant : end ==================== */
