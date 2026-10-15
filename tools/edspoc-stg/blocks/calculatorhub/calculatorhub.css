@@ -177,20 +177,28 @@
     justify-content: center;
 }
 
-.tool-fields form#toolsMiniForm .form-actions .animated-arrow-button::after {
-    content: '';
-    background: url('/eds/icons/arrow-icon-new.svg') no-repeat;
-    width: 19px;
-    height: 16px;
-    filter: contrast(1000%) invert(100%) sepia(100%) saturate(10000%) hue-rotate(90deg);
+/* As the source: the arrow is the button's own .arrow span (17x20, the
+   shared arrow icon turned black), 10px after the text. Drawing it on the
+   button's ::after instead left the empty span as an extra flex item, which
+   doubled the gap to 20px. */
+.tool-fields form#toolsMiniForm .form-actions .animated-arrow-button .arrow {
+    display: flex;
+    width: 17px;
+    height: 20px;
+    transition: transform 0.2s ease-in;
 }
 
-.tool-fields form#toolsMiniForm .form-actions .animated-arrow-button:hover::after {
-    transition: all .2s ease-in;
-    -webkit-transform: translateX(6px);
-    -moz-transform: translateX(6px);
-    -ms-transform: translateX(6px);
-    -o-transform: translateX(6px);
+.tool-fields form#toolsMiniForm .form-actions .animated-arrow-button .arrow::after {
+    content: '';
+    display: block;
+    width: 17px;
+    height: 20px;
+    background: url('/eds/icons/arrow-icon.svg') no-repeat;
+    filter: invert(1);
+}
+
+.tool-fields form#toolsMiniForm .form-actions .animated-arrow-button:hover .arrow,
+.tool-fields form#toolsMiniForm .form-actions .animated-arrow-button:focus-visible .arrow {
     transform: translateX(6px);
 }
 
