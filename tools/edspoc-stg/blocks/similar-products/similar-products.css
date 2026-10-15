@@ -298,6 +298,7 @@
 
   .similar-products .similar-products-card {
     display: block;
+
     /* as the source's slides: a third of the row less 47px in all
        (2 gaps + 15px), so 413px at 1920 and 426px at 1440 */
     flex: 0 0 calc((100% - 2 * var(--similar-products-gap) - 15px) / 3);
