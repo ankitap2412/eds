@@ -51,7 +51,7 @@ main > .section.banner-float-container + .section.similar-products-container {
   left: 15%;
   padding: 0 15px;
   text-align: center;
-  transform: translateY(-50%);
+  transform: translateY(calc(-50% - 5px)); /* the source's block sits 5px above the centre */
 }
 
 .banner-float .banner-float-content h2 {
@@ -112,6 +112,11 @@ main > .section.banner-float-container + .section.similar-products-container {
 @media (width >= 768px) {
   .banner-float .banner-float-inner {
     padding: 60px 105px;
+  }
+
+  /* the source's taller button from 768px (12px text until 992px) */
+  .banner-float .banner-float-cta {
+    padding: 16px 20px;
   }
 }
 
