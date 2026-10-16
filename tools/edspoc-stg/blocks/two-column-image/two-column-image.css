@@ -294,36 +294,111 @@ main > .section.rte-text > .two-column-image-wrapper > .two-column-image.trendin
 
 /* ===== FIX TRENDING VARIANT UNDER A SECTION HEADING : END ===== */
 
+
 /* ==================== tools-redirection variant : start ==================== */
 
 /* "Painting Quotation Calculator" / "Waterproofing Calculator" banners of the product pages, as
-   the source's tools-redirection-parent: each image fills its column's width and is as tall as
-   the shortest image file (the source's height: 100% in an equal-height row), so 241px on
-   desktop and 122px on mobile here; corners rounded 8px; 10px apart when stacked. The section
-   keeps the source's gutters: 4.5% on mobile, 4% from 992px, never more than 57.6px (4% of the
-   source's 1440px page), so the row is 1325px wide on wide screens.
+   the source's tools-redirection-parent. Below 992px: the cards stacked 20px apart, 122px tall,
+   the text in the source's mobile type, the CTA a text-only pill (black, underlined, no arrow, as
+   on the source). From 992px: side by side, 241px tall, title 40px and subtitle 20px on a 22px
+   line, the CTA a 38px pill with a 17px arrow. Corners rounded 8px. The section keeps the
+   source's gutters: 4.5% on mobile, 4% from 992px, never more than 57.6px (4% of the source's
+   1440px page), so the row is 1325px wide on wide screens.
    Authoring: Two Column Image (tools-redirection) */
 main > .section.two-column-image-container:has(> .two-column-image-wrapper > .two-column-image.tools-redirection) {
   padding-right: 4.5%;
   padding-left: 4.5%;
 }
 
+.two-column-image.tools-redirection {
+  flex-direction: column;
+}
+
 .two-column-image.tools-redirection .image-wrapper img {
-  height: var(--two-column-image-height, auto);
+  height: 122px;
   aspect-ratio: auto;
   border-radius: 8px;
 }
 
-@media (width <= 900px) {
-  .two-column-image.tools-redirection {
-    gap: 10px;
-  }
+.two-column-image.tools-redirection .content-wrapper {
+  top: 24.5px;
+}
+
+.two-column-image.tools-redirection h3 {
+  margin: 0 0 5px;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 22px;
+}
+
+.two-column-image.tools-redirection .content-wrapper > div:nth-child(2) {
+  margin-top: 0;
+}
+
+.two-column-image.tools-redirection p {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16.39px;
+}
+
+.two-column-image.tools-redirection .content-wrapper a {
+  box-sizing: border-box;
+  height: 38px;
+  margin-top: 2px;
+  padding: 0 18px;
+  gap: 0;
+  font-size: 14px;
+  line-height: 22px;
+  color: #000;
+  text-decoration: underline;
+}
+
+.two-column-image.tools-redirection .content-wrapper a .link-icon {
+  display: none;
 }
 
 @media (width >= 992px) {
   main > .section.two-column-image-container:has(> .two-column-image-wrapper > .two-column-image.tools-redirection) {
     padding-right: min(4%, 57.6px);
     padding-left: min(4%, 57.6px);
+  }
+
+  .two-column-image.tools-redirection {
+    flex-direction: row;
+  }
+
+  .two-column-image.tools-redirection .image-wrapper img {
+    height: 241px;
+  }
+
+  .two-column-image.tools-redirection .content-wrapper {
+    top: 45px;
+  }
+
+  .two-column-image.tools-redirection h3 {
+    margin-bottom: 32px;
+    font-size: 40px;
+    font-weight: 700;
+  }
+
+  .two-column-image.tools-redirection p {
+    font-size: 20px;
+    line-height: 22px;
+  }
+
+  .two-column-image.tools-redirection .content-wrapper a {
+    margin-top: 42px;
+    padding: 0 20px;
+    gap: 10px;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .two-column-image.tools-redirection .content-wrapper a .link-icon {
+    display: block;
+    width: 17px;
+    height: 17px;
   }
 }
 
