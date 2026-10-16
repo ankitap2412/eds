@@ -6,10 +6,11 @@
   text-align: center;
 }
 
-/* outranks the global main > .section > div { padding: 0 } */
+/* outranks the global main > .section > div { padding: 0 }. Mobile, as the
+   source: two nested 4.5% gutters (4.5% + 4.5% of the 91% left) = 8.595% */
 main .section > .application-process-wrapper {
-  padding-left: 37px;
-  padding-right: 37px;
+  padding-left: 8.595%;
+  padding-right: 8.595%;
 }
 
 .application-process .application-process-title {
@@ -20,7 +21,7 @@ main .section > .application-process-wrapper {
   line-height: 24px;
 }
 
-/* mobile: the block's 37px is the only side gutter (no extra section padding) */
+/* mobile: the block's 8.595% is the only side gutter (no extra section padding) */
 @media (width < 768px) {
   main .section.application-process-container {
     padding-left: 0;
@@ -111,6 +112,13 @@ main .section > .application-process-wrapper {
   height: 140px;
   border-radius: 50%;
   background-color: var(--application-process-circle);
+}
+
+/* mobile: the source's circle starts 1px below the step label */
+@media (width < 768px) {
+  .application-process .application-process-media {
+    top: 1px;
+  }
 }
 
 .application-process .application-process-step:nth-child(even) .application-process-media {
@@ -226,6 +234,17 @@ main .section > .application-process-wrapper {
      across the whole content width */
   .application-process .application-process-steps {
     max-width: 1219px;
+  }
+
+  /* the source's 77px between the step type and the circle */
+  .application-process .application-process-top {
+    padding-bottom: 77px;
+  }
+
+  /* the source's packshot sits 2px right of the circle's centre */
+  .application-process .application-process-media > a,
+  .application-process .application-process-media > picture {
+    translate: 2px 0;
   }
 
   .application-process .application-process-step,
