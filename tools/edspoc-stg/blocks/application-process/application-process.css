@@ -1,0 +1,242 @@
+.application-process {
+  --application-process-text: #222;
+  --application-process-circle: rgb(0 0 0 / 10%);
+
+  color: var(--application-process-text);
+  text-align: center;
+}
+
+/* outranks the global main > .section > div { padding: 0 } */
+main .section > .application-process-wrapper {
+  padding-left: 37px;
+  padding-right: 37px;
+}
+
+.application-process .application-process-title {
+  margin: 0;
+  color: var(--application-process-text);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+/* mobile: the block's 37px is the only side gutter (no extra section padding) */
+@media (width < 768px) {
+  main .section.application-process-container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+/* steps – mobile: one per row, image and text alternate sides */
+.application-process .application-process-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+  max-width: 550px;
+  margin: 100px auto 0;
+  padding: 0 0 40px;
+  list-style: none;
+}
+
+/* each step is as tall as its text; the circle hangs below into the gap */
+.application-process .application-process-step {
+  display: grid;
+  position: relative;
+  grid-template: "media top" auto "media info" 1fr / 60% 1fr;
+  text-align: left;
+}
+
+.application-process .application-process-step:nth-child(even) {
+  grid-template: "top media" auto "info media" 1fr / 1fr 140px;
+}
+
+.application-process .application-process-top {
+  grid-area: top;
+}
+
+.application-process .application-process-info {
+  grid-area: info;
+  margin-top: 10px;
+}
+
+.application-process .application-process-label {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: 0.33px;
+  text-transform: uppercase;
+}
+
+.application-process .application-process-type {
+  margin: 0;
+  color: var(--application-process-text);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 22px;
+  letter-spacing: 1.23px;
+  text-transform: uppercase;
+}
+
+.application-process .application-process-name {
+  margin: 0 0 10px;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 22px;
+  letter-spacing: 0.58px;
+  text-transform: capitalize;
+}
+
+.application-process .application-process-coats {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 1.08px;
+  text-transform: uppercase;
+}
+
+/* grey circle with the product image rising above it */
+.application-process .application-process-media {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  grid-area: media;
+  justify-content: center;
+  align-items: flex-start;
+  box-sizing: border-box;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background-color: var(--application-process-circle);
+}
+
+.application-process .application-process-step:nth-child(even) .application-process-media {
+  right: 0;
+  left: auto;
+}
+
+.application-process .application-process-media > a,
+.application-process .application-process-media > picture {
+  display: block;
+  width: 80%;
+  margin-top: -25px;
+}
+
+.application-process .application-process-media picture {
+  display: block;
+}
+
+.application-process .application-process-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.application-process .application-process-link:focus-visible {
+  outline: 1px solid currentcolor;
+  outline-offset: 2px;
+}
+
+/* tablet & desktop: steps side by side, text above and inside the circle */
+@media (width >= 768px) {
+  main .section > .application-process-wrapper {
+    padding-left: 35px;
+    padding-right: 35px;
+  }
+
+  .application-process .application-process-title {
+    font-size: 30px;
+    line-height: 34px;
+  }
+
+  .application-process .application-process-steps {
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    gap: 40px 0;
+    max-width: none;
+    padding-bottom: 80px;
+  }
+
+  .application-process .application-process-step,
+  .application-process .application-process-step:nth-child(even) {
+    display: flex;
+    flex: 0 1 22%;
+    flex-direction: column;
+    align-items: center;
+    max-width: 230px;
+    text-align: center;
+  }
+
+  .application-process .application-process-top {
+    padding-bottom: 70px;
+  }
+
+  .application-process .application-process-label {
+    margin-bottom: 5px;
+    font-size: 13px;
+  }
+
+  .application-process .application-process-media,
+  .application-process .application-process-step:nth-child(even) .application-process-media {
+    position: static;
+    width: 100%;
+    max-width: 230px;
+    height: auto;
+    aspect-ratio: 1;
+  }
+
+  .application-process .application-process-media > a,
+  .application-process .application-process-media > picture {
+    width: 154px;
+    max-width: 67%;
+    margin-top: -60px;
+  }
+
+  .application-process .application-process-media img {
+    max-height: 184px;
+    object-fit: contain;
+  }
+
+  /* product name + coats sit in the lower part of the circle; shifted visually
+     (layout space kept, like the original) so the circle never overlaps what follows */
+  .application-process .application-process-info {
+    position: relative;
+    top: -110px;
+    margin-top: 10px;
+    padding: 0 25px;
+  }
+
+  .application-process .application-process-name {
+    margin-bottom: 5px;
+    padding: 0 19px;
+  }
+
+  .application-process .application-process-coats {
+    line-height: normal;
+    letter-spacing: 0.88px;
+  }
+}
+
+@media (width >= 992px) {
+  /* as the source's .appProBody: the steps share a 1219px row (92% of its
+     1325px content column), so they sit 290px apart instead of spreading
+     across the whole content width */
+  .application-process .application-process-steps {
+    max-width: 1219px;
+  }
+
+  .application-process .application-process-step,
+  .application-process .application-process-step:nth-child(even) {
+    flex-basis: 230px;
+  }
+}
+
+.common-wrapper.application-process-container {
+    max-width: 1440px;
+    margin-left: auto;
+    position: relative;
+    margin-right: auto;
+}
