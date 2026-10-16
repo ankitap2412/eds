@@ -1,0 +1,377 @@
+.title-with-multi-field {
+  width: 100%;
+  background: #f7f2e7;
+  border-radius: 8px;
+}
+
+.title-with-multi-field .pack-sizes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 63px 0 16px;
+}
+
+.title-with-multi-field .pack-sizes-heading {
+  width: 100%;
+  text-align: center;
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 35.2px;
+  color: #5e4f43;
+  padding-bottom: 45px;
+  margin: 0;
+}
+
+.title-with-multi-field .pack-sizes-cards {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 36px;
+}
+
+.title-with-multi-field .pack-sizes-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.title-with-multi-field .pack-sizes-image {
+  position: relative;
+}
+
+.title-with-multi-field .pack-sizes-image picture {
+  display: block;
+}
+
+.title-with-multi-field .pack-sizes-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Different sizes using same image */
+
+.title-with-multi-field .size-1 .pack-sizes-image picture {
+  width: 148px;
+  height: 174px;
+}
+
+.title-with-multi-field .size-4 .pack-sizes-image picture {
+  width: 171px;
+  height: 192px;
+}
+
+.title-with-multi-field .size-10 .pack-sizes-image picture {
+  width: 194px;
+  height: 210px;
+}
+
+.title-with-multi-field .size-20 .pack-sizes-image picture {
+  width: 217px;
+  height: 228px;
+}
+
+.title-with-multi-field .pack-sizes-size {
+  position: absolute;
+  top: 55%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-55%);
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 35.2px;
+  text-align: center;
+  color: #5e4f43;
+}
+
+.title-with-multi-field .pack-sizes-price {
+  margin-top: 15px;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 21.86px;
+  color: #161515;
+}
+
+.title-with-multi-field .pack-sizes-tax {
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 15.03px;
+  color: #5e4f43;
+}
+
+.title-with-multi-field .pack-sizes-note {
+  margin-top: 50px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 19.12px;
+  color: #5e4f43;
+}
+
+.title-with-multi-field .pack-sizes-asterisk {
+  color: #ee4137;
+}
+
+/* mobile: one row per pack size – can on the left (graduated sizes),
+   price + tax centered beside it */
+@media (width <=768px) {
+  .title-with-multi-field {
+    border-radius: 0;
+  }
+
+  .title-with-multi-field .pack-sizes {
+    padding: 27px 0 14px;
+  }
+
+  .title-with-multi-field .pack-sizes-heading {
+    font-size: 24px;
+    line-height: 14.4px;
+    letter-spacing: 0.5px;
+    padding-top: 14px;
+    padding-bottom: 48px;
+  }
+
+  .title-with-multi-field .pack-sizes-cards {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding-top: 11px;
+  }
+
+  .title-with-multi-field .pack-sizes-card {
+    display: grid;
+    grid-template:
+      "image price" auto
+      "image tax" auto
+      / auto auto;
+    column-gap: 28px;
+    align-items: center;
+  }
+
+  .title-with-multi-field .pack-sizes-image {
+    grid-area: image;
+  }
+
+  .title-with-multi-field .pack-sizes-image img {
+    height: auto;
+  }
+
+  .title-with-multi-field .pack-sizes-price {
+    grid-area: price;
+    align-self: end;
+    margin-top: -3px;
+    font-size: 16px;
+  }
+
+  .title-with-multi-field .pack-sizes-tax {
+    grid-area: tax;
+    align-self: start;
+    margin-left: 6px;
+    font-size: 11px;
+  }
+
+  /* graduated can sizes (smallest 1 L, largest 20 L) */
+  .title-with-multi-field .pack-sizes-image picture {
+    width: 64px;
+    height: 80px;
+  }
+
+  .title-with-multi-field .size-1 .pack-sizes-image picture {
+    width: 58px;
+    height: 75px;
+  }
+
+  .title-with-multi-field .size-4 .pack-sizes-image picture {
+    width: 65px;
+    height: 84px;
+  }
+
+  .title-with-multi-field .size-10 .pack-sizes-image picture {
+    width: 72px;
+    height: 93px;
+  }
+
+  .title-with-multi-field .size-20 .pack-sizes-image picture {
+    width: 86px;
+    height: 111px;
+  }
+
+  .title-with-multi-field .pack-sizes-size {
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 21.86px;
+    top: 52%;
+    transform: translateY(-50%);
+  }
+
+  .title-with-multi-field .pack-sizes-note {
+    margin-top: 30px;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 0 30px;
+  }
+}
+
+.common-wrapper.title-with-multi-field-container {
+  max-width: 1445px;
+  margin-left: auto;
+  position: relative;
+  margin-right: auto;
+}
+
+@media (1200px <=width <=1360px) {
+  .title-with-multi-field .pack-sizes-cards {
+    scale: 0.95;
+    gap: 19px;
+  }
+
+  .title-with-multi-field .pack-sizes-price {
+    font-size: 13px;
+    line-height: 20px;
+  }
+
+  .title-with-multi-field .pack-sizes-tax {
+    font-size: 8.5px;
+    line-height: 10px;
+  }
+
+  .title-with-multi-field .pack-sizes-note {
+    font-size: 12px;
+    line-height: 14.4px;
+  }
+}
+
+@media (992px <=width <=1280px) {
+  .title-with-multi-field .pack-sizes-size {
+    font-size: 26px;
+    line-height: 32px;
+  }
+}
+
+/* pack-size-font-variant */
+@media (width >= 1200px) and (width <= 1360px) {
+  .title-with-multi-field.pack-size-font-variant .pack-sizes-size {
+    font-size: 26px;
+  }
+
+  .title-with-multi-field.pack-size-font-variant .pack-sizes-price {
+    font-size: 13px;
+  }
+}
+
+/* pack-size-space variant: panel inside a 1440px column with the gutters
+   outside the beige background; stacked rows below 992px, as on the live site */
+.title-with-multi-field.pack-size-space .pack-sizes {
+  padding-top: 72px;
+}
+
+@media (width < 992px) {
+  .title-with-multi-field.pack-size-space {
+    border-radius: 0;
+  }
+
+  .title-with-multi-field.pack-size-space .pack-sizes {
+    padding: 35px 0 14px;
+  }
+
+  .title-with-multi-field.pack-size-space .pack-sizes-heading {
+    font-size: 24px;
+    line-height: 14.4px;
+    letter-spacing: 0.5px;
+    padding: 0 0 34px;
+  }
+
+  .title-with-multi-field.pack-size-space .pack-sizes-cards {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding-top: 20px;
+  }
+
+  .title-with-multi-field.pack-size-space .pack-sizes-card {
+    display: grid;
+    grid-template:
+      "image price" auto
+      "image tax" auto
+      / auto auto;
+    column-gap: 28px;
+    align-items: center;
+  }
+
+  .title-with-multi-field.pack-size-space .pack-sizes-image {
+    grid-area: image;
+  }
+
+  .title-with-multi-field.pack-size-space .pack-sizes-image img {
+    height: 100%;
+  }
+
+  .title-with-multi-field.pack-size-space .pack-sizes-price {
+    grid-area: price;
+    align-self: end;
+    margin-top: 0;
+    font-size: 16px;
+  }
+
+  .title-with-multi-field.pack-size-space .pack-sizes-tax {
+    grid-area: tax;
+    align-self: start;
+    margin-left: 6px;
+    font-size: 11px;
+  }
+
+  .title-with-multi-field.pack-size-space .pack-sizes-image picture {
+    width: 64px;
+    height: 80px;
+  }
+
+  .title-with-multi-field.pack-size-space .size-1 .pack-sizes-image picture {
+    width: 58px;
+    height: 75px;
+  }
+
+  .title-with-multi-field.pack-size-space .size-4 .pack-sizes-image picture {
+    width: 65px;
+    height: 84px;
+  }
+
+  .title-with-multi-field.pack-size-space .size-10 .pack-sizes-image picture {
+    width: 72px;
+    height: 93px;
+  }
+
+  .title-with-multi-field.pack-size-space .size-20 .pack-sizes-image picture {
+    width: 86px;
+    height: 111px;
+  }
+
+  .title-with-multi-field.pack-size-space .pack-sizes-size {
+    top: 56%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    line-height: 21.86px;
+  }
+
+  .title-with-multi-field.pack-size-space .pack-sizes-note {
+    margin-top: 20px;
+    padding: 0 30px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 14.4px;
+  }
+}
+
+@media (width >= 992px) {
+  .common-wrapper.title-with-multi-field-container:has(.pack-size-space) {
+    max-width: 1440px;
+  }
+
+  .title-with-multi-field.pack-size-space {
+    box-sizing: border-box;
+    width: auto;
+    margin-inline: 4%;
+    padding-inline: 0;
+  }
+}
