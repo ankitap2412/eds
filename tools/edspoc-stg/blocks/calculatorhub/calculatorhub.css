@@ -37,6 +37,12 @@
     line-height: 31.2px;
 }
 
+/* the heading is authored in bold in DA; keep its own weight, as the source */
+.calculatorhub-heading strong,
+.calculatorhub-heading b {
+    font-weight: inherit;
+}
+
 .calculatorhub-subheading {
     font-size: 64px;
     font-weight: 800;
@@ -218,6 +224,7 @@
 
     .calculatorhub-heading {
         font-size: 24px;
+        font-weight: 400; /* the source's tablet/mobile weight (300 is desktop only) */
     }
 
     .calculatorhub-subheading {
@@ -320,6 +327,15 @@ input[type="number"] {
 
     .calculatorhub .form-actions {
         margin-top: 0;
+    }
+}
+
+/* Mobile, as the source: the heading always breaks before its last word
+   ("Painting Quotation / Calculator"); 13em is 312px at 24px, so it also
+   wraps on 400px+ phones where the text would otherwise fit on one line */
+@media (width < 768px) {
+    .calculatorhub-heading {
+        max-width: 13em;
     }
 }
 
