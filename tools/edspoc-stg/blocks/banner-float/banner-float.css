@@ -1,0 +1,255 @@
+/* sizes below are the reference page's (bannerFloatVariant-3Item on asianpaints.com) */
+main > .section.banner-float-container > div {
+  max-width: none;
+  padding: 0;
+}
+
+/* the band's own bottom margin (30px, 70px from 992px) is the gap to the next section,
+   as the source; a following Similar products band adds no gap of its own */
+main > .section.banner-float-container {
+  margin-bottom: 0;
+}
+
+main > .section.banner-float-container + .section.similar-products-container {
+  margin-top: 0;
+}
+
+/* as the source's bannerFloatVariant-3Item: the white-to-grey band sits inside the page
+   gutters (4.5%, 4% from 992px, of the page width) of a 1440px column, so it is 341px wide
+   at 375, 1325px at 1440 and 1286px at 1920; the photo is inset 105px from 768px */
+.banner-float {
+  box-sizing: border-box;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 4.5%;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.banner-float .banner-float-inner {
+  margin-bottom: 30px;
+  padding: 40px 0 5px;
+  background: linear-gradient(#fff 47%, #f8f8f8 0);
+}
+
+.banner-float .banner-float-media {
+  position: relative;
+}
+
+.banner-float picture,
+.banner-float img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* heading and button centred on the photo */
+.banner-float .banner-float-content {
+  position: absolute;
+  top: 50%;
+  right: 15%;
+  left: 15%;
+  padding: 0 15px;
+  text-align: center;
+  transform: translateY(calc(-50% - 5px)); /* the source's block sits 5px above the centre */
+}
+
+.banner-float .banner-float-content h2 {
+  margin: 0 0 5px;
+  font-family: inherit;
+  font-size: 30px;
+
+  /* the source sets 600 but loads no Manrope 600, so the browser draws its 700 (Bold) */
+  font-weight: 700;
+  line-height: 34px;
+  color: #fff;
+}
+
+.banner-float .banner-float-description {
+  color: #fff;
+}
+
+.banner-float .banner-float-description p,
+.banner-float .banner-float-description ul,
+.banner-float .banner-float-description ol {
+  margin: 0;
+}
+
+.banner-float .banner-float-description > * + * {
+  margin-top: 8px;
+}
+
+.banner-float .banner-float-description a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.banner-float .banner-float-cta-wrap {
+  margin: 20px 0 0;
+}
+
+.banner-float .banner-float-cta {
+  display: inline-block;
+  padding: 9px 20px;
+  border: 1px solid #431a80;
+  border-radius: 2px;
+  background: #431a80;
+  font-size: 12px;
+  font-weight: 700; /* rendered weight of the source's 600, as the heading */
+  line-height: 16px;
+  letter-spacing: 0.86px;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+}
+
+.banner-float .banner-float-cta:hover,
+.banner-float .banner-float-cta:focus-visible {
+  background: #5e25b2;
+  color: #fff;
+}
+
+@media (width >= 768px) {
+  .banner-float .banner-float-inner {
+    padding: 60px 105px;
+  }
+
+  /* the source's taller button from 768px (12px text until 992px) */
+  .banner-float .banner-float-cta {
+    padding: 16px 20px;
+  }
+}
+
+@media (width >= 992px) {
+  .banner-float {
+    padding: 0 4%;
+  }
+
+  .banner-float .banner-float-inner {
+    margin-bottom: 70px;
+  }
+
+  .banner-float .banner-float-content {
+    /* the reference insets the text 22.5% of the padded banner: 193px at 1440 */
+    right: calc(22.5% - 57.75px);
+    left: calc(22.5% - 57.75px);
+    padding: 0 60px;
+  }
+
+  .banner-float .banner-float-content h2 {
+    margin-bottom: 16px;
+    line-height: 40px;
+  }
+
+  .banner-float .banner-float-description {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .banner-float .banner-float-cta-wrap {
+    margin-top: 30px;
+  }
+
+  .banner-float .banner-float-cta {
+    padding: 16px 20px;
+    font-size: 13px;
+  }
+}
+
+/* START: ids-type-variant */
+main > .section.banner-float-container:has(.banner-float.ids-type-variant) {
+  margin-bottom: 40px;
+}
+
+.banner-float.ids-type-variant {
+  max-width: none;
+  padding: 0;
+}
+
+.banner-float.ids-type-variant .banner-float-inner {
+  margin-bottom: 0;
+  padding: 0;
+  background: none;
+}
+
+.banner-float.ids-type-variant .banner-float-content {
+  position: static;
+  margin-bottom: 20px;
+  padding: 0 16px;
+  text-align: left;
+  transform: none;
+}
+
+.banner-float.ids-type-variant .banner-float-content h2 {
+  margin: 0 0 8px;
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 28.6px;
+  letter-spacing: 0;
+  color: #232426;
+}
+
+.banner-float.ids-type-variant .banner-float-description {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  color: #232426;
+}
+
+/* the bottom-right grid cell of the artwork, measured from the images:
+   mobile is a 3-column grid, desktop 8 columns (see the desktop query) */
+.banner-float.ids-type-variant .banner-float-hotspot {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 32.8%;
+  height: 19.4%;
+}
+
+.banner-float.ids-type-variant .banner-float-hotspot:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: -4px;
+}
+
+.banner-float .banner-float-hotspot-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* same breakpoint as the desktop image source in banner-float.js */
+@media (width >= 992px) {
+  .banner-float.ids-type-variant .banner-float-content {
+    margin-bottom: 30px;
+    padding: 0;
+    text-align: center;
+  }
+
+  .banner-float.ids-type-variant .banner-float-content h2 {
+    margin-bottom: 10px;
+    font-size: 40px;
+    line-height: 42px;
+    letter-spacing: -0.02em;
+  }
+
+  .banner-float.ids-type-variant .banner-float-description {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 28px;
+  }
+
+  /* the authored line breaks are for mobile */
+  .banner-float.ids-type-variant .banner-float-break {
+    display: none;
+  }
+
+  .banner-float.ids-type-variant .banner-float-hotspot {
+    width: 12.3%;
+    height: 27.3%;
+  }
+}
+
+/* END: ids-type-variant */
