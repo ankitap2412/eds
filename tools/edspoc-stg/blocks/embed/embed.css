@@ -1,0 +1,516 @@
+.embed:not(.media) {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  box-sizing: border-box;
+  padding: 0 156px;
+}
+
+.embed:not(.media).v-dim {
+  max-width: 1440px !important;
+  margin-left: auto !important;
+  position: relative !important;
+  margin-right: auto !important;
+}
+
+@media (width <=1200px) {
+  .embed:not(.media) {
+    padding: 40px;
+  }
+}
+
+@media (width <=767px) {
+  .embed:not(.media) {
+    padding: 20px 20px 0;
+  }
+}
+
+.embed:not(.media)>div {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Video placeholder container */
+.embed:not(.media) .embed-placeholder {
+  width: 100%;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #000;
+  padding-top: 48%;
+  /* Aspect ratio ~2.1:1 matching live site desktop */
+}
+
+.embed:not(.media).v-dim .embed-placeholder {
+  border-radius: 0;
+}
+
+/* v-dim on mobile and tablet (below 992px), as the source's video thumbnail: 20px from the screen
+   edges (40px from 768px), so 353x289 at 393px wide, and 30px down to the title below.
+   The seo-content section already pads 16px on each side, so the block adds only the rest */
+@media (width < 992px) {
+  /* !important: the authored spacing classes (mb-5 here, mt-5 on the text block below) set 48px
+     with !important */
+  .embed:not(.media).v-dim {
+    margin-bottom: 30px !important;
+  }
+
+  .section.seo-content-container .embed:not(.media).v-dim {
+    padding: 20px 4px 0;
+  }
+
+  .section:has(.embed:not(.media).v-dim) > .embed-wrapper + * > :first-child {
+    margin-top: 0 !important;
+  }
+
+  /* and its first heading (40px top margin) */
+  .section:has(.embed:not(.media).v-dim) > .embed-wrapper + * > :first-child > :first-child > :first-child > :is(h1, h2, h3, h4, h5, h6):first-child {
+    margin-top: 0;
+  }
+}
+
+@media (768px <= width < 992px) {
+  .embed:not(.media).v-dim {
+    padding: 40px 40px 0;
+  }
+
+  .section.seo-content-container .embed:not(.media).v-dim {
+    padding: 40px 24px 0;
+  }
+}
+
+@media (width <=991px) {
+  .embed:not(.media) .embed-placeholder {
+    padding-top: 82%;
+    border-radius: 0;
+  }
+}
+
+.embed:not(.media) .embed-placeholder>* {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  inset: 0;
+}
+
+.embed:not(.media) .embed-placeholder picture {
+  height: 100%;
+  width: 100%;
+}
+
+.embed:not(.media) .embed-placeholder-desktop {
+  display: flex;
+}
+
+.embed:not(.media) .embed-placeholder-mobile {
+  display: none;
+}
+
+@media (width <=991px) {
+  .embed:not(.media) .embed-placeholder-desktop {
+    display: none;
+  }
+
+  .embed:not(.media) .embed-placeholder-mobile {
+    display: flex;
+  }
+}
+
+.embed:not(.media) .embed-placeholder picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Asian Paints style play button */
+.embed:not(.media) .embed-placeholder-play {
+  z-index: 2;
+}
+
+.embed:not(.media) .embed-placeholder-play button {
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 77px;
+  height: 54px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* Play icon authored in DA (Row 4) */
+.embed:not(.media) .embed-placeholder .embed-placeholder-play button picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.embed:not(.media) .embed-placeholder .embed-placeholder-play button picture img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@media (width <=991px) {
+  .embed:not(.media) .embed-placeholder-play button {
+    width: 48px;
+    height: 39px;
+  }
+}
+
+/* YouTube iframe container */
+.embed:not(.media).embed-youtube,
+.embed:not(.media).embed-is-loaded {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.embed:not(.media).embed-youtube>div,
+.embed:not(.media).embed-is-loaded>div {
+  width: 100%;
+  padding-bottom: 48%;
+  /* Maintain aspect ratio after load */
+  height: 0;
+  position: relative;
+}
+
+@media (width <=991px) {
+
+  .embed:not(.media).embed-youtube>div,
+  .embed:not(.media).embed-is-loaded>div {
+    padding-bottom: 82%;
+  }
+}
+
+.embed:not(.media).embed-youtube iframe,
+.embed:not(.media).embed-is-loaded iframe,
+.embed:not(.media).embed-is-loaded .embed-media-video-wrapper,
+.embed:not(.media).embed-is-loaded video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.embed:not(.media).embed-is-loaded .embed-media-video-wrapper video {
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+@media (width <=991px) {
+  .embed:not(.media).embed-is-loaded .embed-media-video-wrapper video {
+    border-radius: 0;
+  }
+}
+
+/* ============================================
+   Variant: media — Embed (media)
+   ============================================ */
+
+.embed.media {
+  width: 100%;
+  text-align: center;
+  max-width: 100%;
+  margin: 0 auto;
+  padding-bottom: 50px;
+}
+
+.embed.media .embed-media-image-only {
+  width: 100%;
+  line-height: 0;
+}
+
+.embed.media .embed-media-video-wrapper {
+  width: 100%;
+  min-width: 0;
+  line-height: 0;
+}
+
+.embed.media .embed-media-video-wrapper video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.embed.media .embed-media-image-only picture {
+  display: block;
+  width: 100%;
+}
+
+.embed.media .embed-media-image-only picture img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+@media (width >=768px) {
+  .embed.media.embed-media-banner {
+    margin: 40px 0;
+  }
+
+  .embed.media .embed-media-image-only picture img {
+    border-radius: 16px;
+  }
+}
+
+/* ============================================
+   Section Metadata Class: video-title-section
+   ============================================ */
+
+.section.video-title-section {
+  text-align: center;
+}
+
+.section.video-title-section p,
+.section.video-title-section h1,
+.section.video-title-section h2,
+.section.video-title-section h3 {
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+/* Desktop Styles */
+@media (width >=992px) {
+
+  .section.video-title-section p,
+  .section.video-title-section h1,
+  .section.video-title-section h2,
+  .section.video-title-section h3 {
+    font-size: 32px;
+    line-height: 35.2px;
+  }
+}
+
+/* Laptop/Tablet Styles */
+@media (width <=1200px) and (width >=992px) {
+  .section.video-title-section {
+    padding: 40px;
+  }
+}
+
+/* Mobile Styles */
+@media (width <=991px) {
+  .section.video-title-section {
+    padding: 15px 20px 10px;
+  }
+
+  .section.video-title-section h1,
+  .section.video-title-section h2,
+  .section.video-title-section h3 {
+    font-size: 24px;
+    line-height: 28px;
+    font-weight: 800;
+  }
+
+  .section.video-title-section .embed:not(.media) {
+    padding: 0;
+  }
+
+  .section.video-title-section p {
+    font-size: 14px;
+    line-height: 22px;
+    font-weight: 500;
+    letter-spacing: .5px;
+  }
+
+  .section.video-title-section .default-content-wrapper>p:not(.button-container):first-of-type {
+    text-align: left !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    line-height: 19.12px !important;
+    padding-right: 16px !important;
+    color: #4c4e52 !important;
+  }
+
+  .section.video-title-section .default-content-wrapper>p:not(.button-container):nth-of-type(2) {
+    font-size: 14px !important;
+    letter-spacing: .5px;
+    text-align: left !important;
+    font-weight: 500;
+  }
+}
+
+.section.video-title-section .default-content-wrapper>p:not(.button-container):first-of-type {
+  letter-spacing: 0;
+  text-align: center;
+  margin-bottom: 0;
+  padding-bottom: 10px;
+  font-size: 16px;
+  line-height: 21.86px;
+  color: #4c4e52 !important;
+  font-weight: 500 !important;
+}
+
+/* Start spacing where text block begins on live */
+.section.video-title-section .default-content-wrapper>p:not(.button-container):first-of-type {
+  margin-top: 15px;
+}
+
+/* Second paragraph ("To find out more...") should use different styling */
+.section.video-title-section .default-content-wrapper>p:not(.button-container):nth-of-type(2) {
+  color: #4c4e52;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22px;
+  letter-spacing: .5px;
+  text-align: center;
+  margin-bottom: 0;
+  padding-bottom: 10px;
+}
+
+.section.video-title-section .default-content-wrapper>p:not(.button-container):nth-of-type(2) a {
+  color: #00e !important;
+  text-decoration: underline !important;
+}
+
+@media (width >=1200px) {
+  main>.section.video-title-section:has(.embed-wrapper)>.default-content-wrapper {
+    width: 970px;
+    max-width: 970px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .section.video-title-section .default-content-wrapper>p:not(.button-container):first-of-type,
+  .section.video-title-section .default-content-wrapper>p:not(.button-container):nth-of-type(2) {
+    width: 940px;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* ============================================
+   Variant: royale play
+   ============================================ */
+
+.section.embed-container:has(.embed.media.royale-play) {
+  margin: 0;
+  padding: 3rem 0 0;
+  background-color: rgb(236, 229, 215);
+}
+
+.embed.media.royale-play.block {
+  overflow: hidden;
+  display: flex;
+  max-width: 70%;
+  margin: 0 auto;
+  border-radius: 8px;
+}
+
+@media screen and (max-width: 992px) {
+  .section.embed-container:has(.embed.media.royale-play) {
+    padding-top: 1.5rem;
+  }
+
+  .embed.media.royale-play.block {
+    overflow: unset;
+    max-width: 100%;
+    border-radius: 0px;
+    padding-bottom: 30px;
+  }
+
+  .embed.media.royale-play.block .embed-media-video-wrapper video {
+    border-radius: 0;
+  }
+}
+
+/* ============================================
+   Variant: width-medium
+   Authoring: Embed (media, autoplay, loop, muted, width-medium)
+   Optional: a link paragraph after the block becomes the
+   "View all products" pill button.
+   Live: video 1031px centred on desktop, 4.5% side space on mobile,
+   58px gap to the button.
+   ============================================ */
+
+.embed.media.width-medium {
+  max-width: 1031px;
+  margin-inline: auto;
+  padding-bottom: 0;
+}
+
+.embed.media.width-medium .embed-media-video-wrapper video {
+  aspect-ratio: 1031 / 566;
+  object-fit: cover;
+}
+
+/* The video is injected once near the viewport; hold its box until then. */
+.embed.media.width-medium:not(.embed-is-loaded)::before {
+  content: "";
+  display: block;
+  aspect-ratio: 1031 / 566;
+}
+
+@media (width < 992px) {
+  .embed.media.width-medium {
+    box-sizing: border-box;
+    padding-inline: 4.5%;
+  }
+
+  .embed.media.width-medium .embed-media-video-wrapper video {
+    aspect-ratio: 355 / 305;
+  }
+
+  .embed.media.width-medium:not(.embed-is-loaded)::before {
+    aspect-ratio: 355 / 305;
+  }
+}
+
+.section.embed-container:has(.embed.media.width-medium) .default-content-wrapper p.button-container:last-of-type {
+  margin: 58px 0 0;
+  text-align: center;
+}
+
+.section.embed-container:has(.embed.media.width-medium) .default-content-wrapper p.button-container:last-of-type a.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-sizing: border-box;
+  height: 38px;
+  margin: 0;
+  padding: 0 20px;
+  border: 1px solid #232426;
+  border-radius: 45px;
+  background: transparent;
+  /* !important: styles.css forces blue + underline on every
+     https://www.asianpaints.com/ link inside default content */
+  color: #222 !important;
+  font: 700 14px/1 Manrope, manrope-fallback, sans-serif;
+  text-transform: capitalize;
+  text-decoration: none !important;
+}
+
+.section.embed-container:has(.embed.media.width-medium) .default-content-wrapper p.button-container:last-of-type a.button:hover,
+.section.embed-container:has(.embed.media.width-medium) .default-content-wrapper p.button-container:last-of-type a.button:focus-visible {
+  background: #fff7e8;
+  color: #222 !important;
+  text-decoration: none !important;
+}
+
+.section.embed-container:has(.embed.media.width-medium) .default-content-wrapper p.button-container:last-of-type a.button::after {
+  content: "";
+  width: 17px;
+  height: 16px;
+  flex: 0 0 17px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 17 16' fill='none' stroke='%23222' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 8h12M9 3l5 5-5 5'/%3E%3C/svg%3E") no-repeat center / contain;
+}
+
+@media (width < 992px) {
+  .section.embed-container:has(.embed.media.width-medium) .default-content-wrapper p.button-container:last-of-type a.button {
+    padding: 0 18px;
+  }
+}
