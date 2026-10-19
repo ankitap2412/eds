@@ -1,5 +1,4 @@
 .title-with-multi-field {
-  width: 100%;
   background: #f7f2e7;
   border-radius: 8px;
 }
@@ -52,6 +51,11 @@
 }
 
 /* Different sizes using same image */
+
+.title-with-multi-field .size-0-5 .pack-sizes-image picture {
+  width: 125px;
+  height: 156px;
+}
 
 .title-with-multi-field .size-1 .pack-sizes-image picture {
   width: 148px;
@@ -178,6 +182,11 @@
     height: 80px;
   }
 
+  .title-with-multi-field .size-0-5 .pack-sizes-image picture {
+    width: 52px;
+    height: 67px;
+  }
+
   .title-with-multi-field .size-1 .pack-sizes-image picture {
     width: 58px;
     height: 75px;
@@ -261,117 +270,10 @@
   }
 }
 
-/* pack-size-space variant: panel inside a 1440px column with the gutters
-   outside the beige background; stacked rows below 992px, as on the live site */
-.title-with-multi-field.pack-size-space .pack-sizes {
-  padding-top: 72px;
-}
-
-@media (width < 992px) {
-  .title-with-multi-field.pack-size-space {
-    border-radius: 0;
-  }
-
-  .title-with-multi-field.pack-size-space .pack-sizes {
-    padding: 35px 0 14px;
-  }
-
-  .title-with-multi-field.pack-size-space .pack-sizes-heading {
-    font-size: 24px;
-    line-height: 14.4px;
-    letter-spacing: 0.5px;
-    padding: 0 0 34px;
-  }
-
-  .title-with-multi-field.pack-size-space .pack-sizes-cards {
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    padding-top: 20px;
-  }
-
-  .title-with-multi-field.pack-size-space .pack-sizes-card {
-    display: grid;
-    grid-template:
-      "image price" auto
-      "image tax" auto
-      / auto auto;
-    column-gap: 28px;
-    align-items: center;
-  }
-
-  .title-with-multi-field.pack-size-space .pack-sizes-image {
-    grid-area: image;
-  }
-
-  .title-with-multi-field.pack-size-space .pack-sizes-image img {
-    height: 100%;
-  }
-
-  .title-with-multi-field.pack-size-space .pack-sizes-price {
-    grid-area: price;
-    align-self: end;
-    margin-top: 0;
-    font-size: 16px;
-  }
-
-  .title-with-multi-field.pack-size-space .pack-sizes-tax {
-    grid-area: tax;
-    align-self: start;
-    margin-left: 6px;
-    font-size: 11px;
-  }
-
-  .title-with-multi-field.pack-size-space .pack-sizes-image picture {
-    width: 64px;
-    height: 80px;
-  }
-
-  .title-with-multi-field.pack-size-space .size-1 .pack-sizes-image picture {
-    width: 58px;
-    height: 75px;
-  }
-
-  .title-with-multi-field.pack-size-space .size-4 .pack-sizes-image picture {
-    width: 65px;
-    height: 84px;
-  }
-
-  .title-with-multi-field.pack-size-space .size-10 .pack-sizes-image picture {
-    width: 72px;
-    height: 93px;
-  }
-
-  .title-with-multi-field.pack-size-space .size-20 .pack-sizes-image picture {
-    width: 86px;
-    height: 111px;
-  }
-
-  .title-with-multi-field.pack-size-space .pack-sizes-size {
-    top: 56%;
-    transform: translateY(-50%);
-    font-size: 16px;
-    line-height: 21.86px;
-  }
-
-  .title-with-multi-field.pack-size-space .pack-sizes-note {
-    margin-top: 20px;
-    padding: 0 30px;
-    font-size: 12px;
-    font-weight: 700;
-    line-height: 14.4px;
-  }
-}
-
-@media (width >= 992px) {
-  .common-wrapper.title-with-multi-field-container:has(.pack-size-space) {
-    max-width: 1440px;
-  }
-
-  .title-with-multi-field.pack-size-space {
-    box-sizing: border-box;
-    width: auto;
-    margin-inline: 4%;
-    padding-inline: 0;
+@media (width >= 991px) {
+  .title-with-multi-field.large-common-wrapper {
+    max-width: 1445px;
+    margin-left: 28px;
+    margin-right: 28px;
   }
 }
