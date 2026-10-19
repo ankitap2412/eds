@@ -276,6 +276,7 @@
 .section.video-title-section h1,
 .section.video-title-section h2,
 .section.video-title-section h3 {
+  font-family: var(--heading-font-family);
   font-weight: 600;
   color: #1a1a1a;
   margin: 0;
