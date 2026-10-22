@@ -1,0 +1,362 @@
+.calculatorhub-container .calculatorhub-wrapper {
+    background: #f7f2e7;
+    border-radius: 10px;
+}
+
+/* as the source: the panel stays 1325px wide (the 1440px page less its 4%
+   side gutters) on wider screens instead of stretching */
+@media (width >= 993px) {
+    .calculatorhub-container .calculatorhub-wrapper {
+        max-width: 1325px;
+        margin-inline: auto;
+    }
+}
+
+.calculatorhub {
+    display: flex;
+    align-items: center;
+    padding: 30px 50px 30px 100px;
+}
+
+.tool-description {
+    flex: 0 0 40%;
+}
+
+.tool-fields {
+    flex: 0 0 60%;
+    background: #fff;
+    padding: 30px 40px 10px;
+    border-radius: 8px;
+}
+
+.calculatorhub-heading {
+    font-size: 26px;
+    font-weight: 300;
+    margin-bottom: 10px;
+    margin-top: 0;
+    line-height: 31.2px;
+}
+
+/* the heading is authored in bold in DA; keep its own weight, as the source */
+.calculatorhub-heading strong,
+.calculatorhub-heading b {
+    font-weight: inherit;
+}
+
+.calculatorhub-subheading {
+    font-size: 64px;
+    font-weight: 800;
+    line-height: 70.4px;
+    letter-spacing: -0.02em;
+    width: 80%;
+    margin: 0;
+}
+
+#toolsMiniForm {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+
+    /* the source form's base text; the page body is 18px/28.8px */
+    font-size: 14px;
+    line-height: 22px;
+}
+
+.project-field,
+.space-field {
+    margin-bottom: 14px;
+}
+
+.project-field-heading,
+.space-field-heading,
+.area-field label {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 21px;
+    margin-bottom: 10px;
+}
+
+/* a block of its own above the input: as inline content it would sit in a
+   line box of the page's 18px/28.8px body text and push the input 5px down */
+.area-field label {
+    display: block;
+}
+
+.project-field-heading span,
+.space-field-heading span,
+.area-field span {
+    color: #ed1c24;
+}
+
+.project-field-inputs label.focus-visible-auto-imp,
+.space-field-inputs label.focus-visible-auto-imp {
+    display: inline-block;
+    margin: 0 10px 7px 0;
+    vertical-align: top;
+}
+
+.calculatorhub .radiobtn {
+    width: 110px;
+    height: 110px;
+    display: inline-block;
+    cursor: pointer;
+    border: 1px solid #cacbcc;
+    border-radius: 5px;
+}
+
+.option-icon {
+    width: 50px;
+    height: 50px;
+    transform: translate(60%, 40%);
+}
+
+.option-icon img {
+    width: 100%;
+    opacity: 0.6;
+}
+
+.option-title {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16.8px;
+    text-align: center;
+    margin: 30px 0 7px;
+    color: #53565a;
+}
+
+.calculatorhub input:checked+.radiobtn {
+    border-color: #5d4f43;
+    box-shadow: 0 8px 12px #00000014;
+}
+
+.calculatorhub input:checked+.radiobtn img {
+    opacity: 1;
+}
+
+.calculatorhub input:checked+.radiobtn .option-title {
+    color: #000;
+}
+
+.calculatorhub .area-field {
+    margin: 20px 0 14px;
+}
+
+.area-field input {
+    width: 239px;
+    height: 52px;
+    padding: 9px 14px;
+    border-radius: 6px;
+    border: 1px solid #cacbcc;
+    font-size: 16px;
+    display: block; /* below the label, which carries the 10px gap */
+    margin-top: 0;
+}
+
+/* the source's 35px; the explicit bottom margin also overrides the
+   .cta { margin-bottom: 100px } of the cta block (the wrapper has a .cta class) */
+.calculatorhub .form-actions {
+    margin: 35px 0 0;
+}
+
+.calculatorhub .error-msg {
+    visibility: hidden;
+}
+
+.tool-fields form#toolsMiniForm .form-actions .animated-arrow-button {
+    text-align: left;
+    line-height: 22px;
+    text-decoration: none;
+    padding: 14px 20px;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 700;
+    display: inline-flex !important;
+    gap: 10px;
+    height: 38px;
+    cursor: pointer;
+    border: none !important;
+    color: #1e1e1e !important;
+    background: var(--gradient, linear-gradient(180deg, #fec940, #f90)) !important;
+    border-radius: 45px;
+    transform: none;
+    width: 238px !important;
+    justify-content: center;
+}
+
+/* As the source: the arrow is the button's own .arrow span (17x20, the
+   shared arrow icon turned black), 10px after the text. Drawing it on the
+   button's ::after instead left the empty span as an extra flex item, which
+   doubled the gap to 20px. */
+.tool-fields form#toolsMiniForm .form-actions .animated-arrow-button .arrow {
+    display: flex;
+    width: 17px;
+    height: 20px;
+    transition: transform 0.2s ease-in;
+}
+
+.tool-fields form#toolsMiniForm .form-actions .animated-arrow-button .arrow::after {
+    content: '';
+    display: block;
+    width: 17px;
+    height: 20px;
+    background: url('/eds/icons/arrow-icon.svg') no-repeat;
+    filter: invert(1);
+}
+
+.tool-fields form#toolsMiniForm .form-actions .animated-arrow-button:hover .arrow,
+.tool-fields form#toolsMiniForm .form-actions .animated-arrow-button:focus-visible .arrow {
+    transform: translateX(6px);
+}
+
+/* ================== Responsive ================== */
+
+/* Tablet */
+@media screen and (max-width: 992px) {
+    main>.section.calculatorhub-container {
+        /* margin: 0 20px !important; */
+        margin: 0;
+    }
+
+    .calculatorhub {
+        flex-direction: column;
+        padding: 40px 16px 30px;
+    }
+
+    .calculatorhub-heading {
+        font-size: 24px;
+        font-weight: 400; /* the source's tablet/mobile weight (300 is desktop only) */
+    }
+
+    .calculatorhub-subheading {
+        font-size: 40px;
+        margin-bottom: 20px;
+        line-height: 48px;
+        width: 98%;
+    }
+
+    .calculatorhub .tool-fields {
+        align-self: stretch;
+        padding: 20px;
+    }
+
+    .calculatorhub .form-actions {
+        margin-top: 25px;
+        margin-bottom: -3px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .calculatorhub .radiobtn {
+        width: 110px;
+        height: 110px;
+    }
+
+    .animated-arrow-button {
+        width: 195px !important;
+    }
+}
+
+@media (min-width: 993px) and (max-width: 1200px) {
+    .area-field input {
+        width: 195px !important;
+    }
+
+    .calculatorhub {
+        padding-left: 50px;
+    }
+
+    .calculatorhub .radiobtn {
+        width: 90px;
+        height: 90px;
+    }
+
+    .option-icon {
+        transform: translate(37%, 25%);
+    }
+
+    .option-title {
+        margin-top: 12px;
+    }
+
+    /* the selector of the 238px rule above, so this width wins */
+    .tool-fields form#toolsMiniForm .form-actions .animated-arrow-button {
+        width: 195px !important;
+    }
+}
+
+/* Disable CTA */
+#calculate-now[aria-disabled="true"] {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Hide spin buttons for number inputs */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* Mobile */
+@media (max-width: 991px) {
+    #toolsMiniForm {
+        display: block;
+    }
+
+    .space-field {
+        margin-top: 20px;
+    }
+
+    .calculatorhub .area-field {
+        margin-bottom: 25px;
+    }
+
+    .project-field-heading,
+    .space-field-heading {
+        margin-bottom: 12px;
+    }
+
+    .option-title {
+        font-weight: 500;
+    }
+
+    .calculatorhub .form-actions {
+        margin-top: 0;
+    }
+}
+
+/* Mobile, as the source: the heading always breaks before its last word
+   ("Painting Quotation / Calculator"); 13em is 312px at 24px, so it also
+   wraps on 400px+ phones where the text would otherwise fit on one line */
+@media (width < 768px) {
+    .calculatorhub-heading {
+        max-width: 13em;
+    }
+}
+
+/* Small desktop tweak */
+@media (min-width: 1280px) and (max-width: 1366px) {
+    .calculatorhub {
+        padding-left: 80px;
+    }
+
+    .tool-description {
+        flex: 0 0 43%;
+    }
+
+    .tool-fields {
+        flex: 0 0 57%;
+    }
+}
+
+.common-wrapper.calculatorhub-container {
+    max-width: 1440px;
+    margin-left: auto;
+    position: relative;
+    margin-right: auto;
+}

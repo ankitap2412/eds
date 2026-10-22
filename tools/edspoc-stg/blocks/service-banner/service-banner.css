@@ -1,0 +1,694 @@
+.section.service-banner-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.section.service-banner-container .wrapper {
+    display: grid;
+    grid-template-columns: 53.6% 40.5%;
+    align-items: center;
+    background-color: #f8f8f8;
+}
+
+.section.service-banner-container .wrapper .banner img {
+    width: 100%;
+}
+
+.section.service-banner-container .wrapper .content {
+    padding: 34px;
+}
+
+.section.service-banner-container .wrapper .content h3 {
+    font-size: 13px;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+    color: #222;
+    font-weight: 500;
+    max-width: 95%;
+}
+
+.section.service-banner-container .wrapper .content h2 {
+    font-size: 30px;
+    line-height: 34px;
+    color: #222;
+    font-weight: 600;
+    letter-spacing: normal;
+    margin-bottom: 10px;
+}
+
+.section.service-banner-container .wrapper .content p a {
+    font-size: 13px;
+    background: transparent;
+    border: 0;
+    border-bottom: 2px solid #5e25b2;
+    width: auto;
+    display: inline;
+    padding: 0;
+    padding-bottom: 2px;
+    color: #3b3b3b;
+    font-weight: 600;
+}
+
+@media screen and (max-width:992px) {
+
+    .section.service-banner-container {
+        padding-right: 4.5%;
+        padding-left: 4.5%;
+    }
+
+    .section.service-banner-container .wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .section.service-banner-container .wrapper .content {
+        padding: 20px 20px 30px;
+    }
+
+    .section.service-banner-container .wrapper .content h3 {
+        font-size: 12px;
+        margin-bottom: 15px;
+    }
+
+    .section.service-banner-container .wrapper .content h2 {
+        font-size: 22px;
+        margin-bottom: 15px;
+        line-height: 24px;
+        font-weight: 700;
+    }
+
+    .section.service-banner-container .wrapper .content p a {
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 12px;
+        letter-spacing: 1px;
+        text-decoration: none;
+    }
+
+    .section.service-banner-container .service-banner:not(.swap-image-with-cta, .store-locator-variant) .wrapper .content .content-text {
+        margin-bottom: 15px;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 24px;
+        letter-spacing: 0;
+    }
+
+    .section.service-banner-container .service-banner:not(.swap-image-with-cta, .store-locator-variant) .wrapper .content .button-container {
+        margin-top: -10px;
+    }
+}
+
+@media screen and (min-width:992px) {
+    .section.service-banner-container {
+        max-width: 100%;
+        width: 100%;
+        padding: 0 4%;
+    }
+}
+
+/* Desktop, default style only (the swap-image-with-cta and store-locator
+   variants have their own layout and type) */
+@media (width > 992px) {
+    .section.service-banner-container .service-banner:not(.swap-image-with-cta, .store-locator-variant) .wrapper .banner img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .section.service-banner-container .service-banner:not(.swap-image-with-cta, .store-locator-variant) .wrapper .content {
+        padding: 0 50px;
+    }
+
+    .section.service-banner-container .service-banner:not(.swap-image-with-cta, .store-locator-variant) .wrapper .content .content-text {
+        margin-bottom: 20px;
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 22px;
+        letter-spacing: 1px;
+    }
+
+    .section.service-banner-container .service-banner:not(.swap-image-with-cta, .store-locator-variant) .wrapper .content .button-container {
+        padding-bottom: 2px;
+        line-height: 12px;
+        letter-spacing: 1px;
+        text-decoration: none;
+    }
+}
+
+/* =============================================
+   Start: Store locator variant
+   Used when the block is authored as "service-banner (store-locator-variant)".
+   Right-hand content: large heading, body copy, solid purple CTA button.
+   ============================================= */
+/* heading may be authored as h2 or h3 (h3 is the small eyebrow in the default style) */
+.section.service-banner-container .service-banner.store-locator-variant .wrapper .content h2,
+.section.service-banner-container .service-banner.store-locator-variant .wrapper .content h3 {
+    max-width: none;
+    margin: 0 0 10px;
+    font-size: 30px;
+    line-height: 34px;
+    font-weight: 600;
+    letter-spacing: normal;
+    color: #222;
+}
+
+.section.service-banner-container .service-banner.store-locator-variant .wrapper .content p {
+    margin: 0 0 15px;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 28px;
+    letter-spacing: 1px;
+    color: #222;
+}
+
+.section.service-banner-container .service-banner.store-locator-variant .wrapper .content p:last-child {
+    margin-bottom: 0;
+}
+
+.section.service-banner-container .service-banner.store-locator-variant .wrapper .content p a {
+    display: inline-block;
+    padding: 16px 20px;
+    border: 1px solid #431a80;
+    border-radius: 2px;
+    background: #431a80;
+    color: #fff;
+    font-size: 13px;
+    line-height: 22px;
+    font-weight: 600;
+    letter-spacing: .86px;
+    text-decoration: none;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.section.service-banner-container .service-banner.store-locator-variant .wrapper .content p a:hover {
+    border-color: #5e25b2;
+    background: #5e25b2;
+}
+
+@media screen and (max-width:992px) {
+
+    .section.service-banner-container .service-banner.store-locator-variant .wrapper .content h2,
+    .section.service-banner-container .service-banner.store-locator-variant .wrapper .content h3 {
+        margin-bottom: 12px;
+        font-size: 22px;
+        line-height: 24px;
+        font-weight: 700;
+        letter-spacing: normal;
+    }
+
+    .section.service-banner-container .service-banner.store-locator-variant .wrapper .content p {
+        margin-bottom: 20px;
+        font-size: 12px;
+        line-height: 24px;
+        letter-spacing: 0;
+    }
+
+    .section.service-banner-container .service-banner.store-locator-variant .wrapper .content p a {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 9px 20px;
+        font-size: 12px;
+        line-height: 12px;
+        font-weight: 700;
+        letter-spacing: .77px;
+        text-align: center;
+    }
+}
+
+@media screen and (min-width:1400px) and (max-width:1470px) {
+
+    .service-banner.store-locator-variant.desktop-mt-100.mx-lg-5.block.new-join{
+        margin-left:0 !important;
+        margin-right:0 !important;
+    }
+}
+
+.common-wrapper.service-banner-container {
+    max-width: 1440px;
+    margin-left: auto;
+    position: relative;
+    margin-right: auto;
+}
+/* =============================================
+   End: Store locator variant
+   ============================================= */
+
+/* =============================================
+   Start: Swap image with CTA variant
+   Authoring: Service Banner (swap-image-with-cta)
+   Mirrors the live ".swapimagewithcta.imageWithRightTextComp" component
+   (https://www.asianpaints.com/exterior-textures.html):
+   image on the left at its natural size, 40% text column on the right
+   (eyebrow, heading, underlined link CTA) on a #f8f8f8 band.
+   Below 992px the image stacks on top of the text.
+   ============================================= */
+.section.service-banner-container .service-banner.swap-image-with-cta {
+    margin-bottom: 70px;
+}
+
+.section.service-banner-container .service-banner.swap-image-with-cta .wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: #f8f8f8;
+}
+
+.section.service-banner-container .service-banner.swap-image-with-cta .wrapper .banner {
+    display: flex;
+    flex: 0 1 auto;
+    align-items: flex-start;
+    min-width: 0;
+}
+
+.section.service-banner-container .service-banner.swap-image-with-cta .wrapper .banner picture {
+    display: flex;
+    align-items: flex-start;
+}
+
+/* live keeps the image at its natural size (738x256) instead of stretching it */
+.section.service-banner-container .service-banner.swap-image-with-cta .wrapper .banner img {
+    display: block;
+    width: auto;
+    max-width: calc(100% - 2px);
+    height: auto;
+    margin: 1px;
+}
+
+.section.service-banner-container .service-banner.swap-image-with-cta .wrapper .content {
+    box-sizing: border-box;
+    flex: 0 0 40%;
+    width: 40%;
+    padding: 50px;
+    background-color: #f8f8f8;
+    text-align: left;
+}
+
+/* eyebrow: authored as a paragraph (live) or as h3 (default service-banner style) */
+.section.service-banner-container .service-banner.swap-image-with-cta .wrapper .content h3,
+.section.service-banner-container .service-banner.swap-image-with-cta .wrapper .content p:not(.button-container) {
+    max-width: none;
+    margin: 0 0 15px;
+    padding: 12px 0;
+    color: #3b3b3b;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 22px;
+    letter-spacing: 1px;
+}
+
+.section.service-banner-container .service-banner.swap-image-with-cta .wrapper .content h2 {
+    margin: 0 0 10px;
+    color: #3b3b3b;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 34px;
+    letter-spacing: normal;
+}
+
+.section.service-banner-container .service-banner.swap-image-with-cta .wrapper .content p.button-container {
+    margin: 15px 0 0;
+    padding: 0;
+    line-height: 22px;
+}
+
+.section.service-banner-container .service-banner.swap-image-with-cta .wrapper .content p.button-container a {
+    display: inline;
+    width: auto;
+    margin: 0;
+    padding: 0 0 2px;
+    border: 0;
+    border-bottom: 2px solid #5e25b2;
+    border-radius: 2px;
+    background: transparent;
+    box-shadow: none;
+    color: #3b3b3b;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 12px;
+    letter-spacing: 1px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.section.service-banner-container .service-banner.swap-image-with-cta .wrapper .content p.button-container a:hover,
+.section.service-banner-container .service-banner.swap-image-with-cta .wrapper .content p.button-container a:active {
+    border-bottom-color: #431a80;
+    background: transparent;
+    box-shadow: none;
+    color: #3b3b3b;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+@media (width < 992px) {
+    /* live gutter is 4.5% on mobile/tablet (4% from 992px comes from the base rule) */
+    .section.service-banner-container:has(.service-banner.swap-image-with-cta) {
+        max-width: 100%;
+        padding: 0 4.5%;
+    }
+
+    .section.service-banner-container .service-banner.swap-image-with-cta {
+        margin-bottom: 30px;
+    }
+
+    .section.service-banner-container .service-banner.swap-image-with-cta .wrapper {
+        flex-direction: column;
+    }
+
+    .section.service-banner-container .service-banner.swap-image-with-cta .wrapper .banner,
+    .section.service-banner-container .service-banner.swap-image-with-cta .wrapper .banner picture {
+        width: 100%;
+    }
+
+    .section.service-banner-container .service-banner.swap-image-with-cta .wrapper .banner img {
+        width: calc(100% - 2px);
+    }
+
+    .section.service-banner-container .service-banner.swap-image-with-cta .wrapper .content {
+        flex: 0 0 auto;
+        width: 100%;
+        padding: 22px 20px 30px;
+    }
+
+    .section.service-banner-container .service-banner.swap-image-with-cta .wrapper .content h3,
+    .section.service-banner-container .service-banner.swap-image-with-cta .wrapper .content p:not(.button-container) {
+        padding: 16px;
+        font-size: 12px;
+        line-height: 24px;
+        letter-spacing: 0;
+    }
+
+    .section.service-banner-container .service-banner.swap-image-with-cta .wrapper .content h2 {
+        font-size: 22px;
+        line-height: 24px;
+    }
+
+    .section.service-banner-container .service-banner.swap-image-with-cta .wrapper .content p.button-container a {
+        font-size: 12px;
+        letter-spacing: .77px;
+    }
+}
+
+/* live caps the image height on tablet; the overflow is hidden behind the text band */
+@media (width >= 768px) and (width < 992px) {
+    .section.service-banner-container .service-banner.swap-image-with-cta .wrapper .banner {
+        max-height: 237px;
+        overflow: hidden;
+    }
+}
+
+/* =============================================
+   End: Swap image with CTA variant
+   ============================================= */
+
+/* =============================================
+   Start: Text-variant
+   ============================================= */
+.service-banner.text-variant .content h2 strong {
+  font-weight: 700;
+}
+.service-banner.text-variant .content p strong {
+  /* p styles */
+  font-weight: 500;
+}
+.section.service-banner-container .service-banner.text-variant.store-locator-variant .wrapper .content p
+{
+  line-height: 22px;
+}
+
+/* =============================================
+   End: Text-variant
+   ============================================= */
+
+/* ===== FIX START: */
+.section.service-banner-container .service-banner.swap-image-with-cta.text-dark {
+  margin-top: 0 !important;
+  margin-bottom: 0;
+  padding: 25px 0;
+}
+
+@media (width >= 992px) {
+  .section.service-banner-container .service-banner.swap-image-with-cta.text-dark {
+    padding: 50px 0;
+  }
+}
+
+
+main > .section.service-banner-container:has(.service-banner.text-dark) + .section {
+  margin-top: 0;
+}
+
+main > .section.service-banner-container:has(.service-banner.text-dark) + .section.cards-container:has(.cards.blog) {
+  padding-top: 0;
+}
+
+.section.service-banner-container .service-banner.swap-image-with-cta.text-dark .wrapper .content h2,
+.section.service-banner-container .service-banner.swap-image-with-cta.text-dark .wrapper .content h3,
+.section.service-banner-container .service-banner.swap-image-with-cta.text-dark .wrapper .content p:not(.button-container) {
+  color: #222;
+}
+
+/* below 992px live keeps  */
+
+@media (width < 992px) {
+  .section.service-banner-container .service-banner.swap-image-with-cta.text-dark .wrapper {
+    display: grid;
+    grid-template-columns: minmax(0, max-content);
+    justify-content: center;
+  }
+}
+
+/* live lets the text  */
+@media (width >= 992px) {
+  .section.service-banner-container .service-banner.swap-image-with-cta .wrapper .content {
+    flex-shrink: 1;
+  }
+}
+
+
+.section.service-banner-container .service-banner.swap-image-with-cta.text-dark .wrapper .content p.button-container a {
+  font-weight: 700;
+}
+
+/* CTA hover like live: #222 text (bold + #431a80 underline come from the variant) */
+.section.service-banner-container .service-banner.swap-image-with-cta.text-dark .wrapper .content p.button-container a:hover,
+.section.service-banner-container .service-banner.swap-image-with-cta.text-dark .wrapper .content p.button-container a:active {
+  color: #222;
+}
+
+/* CTA 2-3px higher like live; the bottom margin keeps the band height the same */
+.section.service-banner-container .service-banner.swap-image-with-cta.text-dark .wrapper .content p.button-container {
+  margin: 13px 0 2px;
+}
+
+@media (width < 992px) {
+  .section.service-banner-container .service-banner.swap-image-with-cta.text-dark .wrapper .content p.button-container {
+    margin: 12px 0 3px;
+  }
+}
+
+/* ===== FIX END ===== */
+
+/* ===== FIX START: Service Banner (swap-image-with-cta, text-dark) grey strip like live */
+main > .section.service-banner-container:has(.service-banner.swap-image-with-cta.text-dark) {
+  margin-top: 0 !important;
+  padding-top: 25px;
+  background: linear-gradient(#f2f2f2 25px, #fff 25px);
+}
+
+.section.service-banner-container .service-banner.swap-image-with-cta.text-dark.block {
+  padding: 0 0 25px;
+}
+
+@media (width >= 992px) {
+  main > .section.service-banner-container:has(.service-banner.swap-image-with-cta.text-dark) {
+    padding-top: 50px;
+    background: linear-gradient(#f2f2f2 50px, #fff 50px);
+  }
+
+  .section.service-banner-container .service-banner.swap-image-with-cta.text-dark.block {
+    padding: 0 0 50px;
+    background: linear-gradient(#f8f8f8, #f8f8f8) top / 100% calc(100% - 50px) no-repeat;
+  }
+
+  /* live sizes the row to the image + the one-line text (capped at the page width) */
+  .section.service-banner-container .service-banner.swap-image-with-cta.text-dark .wrapper {
+    width: fit-content;
+    max-width: 100%;
+  }
+}
+
+/* ===== FIX END ===== */
+
+/* =============================================
+   Start: apex-ultima-service-banner (section class)
+   Authoring: Section Metadata style "apex-ultima-service-banner" on a
+   Service Banner (store-locator-variant, text-variant) - the rules need store-locator-variant - e.g. "Ultima Design Palette"
+   on /paint-products/exterior-wall-paints/apex-ultima-protek.
+   As the live swapimagewithcta: the band runs the full 1440px column (no side gutters),
+   #f8f8f8 behind it. From 992px: the image at its natural size, shrinking with a 40%
+   text column (50px padding); heading 30px/34px in 900, body 13px/22px, a solid purple
+   CTA 50px tall. Below 992px: image on top (capped at 237px on tablet), text 22px 20px
+   30px, a full-width CTA (32px tall below 768px, 46px from 768px).
+   ============================================= */
+main > .section.service-banner-container.apex-ultima-service-banner {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.section.service-banner-container.apex-ultima-service-banner .service-banner.store-locator-variant {
+  margin-bottom: 30px;
+}
+
+.section.service-banner-container.apex-ultima-service-banner .service-banner.store-locator-variant .wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f8f8f8;
+}
+
+.section.service-banner-container.apex-ultima-service-banner .service-banner.store-locator-variant .wrapper .banner,
+.section.service-banner-container.apex-ultima-service-banner .service-banner.store-locator-variant .wrapper .banner picture {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.section.service-banner-container.apex-ultima-service-banner .service-banner.store-locator-variant .wrapper .banner img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 1px 0;
+}
+
+.section.service-banner-container.apex-ultima-service-banner .service-banner.store-locator-variant .wrapper .content {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 22px 20px 30px;
+  background-color: #f8f8f8;
+  text-align: left;
+}
+
+.section.service-banner-container.apex-ultima-service-banner .service-banner.store-locator-variant .wrapper .content h2,
+.section.service-banner-container.apex-ultima-service-banner .service-banner.store-locator-variant .wrapper .content h3 {
+  max-width: none;
+  margin: 0 0 10px;
+  color: #222;
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 24px;
+  letter-spacing: normal;
+}
+
+.section.service-banner-container.apex-ultima-service-banner .service-banner.store-locator-variant .wrapper .content :is(h2, h3) :is(strong, b) {
+  font-weight: inherit;
+}
+
+.section.service-banner-container.apex-ultima-service-banner .service-banner.store-locator-variant .wrapper .content p.content-text {
+  margin: 0 0 15px;
+  color: #222;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0;
+}
+
+.section.service-banner-container.apex-ultima-service-banner .service-banner.store-locator-variant .wrapper .content p.button-container {
+  margin: 15px 0 0;
+  line-height: 0;
+}
+
+/* stylelint-disable-next-line no-descending-specificity -- a different variant's hover */
+.section.service-banner-container.apex-ultima-service-banner .service-banner.store-locator-variant .wrapper .content p.button-container a {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 9px 20px;
+  border: 1px solid #431a80;
+  border-radius: 2px;
+  background: #431a80;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 12px;
+  letter-spacing: 0.77px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.section.service-banner-container.apex-ultima-service-banner .service-banner.store-locator-variant .wrapper .content p.button-container a:hover {
+  border-color: #5e25b2;
+  background: #5e25b2;
+}
+
+/* tablet: the desktop image (see service-banner.js), its bottom hidden behind the text */
+@media (width >= 768px) and (width < 992px) {
+  .section.service-banner-container.apex-ultima-service-banner .service-banner.store-locator-variant .wrapper .banner {
+    max-height: 237px;
+    overflow: hidden;
+  }
+
+  .section.service-banner-container.apex-ultima-service-banner .service-banner.store-locator-variant .wrapper .content p.button-container a {
+    padding: 16px 20px;
+  }
+}
+
+@media (width >= 992px) {
+  .section.service-banner-container.apex-ultima-service-banner .service-banner.store-locator-variant {
+    margin-bottom: 70px;
+  }
+
+  .section.service-banner-container.apex-ultima-service-banner .service-banner.store-locator-variant .wrapper {
+    flex-direction: row;
+  }
+
+  .section.service-banner-container.apex-ultima-service-banner .service-banner.store-locator-variant .wrapper .banner {
+    flex: 0 1 auto;
+    width: auto;
+    min-width: 0;
+  }
+
+  .section.service-banner-container.apex-ultima-service-banner .service-banner.store-locator-variant .wrapper .banner picture {
+    width: auto;
+  }
+
+  /* the image at its natural size; it shrinks with the text column to fit the row
+     (as live, its 1px margin overlaps the text column by 1px) */
+  .section.service-banner-container.apex-ultima-service-banner .service-banner.store-locator-variant .wrapper .banner img {
+    width: auto;
+    max-width: 100%;
+    margin: 1px;
+  }
+
+  .section.service-banner-container.apex-ultima-service-banner .service-banner.store-locator-variant .wrapper .content {
+    flex: 0 1 40%;
+    width: 40%;
+    padding: 50px;
+  }
+
+  .section.service-banner-container.apex-ultima-service-banner .service-banner.store-locator-variant .wrapper .content h2,
+  .section.service-banner-container.apex-ultima-service-banner .service-banner.store-locator-variant .wrapper .content h3 {
+    font-size: 30px;
+    line-height: 34px;
+  }
+
+  .section.service-banner-container.apex-ultima-service-banner .service-banner.store-locator-variant .wrapper .content p.content-text {
+    font-size: 13px;
+    line-height: 22px;
+    letter-spacing: 1px;
+  }
+
+  .section.service-banner-container.apex-ultima-service-banner .service-banner.store-locator-variant .wrapper .content p.button-container a {
+    display: inline-block;
+    width: auto;
+
+    /* live's label carries a trailing space: 3px more on the right */
+    padding: 16px 23px 16px 20px;
+    font-size: 13px;
+    line-height: 16px;
+    letter-spacing: 0.86px;
+  }
+}
+
+/* =============================================
+   End: apex-ultima-service-banner
+   ============================================= */
