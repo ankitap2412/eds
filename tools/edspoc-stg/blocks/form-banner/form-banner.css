@@ -1,3 +1,4 @@
+/* stylelint-disable selector-class-pattern, no-descending-specificity -- this block uses BEM (__/--) class names set by form-banner.js; legacy rules are ordered by layout, not specificity */
 .form-banner.block {
   width: 100%;
   position: relative;
@@ -29,7 +30,7 @@
   aspect-ratio: var(--banner-ratio-mobile, auto);
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .form-banner__picture img {
     aspect-ratio: var(--banner-ratio-desktop, auto);
   }
@@ -129,7 +130,7 @@
 
 .form-banner__card-title {
   margin: 0 0 18px;
-  color: #000000;
+  color: #000;
   font-size: 16px;
   line-height: 24px;
   font-weight: 700;
@@ -182,6 +183,7 @@
   border-color: #ff2343 !important;
   box-shadow: none !important;
 }
+
 .form-banner__form .form-field.has-error .form-input + .form-field-error,
 .form-banner__form .form-input.is-invalid + .form-field-error {
   margin-bottom: 8px;
@@ -199,7 +201,6 @@
   background: #fff;
   color: #53565a;
   font-size: 10px;
-  line-height: 18px;
   font-weight: 500;
   line-height: 1;
   pointer-events: none;
@@ -225,7 +226,7 @@
   border: 1px solid #8d8d8d;
   border-radius: 8px;
   background: #fff;
-  color: #000000;
+  color: #000;
   font-size: 14px;
   line-height: 21;
   font-weight: 500;
@@ -266,6 +267,7 @@
 
 .form-banner__form .form-input-prefix-wrap .form-input.form-control{
    padding: 0 45px;
+
   @media (width <= 991px) {
    padding: 0 38px;
   }
@@ -273,6 +275,7 @@
 
 .form-banner__form .form-input-prefix-wrap .form-input.form-control#enquire-mobile {
   padding: 0 0 0 38px;
+
    @media (width >= 991px) {
    padding: 0 0 0 45px;
   }
@@ -524,7 +527,7 @@
 
 .form-banner.block .form-error-popup {
   display: grid;
-  grid-template-columns: 33.333333% 66.666667%;
+  grid-template-columns: 33.3333% 66.6667%;
   width: 100%;
   height: 100%;
 }
@@ -534,6 +537,7 @@
   align-items: center;
   justify-content: center;
   padding: 150px 0;
+
   /* padding: 48px 40px 48px 48px; */
   background: #f4f4f4;
 }
@@ -575,10 +579,11 @@
   align-items: center;
   width: 100%;
   height: 100%;
+
   /* padding: 56px 48px; */
   background-image: var(--form-error-image-desktop);
+
   /* background-position: center; */
-  background-size: cover;
   background-repeat: no-repeat;
   padding: 0 14.2%;
   background-size: 100% 100%;
@@ -588,6 +593,7 @@
   content: '';
   position: absolute;
   inset: 0;
+
   /* background:
     linear-gradient(90deg, rgb(0 0 0 / 35%) 0%, rgb(0 0 0 / 10%) 45%, rgb(0 0 0 / 0%) 100%); */
 }
@@ -595,6 +601,7 @@
 .form-banner.block .form-error-popup__content {
   position: relative;
   z-index: 2;
+
   /* max-width: 560px; */
   color: #fff;
 }
@@ -635,9 +642,11 @@ width: fit-content !important;
     background: var(--gradient, linear-gradient(180deg, #fec940, #f90)) !important;
     border: none !important;
 }
+
 .form-banner.block .form-error-popup__button span {
       display: flex;
 }
+
 .form-banner.block .form-error-popup__button span::after{
       content: "";
     background: url('../../icons/arrow-black.webp') no-repeat;
@@ -650,6 +659,7 @@ width: fit-content !important;
     background: #fed440 !important;
     box-shadow: none;
 }
+
 .form-banner.block .form-error-popup__button:hover span{
   transform: translateX(6px);
 }
@@ -668,9 +678,11 @@ width: fit-content !important;
     .form-banner-wrapper:has(.success-active) , .form-banner-wrapper:has(.error-active) {
       padding: 20px;
     }
+
     .form-banner-wrapper:has(.success-active) .form-banner__wrapper , .form-banner-wrapper:has(.error-active) .form-banner__wrapper {
   display: none;
 }
+
   .form-banner__wrapper {
     min-height: auto;
     overflow: visible;
@@ -742,7 +754,7 @@ width: fit-content !important;
 
   .form-banner__form .form-consent-area {
     gap: 14px;
-    margin-top: 16px;
+    margin-top: 8px;
   }
 
   .form-banner__form .form-consent-text,
@@ -762,16 +774,17 @@ width: fit-content !important;
   .form-banner.block .form-error-popup__left {
     align-items: flex-start;
     justify-content: flex-start;
-    padding: 30px 24px 30px 24px;
+    padding: 30px 24px;
   }
 
   .form-banner.block .form-error-popup__copy {
     max-width: 100%;
+
     /* padding-right: 48px; */
   }
 
   .form-banner.block .form-error-popup__title {
-    margin-bottom: 0px;
+    margin-bottom: 0;
             font-size: 24px;
         line-height: 56px;
         letter-spacing: .48px;
@@ -787,6 +800,7 @@ width: fit-content !important;
 
   .form-banner.block .form-error-popup__media {
     align-items: flex-start;
+
     /* padding: 28px 20px 20px; */
     padding: 10%;
     background-image: var(--form-error-image-mobile);
@@ -824,14 +838,11 @@ width: fit-content !important;
   .form-banner__form .form-field-error {
     margin-top: 0;
   }
+
   .form-banner__form .form-field.has-error .form-input + .form-field-error,
 .form-banner__form .form-input.is-invalid + .form-field-error {
   margin-top: 4px;
 }
-
-  .form-banner__form .form-consent-area {
-    margin-top: 8px;
-  }
 
   .form-banner.block .form-error-popup__button {
     min-height: 40px;
@@ -853,6 +864,7 @@ width: fit-content !important;
 .form-banner-wrapper:has(.success-active) .form-banner.block , .form-banner-wrapper:has(.error-active) .form-banner.block {
     margin-bottom: 28rem;
   }
+
   .form-banner__media {
     min-height: 310px;
   }
@@ -936,15 +948,22 @@ width: fit-content !important;
 
 
 
-@media (min-width: 992px) {
+@media (width >= 992px) {
   /* desktop: banner fills the viewport below the fixed header. The image is a
      background layer and the form card sits in normal flow, so the banner
      grows with the card instead of clipping it on short screens. */
+
+
+   .form-banner.block.bhps-form .form-banner__overlay {
+    transform: translate(-5px, 30px);
+  }
+
   .form-banner__wrapper {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     box-sizing: border-box;
+
     /* body is zoomed on some desktop widths (styles.css), which also shrinks
        dvh; dividing by the zoom keeps the banner at the true viewport height */
     min-height: calc(100dvh / var(--body-zoom, 1) - var(--header-height));
@@ -961,16 +980,12 @@ width: fit-content !important;
     height:   100%;
   }
 
+  /* no vertical offset: the wrapper's flex centres the card on the banner
+     (BHPS forms set their own offset below) */
   .form-banner__overlay {
     position: relative;
     inset: auto;
-    transform: translate(-5px, 50px);
-  }
-
-  .form-banner.img-h .form-banner__overlay {
-    position: relative;
-    inset: auto;
-    transform: none;
+    transform: translateX(-5px);
   }
 
   .form-banner.block.popup-active .form-banner__overlay {
@@ -981,13 +996,17 @@ width: fit-content !important;
   .form-banner.block .form-popup-overlay {
     position: relative;
   }
+
   .form-banner-wrapper:has(.success-active) , .form-banner-wrapper:has(.error-active) {
-    padding: 50px calc(3% + 20px) 0 calc(3% + 20px);
+    padding: 50px calc(3% + 20px) 0;
+
     /* height: 435px; */
 }
+
 .form-banner-wrapper:has(.success-active) .form-banner__wrapper , .form-banner-wrapper:has(.error-active) .form-banner__wrapper {
   display: none;
 }
+
   .form-banner.block .form-error-popup__actions {
     display: flex;
     align-items: center;
@@ -1003,6 +1022,7 @@ width: fit-content !important;
   .services-blue-form .blue-form.block .form-description-cell .form-title-large {
     margin: 15px 0;
   }
+
   .services-blue-form .blue-form.block .form-description-cell .form-title-large p {
     color: rgb(255 255 255);
     font-size: 40px;
@@ -1011,6 +1031,7 @@ width: fit-content !important;
     word-wrap: break-word;
     margin: 0;
   }
+
   .form-banner-container .form-field-label {
     font-size: 12px;
     line-height: 18px;
@@ -1018,15 +1039,22 @@ width: fit-content !important;
   }
 }
 
-@media(min-width: 992px) and (max-width: 1280px) {
-  .form-banner__overlay {
+@media(width >= 992px) and (width <= 1280px) {
+ .form-banner.block.bhps-form .form-banner__overlay {
+    transform: translate(-5px, 40px);
+  }
+}
 
+/* both BHPS questions: body zoom is .85/.9 here, so the 30px offset leaves the
+   card barely overhanging the image; use the <=1280px offset instead */
+@media (1281px <= width <= 1439px) {
+  .form-banner.block.bhps-form--both-questions .form-banner__overlay {
     transform: translate(-5px, 40px);
   }
 }
 
 
-@media (min-width:1366px) {
+@media (width >=1366px) {
 .services-blue-form .blue-form.block .form-description-cell .form-title-large ,  .services-blue-form .blue-form.block .form-description-cell .form-title-small{
   max-width: 90%;
 }
@@ -1040,6 +1068,7 @@ width: fit-content !important;
 .form-banner.bhps-form .form-banner__form .form-input,
 .form-banner.bhps-form .form-banner__form .form-control.form-input {
   height: 47px;
+  letter-spacing: 1px;
 }
 
 .form-banner.bhps-form .form-banner__form .form-consent-area {
@@ -1052,27 +1081,27 @@ width: fit-content !important;
 
 .form-banner.bhps-form .form-banner__form .form-consent-item--checkbox .form-consent-check {
   position: relative;
-  flex: 0 0 15px;
-  width: 15px;
-  height: 15px;
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
   border: 1px solid #b0b1b3;
-  border-radius: 2px;
+  border-radius: 4px;
   background: transparent;
   transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .form-banner.bhps-form .form-banner__form .form-consent-item--checkbox .form-consent-input:checked + .form-consent-check {
-  border-color: #75787b;
-  background: #75787b;
+  border-color: #9b9b9b ;
+  background: #9b9b9b ;
 }
 
 .form-banner.bhps-form .form-banner__form .form-consent-item--checkbox .form-consent-input:checked + .form-consent-check::after {
   content: '';
   position: absolute;
-  top: 2px;
+  top: 0;
   left: 4px;
   width: 5px;
-  height: 8px;
+  height: 10px;
   border-right: 2px solid #fff;
   border-bottom: 2px solid #fff;
   transform: rotate(45deg);
@@ -1086,7 +1115,8 @@ width: fit-content !important;
 .form-banner.bhps-form .form-banner__form .form-consent-item--checkbox .form-consent-text {
   color: #000;
   font-size: 12px;
-  line-height: 19px;
+  line-height: 24px;
+  font-weight: 400;
 }
 
 .form-banner.bhps-form .form-banner__form .new-disclaimer-questions {
@@ -1127,7 +1157,7 @@ width: fit-content !important;
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   cursor: pointer;
   user-select: none;
   white-space: nowrap;
@@ -1141,9 +1171,9 @@ width: fit-content !important;
 
 .form-banner.bhps-form .form-banner__form .disclaimer-group .form-radio-input__custom-element {
   position: relative;
-  flex: 0 0 18px;
-  width: 18px;
-  height: 18px;
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
   border: 1px solid #b0b1b3;
   border-radius: 50%;
   transition: border-color 0.2s ease;
@@ -1176,16 +1206,16 @@ width: fit-content !important;
 
 .form-banner.bhps-form .form-banner__form .disclaimer-group .form-global__custom-label-text {
   color: #75787b;
-  font-size: 14px;
+  font-size: 11px;
   font-weight: 400;
   line-height: 20px;
 }
 
-.form-banner.bhps-form .form-banner__form .form-consent-note {
+.form-banner.bhps-form .form-banner__form .form-consent-note p {
   color: #8c8e90;
   font-size: 12px;
   line-height: 15px;
-  letter-spacing: 0.8px;
+  letter-spacing: 0.5px;
 }
 
 /* mobile/tablet: the BHPS card is taller than the fixed space reserved below
@@ -1209,6 +1239,10 @@ width: fit-content !important;
 /* desktop: the BHPS card is taller, so pin it near the top and tighten its
    spacing to keep the whole card and the slider dots inside the viewport */
 @media (width >= 992px) {
+  .form-banner.bhps-form .form-banner__form .disclaimer-group .form-global__custom-label-text {
+    font-size: 14px;
+  }
+
   .form-banner.bhps-form .form-banner__wrapper {
     align-items: flex-start;
     padding-top: 20px;
@@ -1246,24 +1280,27 @@ width: fit-content !important;
   }
 
   /* both BHPS questions shown: the banner is only as tall as the card (not the
-     viewport), so the whole card stays in view, centred on the right with
-     equal space above and below it */
+     viewport), so the whole card stays in view, and the image stops 50px short
+     of the card's bottom edge so the card overhangs the banner */
   .form-banner.bhps-form--both-questions .form-banner__wrapper {
-    align-items: center;
     min-height: 0;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-bottom: 0;
     overflow: visible;
     background: none;
   }
 
-  /* the image area fills the banner, so it grows with the card and the space
-     stays equal (height: auto, else the base height: 100% wins over inset) */
+  /* height: auto, else the base height: 100% wins over bottom and the image
+     still reaches the card's bottom edge */
   .form-banner.bhps-form--both-questions .form-banner__media {
-    inset: 0;
+    bottom: 50px;
+
+    /* stylelint-disable-next-line declaration-block-no-duplicate-properties -- fallback where dvh/min() are unsupported */
     height: auto;
-    overflow: hidden;
     background: #8b8172;
+
+    /* end the image 10px above the viewport bottom on short screens, so the
+       card's overhang is visible above the fold (body zoom shrinks dvh) */
+    height: min(580px, calc((100dvh - 10px) / var(--body-zoom, 1) - var(--header-height)));
   }
 
   .form-banner.bhps-form--both-questions .form-banner__card {
@@ -1296,6 +1333,57 @@ width: fit-content !important;
 
   .form-banner.bhps-form--both-questions .form-banner__form .form-submit {
     width: 100%;
+  }
+}
+
+@media (1280px <= width <= 1365px) {
+  .form-banner.bhps-form--both-questions .form-banner__wrapper {
+    zoom: 0.97;
+    padding-top: 0;
+  }
+
+  /* include the wrapper's 0.97 zoom so the image still ends 10px above the
+     viewport bottom */
+  .form-banner.bhps-form--both-questions .form-banner__media {
+    height: min(580px, calc((100dvh - 10px) / (var(--body-zoom, 1) * 0.97) - var(--header-height) / 0.97));
+  }
+}
+
+/* img-h, desktop: the image and the card share one grid cell, so the banner is
+   as tall as the image at its natural ratio, or as the card plus 20px above and
+   below when the card is taller. The image covers the banner from its left edge
+   (where its text is) and the card is centred on it, never overflowing. */
+@media (width >= 992px) {
+  .form-banner.img-h .form-banner__wrapper {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: stretch;
+    min-height: 0;
+    padding: 0;
+  }
+
+  .form-banner.img-h .form-banner__media,
+  .form-banner.block.img-h .form-banner__overlay {
+    grid-area: 1 / 1;
+  }
+
+  /* in flow, so the image's height sizes the grid row */
+  .form-banner.img-h .form-banner__media {
+    position: relative;
+    inset: auto;
+    height: auto;
+  }
+
+  .form-banner.img-h .form-banner__picture img {
+    height: 100%;
+    object-fit: cover;
+    object-position: left center;
+  }
+
+  .form-banner.block.img-h .form-banner__overlay {
+    place-self: center end;
+    margin: 20px 50px;
+    transform: none;
   }
 }
 
@@ -1336,6 +1424,46 @@ width: fit-content !important;
   margin-bottom: 0;
 }
 
+.form-banner.bhps-form .form-banner__form .form-field:not(.has-error) input {
+  margin-bottom: 4px;
+
+}
+
+@media (width < 992px) {
+  .form-banner.bhps-form .form-banner__media .form-banner__pagination {
+    bottom: 60px;
+  }
+
+  .form-banner.bhps-form .form-banner__form .form-inputs-grid {
+      gap: 0 8px;
+  }
+
+  .form-banner.bhps-form .form-banner__form .form-input, .form-banner.bhps-form .form-banner__form .form-control.form-input {
+   height:40px;
+   font-size: 12px;
+   font-weight: 500;
+    line-height: 21px;
+        border-radius: 6px;
+        letter-spacing: 1px;
+  }
+
+  .form-banner.bhps-form .form-banner__card-title {
+            font-size: 24px !important;
+        line-height: 38px !important;
+        font-weight: 400 !important;
+        color: #252B42 !important;
+  }
+
+.form-banner.bhps-form .form-banner__form .form-input-cell:not(:nth-of-type(3)) .form-field.has-error .form-field-error  {
+  margin-bottom: 20px;
+}
+
+}
+
+ .form-banner.bhps-form .form-banner__form .form-field-label {
+  letter-spacing: 1px;
+ }
+
 @media (width >= 992px) {
   .form-banner.bhps-form .form-popup-overlay--bhps .form-popup-success-cta {
     bottom: 36%;
@@ -1344,6 +1472,129 @@ width: fit-content !important;
     height: 33%;
     transform: none;
   }
+
+
+
+.form-banner.bhps-form .form-banner__form .form-field:not(.has-error) input {
+  margin-bottom: 8px;
+
 }
 
+}
+
+.form-banner.bhps-form .form-banner__card {
+  border-radius: 8px;
+}
+
+.form-banner.bhps-form .form-field-label {
+ left: 17px;
+}
+
+.form-banner.bhps-form .form-banner__form .form-field-error {
+  color: #ed1c24;
+  padding-top: 4px;
+} 
+
 /* BHPS form styling — End */
+
+/* ===== FIX BANNER TITLE (opt-in) : START =====
+   the "Banner title" row's heading on the banner image, as on the source (wood-listing):
+   mobile 24px / 30px, centred 44px from the top; desktop 30px / 40px, 103px from the left,
+   centred on the banner's height. Only blocks with the row get .form-banner__title. */
+.form-banner .form-banner__title {
+  position: absolute;
+  top: 44px;
+  right: 0;
+  left: 0;
+  z-index: 2;
+  text-align: center;
+  pointer-events: none;
+}
+
+.form-banner .form-banner__title h2 {
+  margin: 0 0 5px;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 30px;
+}
+
+@media (width >= 992px) {
+  .form-banner .form-banner__title {
+    top: 50%;
+    right: auto;
+    box-sizing: border-box;
+    width: 60%;
+    max-width: 864px;
+    padding: 0 60px 0 103px;
+    text-align: left;
+    transform: translateY(-50%);
+  }
+
+  .form-banner .form-banner__title h2 {
+    margin-bottom: 16px;
+    font-size: 30px;
+    line-height: 40px;
+  }
+}
+
+/* ===== FIX BANNER TITLE (opt-in) : END ===== */
+
+/* ===== FIX START: img-h thank-you in place of the banner, as on the source ===== */
+
+/* desktop: after submitting, the thank-you / error screen takes the banner's
+   place. The img-h grid above (same specificity, later) kept the banner on
+   screen and pushed the popup below it */
+@media (width >= 992px) {
+  .form-banner.img-h.popup-active .form-banner__wrapper {
+    display: none;
+  }
+}
+
+/* the thank-you video's spacing as on the source: 20px at the sides; 105px
+   above and 20px below it up to 991px (the -30px pulls the next section's
+   50px top margin in to 20px); from 992px 44px above (69px from 1280px) and
+   70px below (with the page's 40px between sections) */
+@media (width <= 991px) {
+  .form-banner-wrapper:has(.form-banner.img-h.success-active) {
+    margin-bottom: -30px;
+    padding: 105px 20px 0;
+  }
+}
+
+@media (width >= 992px) {
+  .form-banner-wrapper:has(.form-banner.img-h.success-active) {
+    padding: 44px 20px 30px;
+  }
+}
+
+@media (width >= 1280px) {
+  .form-banner-wrapper:has(.form-banner.img-h.success-active) {
+    padding-top: 69px;
+  }
+}
+
+/* the close button as on the source: a thin dark X (20x19) inside the video,
+   23px from its top and 28px from its right edge (33px / 12px up to 991px) */
+.form-banner.block.img-h.success-active .form-popup-close {
+  top: 23px;
+  right: 28px;
+  width: 20px;
+  height: 19px;
+  font-size: 0;
+  line-height: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 19' fill='none' stroke='%23222' stroke-width='1.6' stroke-linecap='round'%3E%3Cpath d='M1.5 1l17 17M18.5 1l-17 17'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.form-banner.block.img-h.success-active .form-popup-close .CloseIconForm {
+  display: none;
+}
+
+@media (width <= 991px) {
+  .form-banner.block.img-h.success-active .form-popup-close {
+    top: 33px;
+    right: 12px;
+  }
+}
+
+/* ===== FIX END ===== */
