@@ -65,7 +65,8 @@ and the code prefix are fixed in catalogue-listing-quickview.js, not authored.
  * families and filter facets/counts from the API URL at runtime; the shade details panel's
  * shades from the quick view API, one request per pageNumber on card clicks. Like the source,
  * the grid shows 23 shades first (24 slots with the help card) and 12 more per LOAD MORE; filters
- * are OR within a facet and AND across facets; the help card and banner only show unfiltered.
+ * are OR within a facet and AND across facets; the help card only shows unfiltered, and a
+ * filtered list starts with the banner (as the source).
  * The visitor's viewed shades are kept in the source site's "recentShades" cookie (JSON array of
  * shade codes, newest first, max 50), which this block reads and updates on card clicks.
  * Shade links (cards, the details panel's BUY NOW) are the API's pageUrl as returned; the quick
@@ -838,6 +839,10 @@ export default async function decorate(block) {
     const start = state.shown;
     const next = state.filtered.slice(start, start + count);
     const items = [];
+    // as on the source, a filtered list starts with the banner (unfiltered, it follows the 3rd row)
+    if (isFiltered() && banner && start === 0) {
+      items.push(el('li', { className: 'catalogue-listing-wide catalogue-listing-wide-top' }, banner));
+    }
     const bannerAfter = BANNER_AFTER - (helpCard ? 1 : 0);
     next.forEach((shade, i) => {
       const position = start + i; // number of shades already placed before this one

@@ -891,6 +891,11 @@ html.catalogue-listing-no-scroll {
     width: 100cqw;
   }
 
+  /* the banner a filtered list starts with: 100px down to the first shades, as the source */
+  .catalogue-listing .catalogue-listing-wide-top {
+    margin-bottom: 50px;
+  }
+
   .catalogue-listing .catalogue-listing-swatch {
     height: 260px;
   }
