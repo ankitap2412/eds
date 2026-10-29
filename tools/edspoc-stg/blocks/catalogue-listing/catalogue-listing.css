@@ -693,7 +693,13 @@ html.catalogue-listing-no-scroll {
 .catalogue-listing .catalogue-listing-recent-list {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px 10px;
+  gap: 16px 10px;
+}
+
+/* as the source: below the desktop layout every card is 105px wide, centred in its column */
+.catalogue-listing .catalogue-listing-recent-list > li {
+  justify-self: center;
+  width: min(105px, 100%);
 }
 
 .catalogue-listing .catalogue-listing-recent .catalogue-listing-swatch {
@@ -721,10 +727,6 @@ html.catalogue-listing-no-scroll {
   .catalogue-listing .catalogue-listing-promo,
   .catalogue-listing .catalogue-listing-banner {
     margin-inline: 0;
-  }
-
-  .catalogue-listing .catalogue-listing-recent-list {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 }
 
@@ -980,17 +982,39 @@ html.catalogue-listing-no-scroll {
     font-size: 20px;
   }
 
+  /* the source's fixed cards: 173px wide with 12px after them (14px above 1280px), 191px
+     from 1440px; the columns shrink to fit where the row is narrower */
   .catalogue-listing .catalogue-listing-recent-list {
-    gap: 30px 10px;
+    grid-template-columns: repeat(5, minmax(0, 185px));
+    gap: 16px 10px;
   }
 
   .catalogue-listing .catalogue-listing-recent-list > li {
+    justify-self: stretch;
+    width: auto;
     min-width: 0;
-    margin-right: 14px;
+    margin-right: 12px;
   }
 
   .catalogue-listing .catalogue-listing-recent .catalogue-listing-swatch {
     height: 178px;
+  }
+}
+
+/* recently viewed: the source's card spacing steps (the cards stay 173px wide below 1440px) */
+@media (width > 1280px) {
+  .catalogue-listing .catalogue-listing-recent-list {
+    grid-template-columns: repeat(5, minmax(0, 187px));
+  }
+
+  .catalogue-listing .catalogue-listing-recent-list > li {
+    margin-right: 14px;
+  }
+}
+
+@media (width >= 1440px) {
+  .catalogue-listing .catalogue-listing-recent-list {
+    grid-template-columns: repeat(5, 205px);
   }
 }
 
