@@ -982,8 +982,8 @@ html.catalogue-listing-no-scroll {
     font-size: 20px;
   }
 
-  /* the source's fixed cards: 173px wide with 12px after them (14px above 1280px), 191px
-     from 1440px; the columns shrink to fit where the row is narrower */
+  /* the source's fixed cards: 173px wide with 12px after them (14px above 1280px, 10px and no
+     column gap at exactly 1280px), 191px from 1440px; the columns shrink where the row is narrower */
   .catalogue-listing .catalogue-listing-recent-list {
     grid-template-columns: repeat(5, minmax(0, 185px));
     gap: 16px 10px;
@@ -1009,6 +1009,19 @@ html.catalogue-listing-no-scroll {
 
   .catalogue-listing .catalogue-listing-recent-list > li {
     margin-right: 14px;
+  }
+}
+
+/* exactly 1280px (e.g. a 1920px screen at 150% scaling): the source drops the column gap and
+   keeps 10px after each card, so the cards sit 183px apart */
+@media (width: 1280px) {
+  .catalogue-listing .catalogue-listing-recent-list {
+    grid-template-columns: repeat(5, minmax(0, 183px));
+    column-gap: 0;
+  }
+
+  .catalogue-listing .catalogue-listing-recent-list > li {
+    margin-right: 10px;
   }
 }
 
