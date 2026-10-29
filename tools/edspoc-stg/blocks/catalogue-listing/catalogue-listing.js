@@ -709,7 +709,11 @@ export default async function decorate(block) {
   const mainTitle = config.mainTitle
     ? el('h2', { className: 'catalogue-listing-title' }, config.mainTitle) : null;
   const familiesWrap = el('div', { className: 'catalogue-listing-families-wrap' }, buildFamilyTabs(family));
-  const title = family === 'all' ? (config.heading || 'All Colours') : findFamily(family).label;
+  // as the source, a family page is titled with its whole tab ("Reds & Oranges" on both halves)
+  const familyTab = FAMILY_TABS.find((families) => families.some(({ id }) => id === family));
+  const title = family === 'all'
+    ? (config.heading || 'All Colours')
+    : familyTab?.map(({ label }) => label).join(' & ') || '';
   const panelTitle = el('h2', { className: 'catalogue-listing-panel-title' }, title);
   const grid = el('ul', { className: 'catalogue-listing-grid', 'aria-busy': 'true' }, ...skeletonItems(8));
   const status = el('p', { className: 'catalogue-listing-status', role: 'status' });
