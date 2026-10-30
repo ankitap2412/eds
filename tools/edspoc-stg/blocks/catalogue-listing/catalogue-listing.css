@@ -587,7 +587,14 @@ html.catalogue-listing-no-scroll {
 }
 
 .catalogue-listing .catalogue-listing-help {
-  align-self: start;
+  display: flex;
+  flex-direction: column;
+}
+
+/* as the source: the help card is as tall as the shade cards in its row (the space goes under
+   its button) */
+.catalogue-listing .catalogue-listing-help > .catalogue-listing-help-card {
+  flex: 1 1 auto;
 }
 
 /* desktop only (shown from 900px), as the source */
@@ -610,12 +617,18 @@ html.catalogue-listing-no-scroll {
   padding: 10px;
 }
 
+/* below 900px the source's help card ends 23px under its button */
+.catalogue-listing .catalogue-listing-help-card-body {
+  padding-bottom: 23px;
+}
+
+/* 700: the source sets 600 but loads no Manrope 600, so its titles render Bold */
 .catalogue-listing .catalogue-listing-help-card-title,
 .catalogue-listing .catalogue-listing-aside-card-title {
   margin-bottom: 13px;
   color: #000;
   font-size: 10px;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 12px;
   letter-spacing: 0.5px;
 }
@@ -889,6 +902,13 @@ html.catalogue-listing-no-scroll {
     max-width: 216px;
   }
 
+  /* the source's help card is 1px narrower than the shade cards (252px from 1440px) and ends
+     10px above their bottom edge */
+  .catalogue-listing .catalogue-listing-grid > .catalogue-listing-help {
+    max-width: 215px;
+    margin-bottom: 10px;
+  }
+
   .catalogue-listing .catalogue-listing-wide {
     width: 100cqw;
   }
@@ -975,9 +995,9 @@ html.catalogue-listing-no-scroll {
     font-weight: 600;
   }
 
-  /* the side card's title, CTA and Back To Top in 700: the source sets 600 but loads no Manrope
-     600, so they render Bold there */
-  .catalogue-listing .catalogue-listing-aside-card-title,
+  /* the cards' CTAs and Back To Top in 700: the source sets 600 but loads no Manrope 600, so
+     they render Bold there */
+  .catalogue-listing .catalogue-listing-help-card .catalogue-listing-button,
   .catalogue-listing .catalogue-listing-aside-card .catalogue-listing-button,
   .catalogue-listing .catalogue-listing-aside .catalogue-listing-top {
     font-weight: 700;
@@ -1064,6 +1084,10 @@ html.catalogue-listing-no-scroll {
   .catalogue-listing .catalogue-listing-grid > .catalogue-listing-item {
     justify-self: start;
     max-width: 250px;
+  }
+
+  .catalogue-listing .catalogue-listing-grid > .catalogue-listing-help {
+    max-width: 252px;
   }
 
   .catalogue-listing .catalogue-listing-aside-card {
