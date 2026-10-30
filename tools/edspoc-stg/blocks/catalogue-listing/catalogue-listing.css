@@ -927,13 +927,15 @@ html.catalogue-listing-no-scroll {
     height: 40px;
   }
 
+  /* the source's sprite arrow: a thin #222 line at 80% (lighter than solid black),
+     10px after the name plus the space its markup leaves before it */
   .catalogue-listing .catalogue-listing-card-name::after {
     content: "";
     display: inline-block;
     width: 22px;
     height: 13px;
-    margin-left: 10px;
-    background: var(--cl-arrow) center / contain no-repeat;
+    margin-left: 14px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 13'%3E%3Cpath d='M1 6.5h20M15 1l6 5.5-6 5.5' fill='none' stroke='%23222' stroke-opacity='.8' stroke-width='1.1' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
   }
 
   .catalogue-listing .catalogue-listing-promo {
