@@ -840,9 +840,8 @@ html.catalogue-listing-no-scroll {
     border-bottom: 1px solid var(--cl-border);
   }
 
+  /* not sticky: on the source the card scrolls away with the page */
   .catalogue-listing .catalogue-listing-aside {
-    position: sticky;
-    top: 120px;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
@@ -859,9 +858,9 @@ html.catalogue-listing-no-scroll {
     font-size: 13px;
   }
 
-  /* the source card sits 250px below the filters */
+  /* the source card sits 236px below the filters (206px + the aside's 30px padding) */
   .catalogue-listing .catalogue-listing-filters:not([hidden]) + .catalogue-listing-aside {
-    margin-top: 220px;
+    margin-top: 206px;
   }
 
   .catalogue-listing .catalogue-listing-panel-title {
@@ -936,8 +935,12 @@ html.catalogue-listing-no-scroll {
     padding: 15px 15px 0;
   }
 
+  /* the source's image: 233x136 from 15px in (it runs into the card's right padding), not cropped */
   .catalogue-listing .catalogue-listing-aside-card-image img {
+    width: 233px;
+    max-width: none;
     height: 136px;
+    object-fit: fill;
   }
 
   .catalogue-listing .catalogue-listing-help-card-body {
@@ -967,6 +970,14 @@ html.catalogue-listing-no-scroll {
     padding: 14px 4px;
     font-size: 12px;
     font-weight: 600;
+  }
+
+  /* the side card's title, CTA and Back To Top in 700: the source sets 600 but loads no Manrope
+     600, so they render Bold there */
+  .catalogue-listing .catalogue-listing-aside-card-title,
+  .catalogue-listing .catalogue-listing-aside-card .catalogue-listing-button,
+  .catalogue-listing .catalogue-listing-aside .catalogue-listing-top {
+    font-weight: 700;
   }
 
   .catalogue-listing .catalogue-listing-more {
