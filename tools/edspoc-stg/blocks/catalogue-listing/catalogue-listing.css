@@ -1,0 +1,1532 @@
+/* Catalogue Listing: values from asianpaints.com shadelisting (mobile first; 600/900/1440) */
+
+.catalogue-listing {
+  --cl-accent: var(--primary-color, #431a80);
+  --cl-text: var(--text-color, #222);
+  --cl-muted: #848080;
+  --cl-border: #d3d3d3;
+  --cl-panel: var(--light-color, #f8f8f8);
+  --cl-card: #faf7ff;
+  --cl-heart: url("../../icons/old-type-wishlist-unselected.svg");
+  --cl-heart-saved: url("../../icons/old-type-wishlist-selected.svg");
+  --cl-arrow: url("../../icons/thin-arrow.svg");
+  --cl-check: url("../../icons/check.webp");
+
+  display: block;
+  min-height: 1200px;
+  color: var(--cl-text);
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.catalogue-listing.is-error {
+  min-height: 0;
+}
+
+.catalogue-listing button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.catalogue-listing ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.catalogue-listing p {
+  margin: 0;
+}
+
+.catalogue-listing :focus-visible {
+  outline: 2px solid var(--cl-accent);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------- buttons */
+
+.catalogue-listing .catalogue-listing-button {
+  display: inline-block;
+  min-width: 130px;
+  padding: 12px 20px;
+  border: 1px solid var(--cl-accent);
+  border-radius: 2px;
+  background: var(--cl-accent);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 12px;
+  letter-spacing: 0.5px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.catalogue-listing .catalogue-listing-button-secondary {
+  background: transparent;
+  color: var(--cl-accent);
+}
+
+.catalogue-listing .catalogue-listing-more {
+  order: 6;
+  padding: 20px 21px 41px;
+  text-align: center;
+}
+
+/* LOAD MORE (grid and recently viewed): outline button, filled on hover */
+.catalogue-listing .catalogue-listing-more > button {
+  width: 200px;
+  padding: 16px 20px;
+  border: 1px solid var(--cl-accent);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--cl-accent);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 0.86px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.catalogue-listing .catalogue-listing-more > button:hover {
+  background: #5e25b2;
+  color: #fff;
+}
+
+.catalogue-listing .catalogue-listing-more:has(> [hidden]) {
+  display: none;
+}
+
+/* ------------------------------------------------------------- main title */
+
+/* source: the title component under the breadcrumb (h4.leftAlign in a padding45 grid):
+   Manrope 400, #5d4f43, 7px below; 16px / 24px with 4.5% side padding, 28px / 36.4px with 4%
+   from 992px (the source's own switch; this site's body zoom starts there too). The family
+   tabs' 25px top padding gives the source's gap down to the chips. */
+.catalogue-listing .catalogue-listing-title {
+  margin: 0 0 7px;
+  padding: 0 4.5%;
+  color: #5d4f43;
+  font-family: var(--heading-font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: normal;
+  text-align: left;
+}
+
+@media (width >= 992px) {
+  .catalogue-listing .catalogue-listing-title {
+    padding: 0 4%;
+    font-size: 28px;
+    line-height: 36.4px;
+  }
+}
+
+/* ------------------------------------------------------------ family tabs */
+
+.catalogue-listing .catalogue-listing-families-wrap {
+  min-height: 90px;
+}
+
+.catalogue-listing .catalogue-listing-families {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 15px 0;
+  padding: 25px 5% 10px;
+}
+
+.catalogue-listing .catalogue-listing-families > li {
+  display: flex;
+  min-width: 0;
+}
+
+.catalogue-listing .catalogue-listing-family {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 0 0 5px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  color: var(--cl-muted);
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.catalogue-listing .catalogue-listing-chip {
+  position: relative;
+  display: flex;
+  flex: 0 0 auto;
+  width: 92%;
+  height: 30px;
+  overflow: hidden;
+  border-radius: 3px;
+  outline: 1px solid #d8d8d8;
+  box-shadow: 1px 5px 15px 2px #c2c2c2;
+}
+
+/* two-colour tabs: one half per family page, flat like the source */
+.catalogue-listing .catalogue-listing-chip:has(> :nth-child(2)) {
+  box-shadow: none;
+}
+
+.catalogue-listing .catalogue-listing-chip-part {
+  position: relative;
+  display: block;
+  flex: 1 1 0;
+}
+
+/* the current family's tick, centred on its colour (on its half of a two-colour chip), as the
+   source (check.webp is the source's 15px Vector.webp). None on All Colours. */
+.catalogue-listing .catalogue-listing-family:not([data-family="all"]) .catalogue-listing-chip-part.is-current::after {
+  content: '';
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 15px;
+  height: 15px;
+  background: var(--cl-check) center / contain no-repeat;
+  transform: translate(-50%, -50%);
+}
+
+.catalogue-listing [data-family="all"] .catalogue-listing-chip {
+  box-shadow: none;
+}
+
+.catalogue-listing [data-family="all"] .catalogue-listing-chip-part {
+  background-image: linear-gradient(90deg, red, orange, #dfd960, #71ac00, hotpink, blue);
+}
+
+/* white line between the halves: a 1px border on each (as the source). Borders round to whole
+   screen pixels the same way on every chip; a flex gap rounded differently per chip when zoomed */
+.catalogue-listing .catalogue-listing-chip-part:not(:only-child):first-child {
+  border-right: 1px solid #fff;
+}
+
+.catalogue-listing .catalogue-listing-chip-part:not(:only-child):last-child {
+  border-left: 1px solid #fff;
+}
+
+/* the current family takes 80% of its two-colour chip and the other family 20%, as the
+   source's activeColorFamily / deactiveColorFamily (the 1px white line is inside each part) */
+.catalogue-listing .catalogue-listing-chip:has(> .catalogue-listing-chip-part.is-current:not(:only-child)) > .catalogue-listing-chip-part {
+  box-sizing: border-box;
+  flex: 0 0 20%;
+}
+
+.catalogue-listing .catalogue-listing-chip:has(> .catalogue-listing-chip-part.is-current:not(:only-child)) > .catalogue-listing-chip-part.is-current {
+  flex-basis: 80%;
+}
+
+/* visually hidden on mobile, but kept as the tab's accessible name */
+.catalogue-listing .catalogue-listing-family-name {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.catalogue-listing .catalogue-listing-family.is-active {
+  border-bottom-color: var(--cl-accent);
+  color: var(--cl-text);
+  font-weight: 700;
+}
+
+/* ------------------------------------------------------------- body layout */
+
+/* mobile: recently viewed, panel title, filter button, grid, LOAD MORE */
+.catalogue-listing .catalogue-listing-body {
+  display: flex;
+  flex-direction: column;
+  background: var(--cl-panel);
+}
+
+.catalogue-listing .catalogue-listing-sidebar,
+.catalogue-listing .catalogue-listing-panel {
+  display: contents;
+}
+
+.catalogue-listing .catalogue-listing-recent-slot {
+  order: 1;
+  background: #fff;
+}
+
+.catalogue-listing .catalogue-listing-filters {
+  order: 3;
+  padding: 0 20px 14px;
+}
+
+/* below desktop the side card hides and Back To Top sits under the listing, centred on white
+   (source: .back-to-top-mweb, 16px padding) */
+.catalogue-listing .catalogue-listing-aside {
+  display: flex;
+  order: 7;
+  justify-content: center;
+  padding: 16px;
+  background: #fff;
+}
+
+/* ----------------------------------------------------------------- filters */
+
+.catalogue-listing .catalogue-listing-filter-toggle {
+  position: relative;
+  width: 100%;
+  padding: 12px 10px;
+  border: 1px solid var(--cl-accent);
+  border-radius: 3px;
+  background: transparent;
+  color: var(--cl-accent);
+  font-weight: 200;
+  letter-spacing: 0.5px;
+  text-align: left;
+}
+
+.catalogue-listing .catalogue-listing-filter-toggle::after {
+  content: "";
+  position: absolute;
+  top: 16px;
+  right: 12px;
+  width: 9px;
+  height: 9px;
+  border: solid var(--cl-accent);
+  border-width: 0 1px 1px 0;
+  transform: rotate(45deg);
+}
+
+/* mobile drawer */
+.catalogue-listing .catalogue-listing-drawer {
+  display: none;
+}
+
+.catalogue-listing .catalogue-listing-drawer.is-open {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+}
+
+.catalogue-listing .catalogue-listing-drawer.is-open .catalogue-listing-facets {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 15px;
+}
+
+.catalogue-listing .catalogue-listing-drawer-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 18px 15px;
+  border-top: 1px solid var(--cl-border);
+  background: #fff;
+}
+
+.catalogue-listing .catalogue-listing-drawer-actions .catalogue-listing-button {
+  flex: 1 1 0;
+  padding: 14px 20px;
+}
+
+html.catalogue-listing-no-scroll {
+  overflow: hidden;
+}
+
+.catalogue-listing .catalogue-listing-facet-title {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0 0 14px;
+  padding: 0 30px 0 0;
+  border: 0;
+  background: none;
+  color: var(--cl-text);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-align: left;
+}
+
+/* the arrow's grey circle (one line high) */
+.catalogue-listing .catalogue-listing-facet-title::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--cl-panel);
+}
+
+/* the arrow, centred in the circle */
+.catalogue-listing .catalogue-listing-facet-title::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  right: 8px;
+  width: 6px;
+  height: 6px;
+  border: solid currentcolor;
+  border-width: 0 1px 1px 0;
+  transform: rotate(-135deg);
+}
+
+.catalogue-listing .catalogue-listing-facet-title[aria-expanded="false"]::after {
+  top: 6px;
+  transform: rotate(45deg);
+}
+
+.catalogue-listing .catalogue-listing-facet-options li {
+  margin-bottom: 14px;
+}
+
+.catalogue-listing .catalogue-listing-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  text-transform: capitalize;
+}
+
+.catalogue-listing .catalogue-listing-option.is-disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.catalogue-listing .catalogue-listing-checkbox {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  border: 1px solid #9b9b9b;
+  border-radius: 0;
+  background: #fff;
+  cursor: inherit;
+  appearance: none;
+}
+
+.catalogue-listing .catalogue-listing-checkbox:checked {
+  border-color: var(--cl-accent);
+  background: var(--cl-accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M6 10.2l2.8 2.8L14.2 7' fill='none' stroke='%23fff' stroke-width='2'/%3E%3C/svg%3E") center / 100% no-repeat;
+}
+
+/* ------------------------------------------------------------------- grid */
+
+/* below 900px: grey like the panel (as the source), so with the -10px margin the grey area
+   starts 10px higher too, not just the text */
+.catalogue-listing .catalogue-listing-panel-title {
+  order: 2;
+  margin: -10px 0 0;
+  padding: 10px 20px 20px;
+  background: var(--cl-panel);
+  color: var(--cl-text);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 22px;
+  text-transform: uppercase;
+}
+
+.catalogue-listing .catalogue-listing-grid {
+  order: 4;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px 34px;
+  min-height: 800px;
+  padding: 0 22px 0 20px;
+}
+
+.catalogue-listing.is-error .catalogue-listing-grid {
+  min-height: 0;
+}
+
+.catalogue-listing .catalogue-listing-wide {
+  grid-column: 1 / -1;
+}
+
+.catalogue-listing .catalogue-listing-card {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.catalogue-listing .catalogue-listing-swatch {
+  position: relative;
+  display: block;
+  height: 166px;
+  border-top-right-radius: 30px;
+}
+
+/* wishlist heart (state and clicks: scripts/wishlist.js): a button beside the card's link,
+   over the swatch's top right corner; red when saved */
+.catalogue-listing .catalogue-listing-item {
+  position: relative;
+}
+
+/* phones: 157px cards centred in their columns (as the source); on narrow phones they shrink so
+   they take at most half the column gap */
+.catalogue-listing .catalogue-listing-grid > .catalogue-listing-item {
+  justify-self: center;
+  width: min(157px, calc(100% + 17px));
+}
+
+.catalogue-listing .catalogue-listing-wishlist {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #fff var(--cl-heart) center / contain no-repeat;
+}
+
+.catalogue-listing .catalogue-listing-wishlist[aria-pressed="true"] {
+  background-image: var(--cl-heart-saved);
+}
+
+.catalogue-listing .catalogue-listing-card-desc {
+  display: block;
+  min-height: 44px;
+  margin-top: 15px;
+}
+
+.catalogue-listing .catalogue-listing-card-name,
+.catalogue-listing .catalogue-listing-card-code {
+  display: block;
+  overflow: hidden;
+  letter-spacing: 0.5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.catalogue-listing .catalogue-listing-card-name {
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.catalogue-listing .catalogue-listing-card-code {
+  font-weight: 300;
+}
+
+.catalogue-listing .catalogue-listing-skeleton .catalogue-listing-swatch {
+  background: linear-gradient(90deg, #eee 25%, #f5f5f5 50%, #eee 75%) 0 0 / 200% 100%;
+  animation: catalogue-listing-shimmer 1.5s linear infinite;
+}
+
+@keyframes catalogue-listing-shimmer {
+  to { background-position: -200% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .catalogue-listing .catalogue-listing-skeleton .catalogue-listing-swatch {
+    animation: none;
+  }
+}
+
+.catalogue-listing .catalogue-listing-status {
+  order: 5;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.catalogue-listing .catalogue-listing-status.is-message {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: 40px 20px;
+  clip-path: none;
+  text-align: center;
+  white-space: normal;
+}
+
+/* -------------------------------------------------------------- promo items */
+
+.catalogue-listing .catalogue-listing-promo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin: 0 -10px 1px -8px;
+  padding: 30px 15px;
+  background-color: #57b65b;
+  background-image: linear-gradient(90deg, #8132a9 40%, #579f6a);
+  color: #fff;
+  text-decoration: none;
+}
+
+.catalogue-listing .catalogue-listing-promo-text {
+  max-width: 85%;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 17px;
+  letter-spacing: 0.5px;
+}
+
+.catalogue-listing .catalogue-listing-promo-arrow {
+  flex: 0 0 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #fff var(--cl-arrow) center / 20px no-repeat;
+}
+
+.catalogue-listing .catalogue-listing-help-card,
+.catalogue-listing .catalogue-listing-aside-card {
+  overflow: hidden;
+  background: var(--cl-card);
+  box-shadow: 0 0 4px rgb(0 0 0 / 20%);
+}
+
+.catalogue-listing .catalogue-listing-help {
+  display: flex;
+  flex-direction: column;
+}
+
+/* as the source: the help card is as tall as the shade cards in its row (the space goes under
+   its button) */
+.catalogue-listing .catalogue-listing-help > .catalogue-listing-help-card {
+  flex: 1 1 auto;
+}
+
+/* desktop only (shown from 900px), as the source */
+.catalogue-listing .catalogue-listing-aside-card {
+  display: none;
+  width: 100%;
+  max-width: 252px;
+}
+
+.catalogue-listing .catalogue-listing-help-card-image img,
+.catalogue-listing .catalogue-listing-aside-card-image img {
+  display: block;
+  width: 100%;
+  height: 98px;
+  object-fit: cover;
+}
+
+.catalogue-listing .catalogue-listing-help-card-body,
+.catalogue-listing .catalogue-listing-aside-card-body {
+  padding: 10px;
+}
+
+/* below 900px the source's help card ends 23px under its button */
+.catalogue-listing .catalogue-listing-help-card-body {
+  padding-bottom: 23px;
+}
+
+/* 700: the source sets 600 but loads no Manrope 600, so its titles render Bold */
+.catalogue-listing .catalogue-listing-help-card-title,
+.catalogue-listing .catalogue-listing-aside-card-title {
+  margin-bottom: 13px;
+  color: #000;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 12px;
+  letter-spacing: 0.5px;
+}
+
+.catalogue-listing .catalogue-listing-help-card-text,
+.catalogue-listing .catalogue-listing-aside-card-text {
+  margin-bottom: 10px;
+  color: var(--cl-accent);
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 12px;
+  letter-spacing: 0.5px;
+}
+
+.catalogue-listing .catalogue-listing-help-card .catalogue-listing-button,
+.catalogue-listing .catalogue-listing-aside-card .catalogue-listing-button {
+  width: 100%;
+  min-width: 0;
+  padding: 7px 4px;
+  font-size: 8px;
+  font-weight: 500;
+  line-height: 12px;
+}
+
+.catalogue-listing .catalogue-listing-banner {
+  margin: 0 -12px 10px -10px;
+}
+
+.catalogue-listing .catalogue-listing-banner a {
+  display: block;
+}
+
+.catalogue-listing .catalogue-listing-banner img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.catalogue-listing .catalogue-listing-top {
+  padding-bottom: 2px;
+  border-bottom: 2px solid #5e25b2;
+  border-radius: 2px;
+  color: var(--cl-text);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 12px;
+  letter-spacing: 1px;
+  text-decoration: none;
+}
+
+/* family tab label links (kept after the banner link rule for specificity order) */
+.catalogue-listing .catalogue-listing-family-name a:any-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.catalogue-listing .catalogue-listing-family-name a:focus-visible {
+  color: var(--cl-text);
+}
+
+/* --------------------------------------------------------- recently viewed */
+
+.catalogue-listing .catalogue-listing-recent {
+  padding: 0 20px 25px;
+}
+
+.catalogue-listing .catalogue-listing-recent-title {
+  margin: 0 0 15px;
+  color: var(--cl-text);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 22px;
+}
+
+.catalogue-listing .catalogue-listing-recent-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px 10px;
+}
+
+/* as the source: below the desktop layout every card is 105px wide, centred in its column */
+.catalogue-listing .catalogue-listing-recent-list > li {
+  justify-self: center;
+  width: min(105px, 100%);
+}
+
+.catalogue-listing .catalogue-listing-recent .catalogue-listing-swatch {
+  height: 110px;
+}
+
+.catalogue-listing .catalogue-listing-recent .catalogue-listing-more {
+  padding: 20px 0 0;
+}
+
+/* ------------------------------------------------------------- 600px + */
+
+@media (width >= 600px) {
+  .catalogue-listing .catalogue-listing-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    padding: 0 20px;
+  }
+
+  .catalogue-listing .catalogue-listing-grid > .catalogue-listing-item {
+    justify-self: stretch;
+    width: auto;
+  }
+
+  .catalogue-listing .catalogue-listing-promo,
+  .catalogue-listing .catalogue-listing-banner {
+    margin-inline: 0;
+  }
+}
+
+/* ------------------------------------------------------------- 900px + */
+
+@media (width >= 900px) {
+  .catalogue-listing .catalogue-listing-families {
+    display: flex;
+    justify-content: space-between;
+    padding: 25px 5%;
+  }
+
+  /* 8 tabs of 8% each spread across the row (as the source); the underline spans the tab */
+  .catalogue-listing .catalogue-listing-families > li {
+    flex: 0 0 8%;
+  }
+
+  .catalogue-listing .catalogue-listing-family {
+    padding: 0;
+  }
+
+  .catalogue-listing .catalogue-listing-chip {
+    width: 95%;
+    height: 34px;
+  }
+
+  .catalogue-listing [data-family="all"] .catalogue-listing-chip {
+    width: 100%;
+  }
+
+  .catalogue-listing .catalogue-listing-family-name {
+    position: static;
+    display: block;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip-path: none;
+    white-space: normal;
+    padding: 10px 0 8px;
+  }
+
+  /* sidebar (25%) | recently viewed + grey panel (75%) */
+  .catalogue-listing .catalogue-listing-body {
+    display: grid;
+    grid-template:
+      "sidebar recent" auto
+      "sidebar panel" 1fr / 25% 75%;
+    background: none;
+  }
+
+  .catalogue-listing .catalogue-listing-sidebar {
+    display: flex;
+    flex-direction: column;
+    grid-area: sidebar;
+    min-width: 0;
+  }
+
+  .catalogue-listing .catalogue-listing-recent-slot {
+    grid-area: recent;
+    min-width: 0;
+  }
+
+  .catalogue-listing .catalogue-listing-panel {
+    display: block;
+    grid-area: panel;
+    min-width: 0;
+    min-height: 800px;
+    margin-top: 29px;
+    background: var(--cl-panel);
+  }
+
+  .catalogue-listing.is-error .catalogue-listing-panel {
+    min-height: 0;
+  }
+
+  .catalogue-listing .catalogue-listing-filters {
+    order: 0;
+    padding: 0 30px;
+  }
+
+  .catalogue-listing .catalogue-listing-filter-toggle {
+    margin-bottom: 14px;
+    padding: 15px 0;
+    border: 0;
+    border-bottom: 1px solid var(--cl-border);
+    border-radius: 0;
+    background: none;
+    color: var(--cl-text);
+    font-weight: 400;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .catalogue-listing .catalogue-listing-filter-toggle::after,
+  .catalogue-listing .catalogue-listing-drawer-actions {
+    display: none;
+  }
+
+  .catalogue-listing .catalogue-listing-drawer,
+  .catalogue-listing .catalogue-listing-drawer.is-open {
+    position: static;
+    display: block;
+    background: none;
+  }
+
+  .catalogue-listing .catalogue-listing-facets,
+  .catalogue-listing .catalogue-listing-drawer.is-open .catalogue-listing-facets {
+    overflow: visible;
+    margin-bottom: 14px;
+    padding: 0;
+    border-bottom: 1px solid var(--cl-border);
+  }
+
+  /* not sticky: on the source the card scrolls away with the page */
+  .catalogue-listing .catalogue-listing-aside {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 30px;
+    padding: 30px 0;
+    background: none;
+  }
+
+  /* not centred: the source's card starts 10% of the sidebar's width in (15% from 1440px) */
+  .catalogue-listing .catalogue-listing-aside-card {
+    display: block;
+    align-self: flex-start;
+    margin-left: 10%;
+  }
+
+  .catalogue-listing .catalogue-listing-top {
+    font-size: 13px;
+  }
+
+  /* the source card sits 236px below the filters (206px + the aside's 30px padding) */
+  .catalogue-listing .catalogue-listing-filters:not([hidden]) + .catalogue-listing-aside {
+    margin-top: 206px;
+  }
+
+  .catalogue-listing .catalogue-listing-panel-title {
+    margin: 0 0 -10px;
+    padding: 30px 20px 0 25px;
+    font-size: 20px;
+  }
+
+  /* as the source: 216px cards centred in 24% columns 12px apart, so the space between swatches
+     grows with the panel (the columns shrink to fit when 4 x 24% doesn't). The grid is the size
+     container of the full-width rows, which span all of it, not just the 4 columns. */
+  .catalogue-listing .catalogue-listing-grid {
+    container-type: inline-size;
+    grid-template-columns: repeat(4, minmax(0, 24%));
+    gap: 20px 12px;
+    min-height: 0;
+    padding: 30px 22px 30px 23px;
+  }
+
+  .catalogue-listing .catalogue-listing-grid > .catalogue-listing-item {
+    justify-self: center;
+    width: 100%;
+    max-width: 216px;
+  }
+
+  /* the source's help card is 1px narrower than the shade cards (252px from 1440px) and ends
+     10px above their bottom edge */
+  .catalogue-listing .catalogue-listing-grid > .catalogue-listing-help {
+    max-width: 215px;
+    margin-bottom: 10px;
+  }
+
+  .catalogue-listing .catalogue-listing-wide {
+    width: 100cqw;
+  }
+
+  /* the banner a filtered list starts with: 100px down to the first shades, as the source */
+  .catalogue-listing .catalogue-listing-wide-top {
+    margin-bottom: 50px;
+  }
+
+  .catalogue-listing .catalogue-listing-swatch {
+    height: 260px;
+  }
+
+  .catalogue-listing .catalogue-listing-wishlist {
+    width: 40px;
+    height: 40px;
+  }
+
+  /* the source's sprite arrow: a thin #222 line at 80% (lighter than solid black),
+     10px after the name plus the space its markup leaves before it */
+  .catalogue-listing .catalogue-listing-card-name::after {
+    content: "";
+    display: inline-block;
+    width: 22px;
+    height: 13px;
+    margin-left: 14px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 13'%3E%3Cpath d='M1 6.5h20M15 1l6 5.5-6 5.5' fill='none' stroke='%23222' stroke-opacity='.8' stroke-width='1.1' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  }
+
+  .catalogue-listing .catalogue-listing-promo {
+    margin: 0 2px 1px;
+    padding: 23px 28px;
+  }
+
+  .catalogue-listing .catalogue-listing-promo-text {
+    max-width: none;
+    font-size: 22px;
+  }
+
+  .catalogue-listing .catalogue-listing-banner {
+    margin: 0 0 30px;
+  }
+
+  .catalogue-listing .catalogue-listing-help-card-image img {
+    height: 150px;
+  }
+
+  .catalogue-listing .catalogue-listing-aside-card-image {
+    padding: 15px 15px 0;
+  }
+
+  /* the source's image: 233x136 from 15px in (it runs into the card's right padding), not cropped */
+  .catalogue-listing .catalogue-listing-aside-card-image img {
+    width: 233px;
+    max-width: none;
+    height: 136px;
+    object-fit: fill;
+  }
+
+  .catalogue-listing .catalogue-listing-help-card-body {
+    padding: 15px 10px;
+  }
+
+  .catalogue-listing .catalogue-listing-aside-card-body {
+    padding: 15px;
+  }
+
+  .catalogue-listing .catalogue-listing-help-card-title,
+  .catalogue-listing .catalogue-listing-aside-card-title {
+    margin-bottom: 19px;
+    font-size: 13px;
+    line-height: 16px;
+  }
+
+  .catalogue-listing .catalogue-listing-help-card-text,
+  .catalogue-listing .catalogue-listing-aside-card-text {
+    margin-bottom: 12px;
+    font-size: 13px;
+    line-height: 16px;
+  }
+
+  .catalogue-listing .catalogue-listing-help-card .catalogue-listing-button,
+  .catalogue-listing .catalogue-listing-aside-card .catalogue-listing-button {
+    padding: 14px 4px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  /* the cards' CTAs and Back To Top in 700: the source sets 600 but loads no Manrope 600, so
+     they render Bold there */
+  .catalogue-listing .catalogue-listing-help-card .catalogue-listing-button,
+  .catalogue-listing .catalogue-listing-aside-card .catalogue-listing-button,
+  .catalogue-listing .catalogue-listing-aside .catalogue-listing-top {
+    font-weight: 700;
+  }
+
+  .catalogue-listing .catalogue-listing-more {
+    padding: 0 21px 21px;
+  }
+
+  .catalogue-listing .catalogue-listing-more > button {
+    width: 270px;
+    font-size: 13px;
+  }
+
+  .catalogue-listing .catalogue-listing-recent {
+    padding: 0 0 0 25px;
+  }
+
+  .catalogue-listing .catalogue-listing-recent-title {
+    margin: 0 15px 20px 0;
+    font-size: 20px;
+  }
+
+  /* the source's fixed cards: 173px wide with 12px after them (14px above 1280px, 10px and no
+     column gap at exactly 1280px), 191px from 1440px; the columns shrink where the row is narrower */
+  .catalogue-listing .catalogue-listing-recent-list {
+    grid-template-columns: repeat(5, minmax(0, 185px));
+    gap: 16px 10px;
+  }
+
+  .catalogue-listing .catalogue-listing-recent-list > li {
+    justify-self: stretch;
+    width: auto;
+    min-width: 0;
+    margin-right: 12px;
+  }
+
+  .catalogue-listing .catalogue-listing-recent .catalogue-listing-swatch {
+    height: 178px;
+  }
+}
+
+/* recently viewed: the source's card spacing steps (the cards stay 173px wide below 1440px) */
+@media (width > 1280px) {
+  .catalogue-listing .catalogue-listing-recent-list {
+    grid-template-columns: repeat(5, minmax(0, 187px));
+  }
+
+  .catalogue-listing .catalogue-listing-recent-list > li {
+    margin-right: 14px;
+  }
+}
+
+/* exactly 1280px (e.g. a 1920px screen at 150% scaling): the source drops the column gap and
+   keeps 10px after each card, so the cards sit 183px apart */
+@media (width: 1280px) {
+  .catalogue-listing .catalogue-listing-recent-list {
+    grid-template-columns: repeat(5, minmax(0, 183px));
+    column-gap: 0;
+  }
+
+  .catalogue-listing .catalogue-listing-recent-list > li {
+    margin-right: 10px;
+  }
+}
+
+@media (width >= 1440px) {
+  .catalogue-listing .catalogue-listing-recent-list {
+    grid-template-columns: repeat(5, 205px);
+  }
+}
+
+/* ------------------------------------------------------------ 1440px + */
+
+/* the source's wide step (this site's body zoom ends there too; below it the zoomed page uses the
+   900px values, as the source does): 250px cards at the left of 23% columns 15px apart */
+@media (width >= 1440px) {
+  .catalogue-listing .catalogue-listing-grid {
+    grid-template-columns: repeat(4, minmax(0, 23%));
+    gap: 20px 15px;
+    padding: 30px 60px 30px 30px;
+  }
+
+  .catalogue-listing .catalogue-listing-grid > .catalogue-listing-item {
+    justify-self: start;
+    max-width: 250px;
+  }
+
+  .catalogue-listing .catalogue-listing-grid > .catalogue-listing-help {
+    max-width: 252px;
+  }
+
+  .catalogue-listing .catalogue-listing-aside-card {
+    margin-left: 15%;
+  }
+}
+
+/* =============================================
+   Start: shade details panel (catalogue-listing-quickview.js)
+   Values from the source's quick view (#js-shade-palette-append): below 900px a sheet fixed
+   under the header (room photo 325px tall, one scrolling row of 50x55 swatches, name 24px/29px
+   700, code 12px/15px, outlined BUY NOW, description 12px/18px 600); from 900px a full-width
+   item after the card's row: swatches 90x110 four to a row (13px/10px apart) on the left, the
+   photo on the right, then name/code + BUY NOW below the swatches and the underlined BUY NOW +
+   SPEAK TO PROFESSIONAL (250x50) below the photo.
+   ============================================= */
+
+/* the open card's swatch glows, as on the source */
+.catalogue-listing .catalogue-listing-card[aria-expanded="true"] .catalogue-listing-swatch {
+  box-shadow: 0 0 5px 2px #ded8e7;
+}
+
+.catalogue-listing .catalogue-listing-quickview-item {
+  display: contents;
+}
+
+.catalogue-listing .catalogue-listing-quickview {
+  position: fixed;
+  inset: var(--cl-sheet-top, var(--header-height, 0)) 0 0;
+  z-index: 999;
+  display: grid;
+  grid-template-areas:
+    "media"
+    "palette"
+    "info";
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-bottom: 30px;
+  border: 1px solid #f2f4f5;
+  border-radius: 1px;
+  background: #fff;
+  box-shadow: 0 0 4px rgb(0 0 0 / 20%);
+}
+
+/* focused on open so keyboard and screen reader users land in it; not a control itself */
+.catalogue-listing .catalogue-listing-quickview:focus {
+  outline: none;
+}
+
+html.catalogue-listing-sheet-open {
+  overflow: hidden;
+}
+
+.catalogue-listing .catalogue-listing-quickview [hidden] {
+  display: none;
+}
+
+.catalogue-listing .catalogue-listing-quickview-media {
+  position: relative;
+  grid-area: media;
+  height: 325px;
+  background-color: #eee;
+}
+
+.catalogue-listing .catalogue-listing-quickview-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.catalogue-listing .catalogue-listing-quickview-close,
+.catalogue-listing .catalogue-listing-quickview-wishlist,
+.catalogue-listing .catalogue-listing-quickview-next,
+.catalogue-listing .catalogue-listing-quickview-expand {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #fff center / 14px no-repeat;
+}
+
+.catalogue-listing .catalogue-listing-quickview-close {
+  top: 15px;
+  left: 10px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M2.5 2.5l11 11M13.5 2.5l-11 11' fill='none' stroke='%23222' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+.catalogue-listing .catalogue-listing-quickview-wishlist {
+  top: 15px;
+  right: 10px;
+  background: #fff var(--cl-heart) center / contain no-repeat;
+}
+
+.catalogue-listing .catalogue-listing-quickview-wishlist[aria-pressed="true"] {
+  background-image: var(--cl-heart-saved);
+}
+
+/* phones and tablets pick a shade from the palette */
+.catalogue-listing .catalogue-listing-quickview-next {
+  display: none;
+}
+
+/* phones and tablets: the down arrow on the photo's bottom edge (full colour view) */
+.catalogue-listing .catalogue-listing-quickview-expand {
+  bottom: 0;
+  left: 50%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 6l5 5 5-5' fill='none' stroke='%23222' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  transform: translate(-50%, 50%);
+}
+
+.catalogue-listing .catalogue-listing-quickview-expand[aria-pressed="true"] {
+  transform: translate(-50%, 50%) rotate(180deg);
+}
+
+/* one row of swatches, scrolling sideways (with its scrollbar, as on the source) */
+.catalogue-listing .catalogue-listing-quickview-palette {
+  display: flex;
+  grid-area: palette;
+  gap: 10px;
+  margin-top: 20px;
+  padding: 5px 15px 8px;
+  overflow-x: auto;
+}
+
+.catalogue-listing .catalogue-listing-quickview-swatch {
+  position: relative;
+  flex: 0 0 50px;
+  height: 55px;
+  padding: 0;
+  border: 0;
+  border-radius: 0 15px 0 0;
+}
+
+.catalogue-listing .catalogue-listing-quickview-swatch[aria-pressed="true"] {
+  box-shadow: 0 0 5px 2px #ded8e7;
+}
+
+/* the selected shade's tick: a white circle in the middle of the swatch */
+.catalogue-listing .catalogue-listing-quickview-swatch[aria-pressed="true"]::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.6 2.6L12 5.5' fill='none' stroke='%23c2b9ba' stroke-width='1.4'/%3E%3C/svg%3E") center / 70% no-repeat;
+  transform: translate(-50%, -50%);
+}
+
+.catalogue-listing .catalogue-listing-quickview-info {
+  display: grid;
+  grid-area: info;
+  grid-template:
+    "name buy" auto
+    "code buy" auto
+    "desc desc" auto
+    "app app" auto / minmax(0, 1fr) auto;
+  column-gap: 15px;
+  align-items: start;
+  margin-top: 12px;
+  padding: 0 15px;
+}
+
+.catalogue-listing .catalogue-listing-quickview-name {
+  grid-area: name;
+  margin: 0 0 7px;
+  color: var(--cl-text);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 29px;
+  text-transform: capitalize;
+}
+
+.catalogue-listing .catalogue-listing-quickview-code {
+  grid-area: code;
+  font-size: 12px;
+  line-height: 15px;
+}
+
+.catalogue-listing .catalogue-listing-quickview-desc {
+  grid-area: desc;
+  margin-top: 14px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+}
+
+.catalogue-listing .catalogue-listing-quickview-buy {
+  grid-area: buy;
+  padding: 9px 20px;
+  border: 1px solid var(--cl-accent);
+  border-radius: 2px;
+  color: var(--cl-accent);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 0.86px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+/* filled on hover, as LOAD MORE */
+.catalogue-listing .catalogue-listing-quickview-buy:hover {
+  background: #5e25b2;
+  color: #fff;
+}
+
+/* VIEW IN AP COLOUR APP: phones and tablets only, as on the source; underlined, arrow after */
+.catalogue-listing .catalogue-listing-quickview-app {
+  display: inline-flex;
+  grid-area: app;
+  align-items: center;
+  justify-self: start;
+  gap: 10px;
+  margin-top: 14px;
+  color: var(--cl-accent);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 12px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.catalogue-listing .catalogue-listing-quickview-app span {
+  padding-bottom: 2px;
+  border-bottom: 2px solid #5e25b2;
+  border-radius: 2px;
+}
+
+.catalogue-listing .catalogue-listing-quickview-app::after {
+  content: "";
+  flex: 0 0 25px;
+  height: 13px;
+  background: var(--cl-arrow) center / contain no-repeat;
+}
+
+/* the underlined BUY NOW and SPEAK TO PROFESSIONAL: desktop only, as on the source */
+.catalogue-listing .catalogue-listing-quickview-actions {
+  display: none;
+}
+
+@media (width >= 900px) {
+  .catalogue-listing .catalogue-listing-quickview-item {
+    display: block;
+  }
+
+  .catalogue-listing .catalogue-listing-quickview {
+    position: relative;
+    inset: auto;
+    z-index: auto;
+    grid-template:
+      "palette media" auto
+      "info actions" auto / min(440px, 45%) minmax(0, 1fr);
+    column-gap: 15px;
+    overflow: visible;
+    margin: 0 1px;
+    padding: 0;
+  }
+
+  .catalogue-listing .catalogue-listing-quickview-close {
+    top: 10px;
+    right: 10px;
+    left: auto;
+  }
+
+  .catalogue-listing .catalogue-listing-quickview-wishlist {
+    top: 10px;
+    right: 55px;
+  }
+
+  .catalogue-listing .catalogue-listing-quickview-next {
+    top: 50%;
+    right: 15px;
+    display: block;
+    width: 32px;
+    height: 32px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M6 3l5 5-5 5' fill='none' stroke='%23222' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    transform: translateY(-50%);
+  }
+
+  .catalogue-listing .catalogue-listing-quickview-palette {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 90px));
+    gap: 13px 10px;
+    align-content: start;
+    margin: 0;
+    padding: 20px 0 0 20px;
+    overflow: visible;
+  }
+
+  .catalogue-listing .catalogue-listing-quickview-swatch {
+    height: auto;
+    aspect-ratio: 9 / 11;
+  }
+
+  .catalogue-listing .catalogue-listing-quickview-swatch[aria-pressed="true"]::after {
+    width: 27px;
+    height: 27px;
+  }
+
+  .catalogue-listing .catalogue-listing-quickview-info {
+    grid-template:
+      "name buy" auto
+      "code buy" auto / minmax(0, 1fr) auto;
+    margin: 0;
+    padding: 18px 14px 15px 20px;
+  }
+
+  .catalogue-listing .catalogue-listing-quickview-desc,
+  .catalogue-listing .catalogue-listing-quickview-app,
+  .catalogue-listing .catalogue-listing-quickview-expand {
+    display: none;
+  }
+
+  .catalogue-listing .catalogue-listing-quickview-buy {
+    width: 129px;
+    padding: 16px 20px;
+    font-size: 13px;
+  }
+
+  .catalogue-listing .catalogue-listing-quickview-actions {
+    display: flex;
+    grid-area: actions;
+    align-items: center;
+    gap: 15px;
+    padding-right: 20px;
+  }
+
+  .catalogue-listing .catalogue-listing-quickview-buy-link {
+    min-width: 100px;
+    padding-bottom: 2px;
+    border-bottom: 2px solid #5e25b2;
+    border-radius: 2px;
+    color: var(--cl-accent);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 16px;
+    letter-spacing: 1px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  /* 250px wide as on the source; narrower (its label wrapping) when the panel is */
+  .catalogue-listing .catalogue-listing-quickview-speak {
+    flex: 0 1 250px;
+    min-width: 0;
+    margin-left: auto;
+    padding: 16px 20px;
+    border: 1px solid var(--cl-accent);
+    border-radius: 2px;
+    background: var(--cl-accent);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 16px;
+    letter-spacing: 1px;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  .catalogue-listing .catalogue-listing-quickview-speak:hover {
+    background: #5e25b2;
+    color: #fff;
+  }
+}
+
+/* phones and tablets, full colour view (the down arrow; source: .show-extended-color): the
+   shade's colour (the photo area's background) fills the sheet down to the name and code; the
+   palette, description, BUY NOW and app link hide */
+@media (width < 900px) {
+  .catalogue-listing .is-extended .catalogue-listing-quickview-media {
+    height: max(325px, calc(100dvh - var(--cl-sheet-top, var(--header-height, 0px)) - 120px));
+  }
+
+  .catalogue-listing .is-extended .catalogue-listing-quickview-image,
+  .catalogue-listing .is-extended .catalogue-listing-quickview-palette,
+  .catalogue-listing .is-extended .catalogue-listing-quickview-desc,
+  .catalogue-listing .is-extended .catalogue-listing-quickview-buy,
+  .catalogue-listing .is-extended .catalogue-listing-quickview-app {
+    display: none;
+  }
+
+  .catalogue-listing .is-extended .catalogue-listing-quickview-info {
+    margin-top: 30px;
+  }
+}
+
+/* =============================================
+   End: shade details panel
+   ============================================= */
+
+/* =============================================
+   Page note: the "colour-catalogue-page-note" section (section metadata style) at the end of
+   the catalogue pages, outside the block. As the source: a full-width #f2f2f2 bar on the
+   footer, centred text.
+   ============================================= */
+
+main > .section.colour-catalogue-page-note {
+  margin-bottom: 0;
+  padding: 6px 16px;
+  background-color: #f2f2f2;
+  color: var(--text-color);
+  text-align: center;
+}
+
+main > .section.colour-catalogue-page-note p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+/* an empty section after the note (a trailing section break in DA) would keep its 40px margin
+   between the note and the footer */
+main > .section.colour-catalogue-page-note ~ .section:empty {
+  display: none;
+}
+
+/* =============================================
+   No main title (family pages, under the hero): as the source, the tabs start right where
+   the section above ends and only their 25px top padding is left. So the 40px section
+   margins between the two sections go, but only when the block opens its section (no text
+   above it). With a main title the spacing stays as it is.
+   ============================================= */
+
+main > .section:has(> .catalogue-listing-wrapper:first-child > .catalogue-listing > .catalogue-listing-families-wrap:first-child) {
+  margin-top: 0;
+}
+
+main > .section:has(+ .section > .catalogue-listing-wrapper:first-child > .catalogue-listing > .catalogue-listing-families-wrap:first-child) {
+  margin-bottom: 0;
+}
