@@ -307,14 +307,26 @@ function picture(img, width = '500') {
   return createOptimizedPicture(img.src, img.alt || '', false, [{ width }]);
 }
 
-/** Scrolls to the page's first form (outside the block). False when the page has none. */
+/**
+ * Scrolls to the page's lead form (outside the block): a form block or a <form>, as the source's
+ * scrollToForm, so the form card ends up where the source puts it: 140px from the top of the
+ * window on desktop (its 100px offset plus 40px above its card, which zooms with the page) and
+ * 100px below 900px. Focus moves to the form (not into a field, so no keyboard opens on mobile).
+ * False when the page has none.
+ */
 function goToPageForm() {
-  const form = [...document.querySelectorAll('main form')].find((f) => !f.closest('.catalogue-listing'));
+  const form = [...document.querySelectorAll('main .form.block, main form')]
+    .find((f) => !f.closest('.catalogue-listing'));
   if (!form) return false;
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  form.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
-  const field = form.querySelector('input, select, textarea, button');
-  if (field) setTimeout(() => field.focus({ preventScroll: true }), reduce ? 0 : 500);
+  const zoom = parseFloat(getComputedStyle(document.body).zoom) || 1;
+  const offset = MOBILE_MEDIA.matches ? 100 : 100 + 40 * zoom;
+  window.scrollTo({
+    top: form.getBoundingClientRect().top + window.scrollY - offset,
+    behavior: reduce ? 'auto' : 'smooth',
+  });
+  if (!form.hasAttribute('tabindex')) form.setAttribute('tabindex', '-1');
+  form.focus({ preventScroll: true });
   return true;
 }
 
@@ -745,7 +757,7 @@ export default async function decorate(block) {
   );
   const filters = el('div', { className: 'catalogue-listing-filters' }, filterToggle, drawer);
 
-  const sidebarCard = buildInfoCard(promos['sidebar card'], 'catalogue-listing-aside-card', true);
+  const sidebarCard = buildInfoCard(promos['sidebar card'], 'catalogue-listing-aside-card');
   const backToTop = el('a', { className: 'catalogue-listing-top', href: '#' }, 'Back To Top');
   backToTop.addEventListener('click', (event) => {
     event.preventDefault();
@@ -765,7 +777,8 @@ export default async function decorate(block) {
   block.replaceChildren(...[mainTitle, familiesWrap, body].filter(Boolean));
 
   const promoStrip = buildPromoStrip(promos['promo strip']);
-  const helpCard = buildInfoCard(promos['help card'], 'catalogue-listing-help-card', true);
+  // as on the source, the help card and side card CTAs scroll to the page's lead form
+  const helpCard = buildInfoCard(promos['help card'], 'catalogue-listing-help-card');
   const banner = buildBanner(promos.banner);
 
   // ---- mobile filter drawer
