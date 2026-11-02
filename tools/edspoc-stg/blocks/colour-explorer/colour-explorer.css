@@ -1,0 +1,459 @@
+/*
+ * colour-explorer — choose a shade from a swatch strip and preview it in place.
+ *
+ * AUTHORING: see the "Authoring format" comment at the top of
+ * colour-explorer.js (Title / Sub title / Note / CTA / Open in new tab rows,
+ * then one "Desktop image | Mobile image | Name | Code | Hex" row per shade).
+ *
+ * VARIANTS (add to the block name, e.g. "colour-explorer (one-row)"):
+ *   one-row — single-row swatch strip instead of two rows.
+ * The strip scrolls horizontally (scroll-snap) once shades exceed the width.
+ *
+ * Geometry follows the source (asianpaints.com .explorecolours): the block is
+ * the source's stage (.exploreColors), 108% of the content width (4% out each
+ * side, at most 1440px), and its parts are placed in percentages of it.
+ */
+
+/* page edges (source .explorecolours): 4.5% in below 992px, 4% from 992px.
+   The section's own side padding (e.g. the DA section style
+   "section-padding-rl-40-16") is cancelled so these edges match. */
+main .section.colour-explorer-container {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.colour-explorer-container .colour-explorer-wrapper {
+  max-width: none;
+  margin: 0 4.5%;
+  padding: 0;
+}
+
+.colour-explorer {
+  --colour-explorer-panel: #f0f0f0;
+  --colour-explorer-ink: #2a2a2a;
+  --colour-explorer-copy: #3b3b3b;
+  --colour-explorer-cta: #431a80;
+  --colour-explorer-cta-hover: #5e25b2;
+
+  /* below 992px: room image, then the grey panel (overlapping the image's
+     last 160px) holding swatches, note and CTA; the title floats above */
+  --colour-explorer-overlap: 160px;
+
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 1440px;
+
+  /* source .placeHolderImgWithBg margin-top: 30% of the stage (20% from 576px) */
+  margin: 32.4% -4% 0;
+  color: var(--colour-explorer-ink);
+}
+
+/* pin every part to the single column: the panel ::before also sits in
+   column 1, and auto-placement would otherwise push parts into an implicit
+   (collapsed) column beside it */
+.colour-explorer > * {
+  grid-column: 1;
+}
+
+/* grey panel (source .backgroundPlaceHolder) behind swatches, note and CTA */
+.colour-explorer::before {
+  content: "";
+  grid-column: 1;
+  grid-row: 2 / 4;
+  margin-top: calc(-1 * var(--colour-explorer-overlap));
+  background-color: var(--colour-explorer-panel);
+}
+
+/* --- title (source .exploreTitle): 60px above the stage below 992px --- */
+.colour-explorer .colour-explorer-intro {
+  position: absolute;
+  top: -60px;
+  left: 0;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 5%;
+  color: var(--colour-explorer-copy);
+}
+
+.colour-explorer .colour-explorer-intro h2,
+.colour-explorer .colour-explorer-intro p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.colour-explorer .colour-explorer-intro h2 {
+  margin: 0 0 5px;
+  color: inherit;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 22px;
+  letter-spacing: 0;
+  text-transform: capitalize;
+}
+
+.colour-explorer .colour-explorer-intro p {
+  margin: 0 0 14px;
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: 0.58px;
+}
+
+/* --- preview (source .placeHolderTwoImg) --- */
+.colour-explorer .colour-explorer-preview {
+  grid-row: 1;
+  margin: 0;
+  padding: 5% 5% 0;
+}
+
+.colour-explorer .colour-explorer-preview-media {
+  line-height: 0;
+}
+
+.colour-explorer .colour-explorer-preview-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: auto 673 / 560;
+  object-fit: fill;
+}
+
+/* screen-reader-only announcement of the previewed shade */
+.colour-explorer .colour-explorer-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* --- swatches, note and CTA share the panel's content column (source
+   .placeHolderInfo: full panel width less 20px each side, at most 560px) --- */
+.colour-explorer .colour-explorer-swatches,
+.colour-explorer .colour-explorer-footer {
+  box-sizing: border-box;
+  justify-self: center;
+  width: min(100% - 40px, 560px);
+}
+
+/* swatch strip: horizontal scroll with snap, no JS carousel. Rows are 154px
+   (chip, name, code, 15px) on the source, so there is no row gap. */
+.colour-explorer .colour-explorer-swatches {
+  grid-row: 2;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(2, auto);
+  grid-auto-columns: 74px;
+  gap: 0 8px;
+
+  /* panel padding-top (170px) less the overlap, plus the strip's 25px */
+  margin: calc(195px - var(--colour-explorer-overlap)) 0 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+}
+
+.colour-explorer.one-row .colour-explorer-swatches {
+  grid-template-rows: auto;
+}
+
+.colour-explorer .colour-explorer-swatches li {
+  scroll-snap-align: start;
+}
+
+.colour-explorer .colour-explorer-swatch {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0;
+  padding: 0 0 15px;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: center;
+  cursor: pointer;
+}
+
+.colour-explorer .colour-explorer-swatch:focus-visible {
+  outline: 2px solid var(--link-color);
+  outline-offset: 3px;
+}
+
+.colour-explorer .colour-explorer-chip {
+  position: relative;
+  display: block;
+  height: 78px;
+  overflow: hidden;
+  border-radius: 0 12px 0 0;
+  background-color: var(--colour-explorer-swatch, var(--light-color));
+}
+
+/* tick on the active swatch */
+.colour-explorer .colour-explorer-swatch[aria-pressed="true"] .colour-explorer-chip::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 36px;
+  height: 36px;
+  margin: auto;
+  border-radius: 50%;
+  background: #fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="%23222" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>') no-repeat center / 20px;
+}
+
+.colour-explorer .colour-explorer-swatch-name {
+  overflow: hidden;
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+  text-overflow: ellipsis;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.colour-explorer .colour-explorer-swatch-code {
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 16px;
+  letter-spacing: 1px;
+  text-transform: capitalize;
+}
+
+/* --- note + CTA --- */
+.colour-explorer .colour-explorer-footer {
+  grid-row: 3;
+  padding: 0 0 30px;
+}
+
+.colour-explorer .colour-explorer-footer p {
+  margin: 0;
+  color: var(--colour-explorer-copy);
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: 0.62px;
+}
+
+.colour-explorer .colour-explorer-footer p.colour-explorer-cta-wrapper {
+  margin-top: 14px;
+}
+
+/* source .explorecta .ctaText: full width below 992px, 196px from 992px */
+.colour-explorer a.colour-explorer-cta:any-link {
+  box-sizing: border-box;
+  display: inline-block;
+  width: 100%;
+  min-height: 50px;
+  padding: 16px 10px;
+  border: 1px solid var(--colour-explorer-cta);
+  border-radius: 2px;
+  background-color: var(--colour-explorer-cta);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 0.86px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.colour-explorer a.colour-explorer-cta:hover {
+  background-color: var(--colour-explorer-cta-hover);
+  color: #fff;
+  text-decoration: none;
+}
+
+.colour-explorer a.colour-explorer-cta:focus-visible {
+  outline: 2px solid var(--link-color);
+  outline-offset: 2px;
+}
+
+/* --- 576px: the stage sits 20% (of itself) below the content above --- */
+@media (width >= 576px) {
+  .colour-explorer {
+    margin-top: 21.6%;
+  }
+}
+
+/* --- 768px: larger chips, a 280px overlap and a 40px gap above the strip --- */
+@media (width >= 768px) {
+  .colour-explorer {
+    --colour-explorer-overlap: 280px;
+  }
+
+  .colour-explorer .colour-explorer-swatches {
+    grid-auto-columns: 88px;
+    gap: 0 28px;
+    margin-top: calc(305px - var(--colour-explorer-overlap));
+    padding-top: 40px;
+  }
+
+  .colour-explorer .colour-explorer-chip {
+    height: 93px;
+  }
+}
+
+/* --- desktop: the panel at the left (4% in, 55.17% wide, dropped 10% of the
+   stage), the room image at the right (44.83% wide, 4% in) and the title over
+   the panel. The stage is moved down 10% of its height and the image moved
+   back up, which drops the panel and its content by that 10% as on the
+   source. --pad is the panel's left padding as a share of the panel (0.08;
+   0.01/0.04/0.06 at 1200/1280/1366px), --title the title's left edge. --- */
+@media (width >= 992px) {
+  /* as the source: the stage is the page's 1440px column, centred, and its
+     parts sit at their percentages of it (the panel 4% in, 57.6px at 1440).
+     A 4% wrapper margin cancelled by the block's -4% does not line up: the
+     two percentages are of different widths */
+  .colour-explorer-container .colour-explorer-wrapper {
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
+  .colour-explorer {
+    --pad: 0.08;
+    --title: 8%;
+    --info: 560px;
+
+    grid-template-columns:
+      calc(4% + 55.17% * var(--pad))
+      minmax(0, calc(55.17% * (1 - var(--pad))))
+      minmax(0, 1fr);
+
+    /* source .exploreColors margin-bottom: room for the panel, which hangs
+       10% below the stage */
+    margin: 0 auto 100px;
+    padding: 61px 0 70px;
+    translate: 0 10%;
+  }
+
+  .colour-explorer > * {
+    grid-column: 2;
+  }
+
+  /* title and image are placed against the whole stage, not a grid area */
+  .colour-explorer .colour-explorer-intro,
+  .colour-explorer .colour-explorer-preview {
+    grid-area: auto;
+  }
+
+  /* behind the copy (the translated stage is its stacking context) */
+  .colour-explorer::before {
+    position: absolute;
+    z-index: -1;
+    grid-area: auto;
+    inset: 0 auto auto 4%;
+    width: 55.17%;
+    height: 100%;
+    margin: 0;
+  }
+
+  .colour-explorer .colour-explorer-intro {
+    top: 10%;
+    left: var(--title);
+    width: 30%;
+    padding: 0;
+  }
+
+  .colour-explorer .colour-explorer-intro h2 {
+    margin-bottom: 15px;
+    font-size: 30px;
+    line-height: normal;
+  }
+
+  .colour-explorer .colour-explorer-intro p {
+    line-height: 24px;
+    letter-spacing: 0.5px;
+  }
+
+  .colour-explorer .colour-explorer-preview {
+    position: absolute;
+    top: -10%;
+    right: 4%;
+    width: 44.83%;
+    padding: 0;
+  }
+
+  .colour-explorer .colour-explorer-swatches,
+  .colour-explorer .colour-explorer-footer {
+    justify-self: start;
+    width: auto;
+    max-width: var(--info);
+  }
+
+  /* source .placeHolderInfo margin-top 7% (of the panel's content width),
+     then the strip's 25px and its 40px list padding */
+  .colour-explorer .colour-explorer-swatches {
+    grid-row: 1;
+    margin-top: calc(7% + 25px);
+  }
+
+  .colour-explorer .colour-explorer-footer {
+    grid-row: 2;
+    padding: 0;
+  }
+
+  .colour-explorer a.colour-explorer-cta:any-link {
+    width: 196px;
+  }
+
+  .colour-explorer .colour-explorer-swatch-name {
+    font-size: 13px;
+    line-height: 20px;
+  }
+
+  .colour-explorer .colour-explorer-swatch-code {
+    font-size: 13px;
+    line-height: 22px;
+  }
+}
+
+.common-wrapper.colour-explorer-container {
+    max-width: 1440px;
+    margin-left: auto;
+    position: relative;
+    margin-right: auto;
+}
+
+@media (width >= 992px) and (width <= 1200px) {
+  .colour-explorer {
+    --info: 350px;
+  }
+
+  .colour-explorer .colour-explorer-swatches {
+    gap: 0 20px;
+  }
+}
+
+@media (width >= 1200px) {
+  .colour-explorer {
+    --pad: 0.01;
+    --title: 5%;
+  }
+}
+
+@media (width >= 1280px) {
+  .colour-explorer {
+    --pad: 0.04;
+    --title: 6%;
+  }
+}
+
+@media (width >= 1366px) {
+  .colour-explorer {
+    --pad: 0.06;
+    --title: 7%;
+  }
+}
+
+@media (width >= 1440px) {
+  .colour-explorer {
+    --pad: 0.08;
+    --title: 8%;
+  }
+}
