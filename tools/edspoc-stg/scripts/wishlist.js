@@ -12,7 +12,9 @@
  * - signed out, a click remembers the product (wishListFlag, wishlistSKU, wishListStatus, and
  *   its type in wishlistType) and opens the login; back on the page signed in, the like is
  *   completed: with its heart when the heart is on the page, else (cards still loading, or a
- *   product past LOAD MORE) by adding the product to the wishlist directly.
+ *   product past LOAD MORE) by adding the product to the wishlist directly. When the profile
+ *   refuses an early request (a stale token cookie before the header's sign-in check is done),
+ *   both the wishlist and that like are retried on the header's `user-loggedIn`.
  *
  * A block calls initWishlist(root) once its hearts are in root; hearts added later need
  * refresh(). Hearts of every block stay in step. A change is announced as a bubbling
@@ -85,13 +87,16 @@ async function load() {
   try {
     const response = await fetch(service(LOAD_PATH, 'now'), { credentials: 'include' });
     const json = response.ok ? await response.json() : null;
-    if (json?.success) write(DATA_KEY, json.userWishListObj ? JSON.stringify(json.userWishListObj) : '');
+    if (!json?.success) return false;
+    write(DATA_KEY, json.userWishListObj ? JSON.stringify(json.userWishListObj) : '');
+    return true;
   } catch (e) {
     // the stored wishlist stays
+    return false;
   }
 }
 
-/** saves the whole wishlist to the profile */
+/** saves the whole wishlist to the profile; false when it wasn't saved (e.g. 401) */
 async function save(data) {
   try {
     const response = await fetch(service(SAVE_PATH, '_'), {
@@ -101,8 +106,10 @@ async function save(data) {
       body: new URLSearchParams({ profileData: JSON.stringify(data) }),
     });
     if (!response.ok) throw new Error(`${response.status}`);
+    return true;
   } catch (e) {
     write(PENDING_FLAG, 'false');
+    return false;
   }
 }
 
@@ -204,8 +211,9 @@ function paint() {
   });
 }
 
+/** a heart's click; signed in, true when the change was saved */
 async function toggle(heart) {
-  if (heart.classList.contains('is-busy')) return;
+  if (heart.classList.contains('is-busy')) return false;
   heart.classList.add('is-busy');
   const { attrType: type, attrSku: sku } = heart.dataset;
   const { signedIn: now, startLogin } = await auth();
@@ -228,7 +236,7 @@ async function toggle(heart) {
     write(PENDING_TYPE, type);
     heart.classList.remove('is-busy');
     if (startLogin) await startLogin(window.location.href);
-    return;
+    return false;
   }
   signedIn = true;
   const like = heart.dataset.attrAction !== 'dislike';
@@ -247,8 +255,9 @@ async function toggle(heart) {
     bubbles: true,
     detail: { code: sku, type, saved: like },
   }));
-  await save(data);
+  const ok = await save(data);
   heart.classList.remove('is-busy');
+  return ok;
 }
 
 /**
@@ -258,8 +267,10 @@ async function toggle(heart) {
  * directly. A like remembered without its type (by an older version) waits for its heart.
  */
 let completing = null;
+let loaded = false; // the profile's wishlist has loaded (this visit)
 function completePending() {
-  if (!signedIn || read(PENDING_FLAG) !== 'true') return Promise.resolve();
+  // only on top of the profile's wishlist: saving on top of one that didn't load would replace it
+  if (!signedIn || !loaded || read(PENDING_FLAG) !== 'true') return Promise.resolve();
   completing = completing || (async () => {
     const sku = read(PENDING_SKU);
     const type = read(PENDING_TYPE);
@@ -268,17 +279,23 @@ function completePending() {
     if (sku && !heart && !type) return;
     [PENDING_FLAG, PENDING_SKU, PENDING_TYPE].forEach((name) => write(name, null));
     if (!sku) return;
+    let ok = true;
     if (heart) {
-      if (heart.dataset.attrAction === 'like') await toggle(heart);
-      return;
+      if (heart.dataset.attrAction === 'like') ok = await toggle(heart);
+    } else if (!savedSkus(type).has(sku)) {
+      const data = update(type, sku, true);
+      paint();
+      document.dispatchEvent(new CustomEvent('wishlist:change', {
+        detail: { code: sku, type, saved: true },
+      }));
+      ok = await save(data);
     }
-    if (savedSkus(type).has(sku)) return;
-    const data = update(type, sku, true);
-    paint();
-    document.dispatchEvent(new CustomEvent('wishlist:change', {
-      detail: { code: sku, type, saved: true },
-    }));
-    await save(data);
+    // not saved (the profile refused the sign-in): kept for the header's confirmed sign-in
+    if (!ok) {
+      write(PENDING_FLAG, 'true');
+      write(PENDING_SKU, sku);
+      if (type) write(PENDING_TYPE, type);
+    }
   })().finally(() => { completing = null; });
   return completing;
 }
@@ -286,12 +303,27 @@ function completePending() {
 function signIn() {
   started = started || (async () => {
     signedIn = true;
-    await load();
+    loaded = await load();
     paint();
     // a like started before the login
     await completePending();
   })();
   return started;
+}
+
+/**
+ * The header's `user-loggedIn` comes once Keycloak has answered and the token cookie
+ * (keycloak_authToken, which the profile services read) is fresh. An earlier sign-in, from the
+ * profile stored by a previous visit, may have sent a stale token and been refused (401): then
+ * the wishlist is loaded, and a like started before the login completed, again.
+ */
+async function confirmedSignIn() {
+  if (started) {
+    await started;
+    if (loaded && read(PENDING_FLAG) !== 'true') return;
+    started = null;
+  }
+  await signIn();
 }
 
 let listening = false;
@@ -301,7 +333,7 @@ function listen() {
   // the header tells when the visitor is signed in; it loads after the first section, so its
   // state is asked for once the page has loaded and is idle: importing the header any earlier
   // (from a block in the LCP section) would compete with the LCP
-  document.addEventListener('user-loggedIn', signIn);
+  document.addEventListener('user-loggedIn', confirmedSignIn);
   const check = () => (window.requestIdleCallback || setTimeout)(async () => {
     if ((await auth()).signedIn) signIn();
   });
